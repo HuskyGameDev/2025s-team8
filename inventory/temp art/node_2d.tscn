@@ -1,0 +1,96 @@
+[gd_scene load_steps=3 format=3 uid="uid://h65kwo5pyyxy"]
+
+[ext_resource type="Script" path="res://scripts/inventory_slot.gd" id="1_at884"]
+[ext_resource type="Script" path="res://scripts/inventory.gd" id="2_cbjcl"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InventorySlot" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 512.0
+offset_top = 192.0
+offset_right = 552.0
+offset_bottom = 232.0
+script = ExtResource("1_at884")
+
+[node name="InventorySlot2" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 704.0
+offset_top = 192.0
+offset_right = 744.0
+offset_bottom = 232.0
+script = ExtResource("1_at884")
+
+[node name="InventorySlot3" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 192.0
+offset_right = 296.0
+offset_bottom = 232.0
+script = ExtResource("1_at884")
+
+[node name="InventorySlot4" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 448.0
+offset_top = 192.0
+offset_right = 488.0
+offset_bottom = 232.0
+script = ExtResource("1_at884")
+
+[node name="InventorySlot5" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 576.0
+offset_top = 192.0
+offset_right = 616.0
+offset_bottom = 232.0
+script = ExtResource("1_at884")
+
+[node name="InventorySlot6" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 640.0
+offset_top = 192.0
+offset_right = 680.0
+offset_bottom = 232.0
+script = ExtResource("1_at884")
+
+[node name="InventorySlot7" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 192.0
+offset_right = 424.0
+offset_bottom = 232.0
+script = ExtResource("1_at884")
+
+[node name="InventorySlot8" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 192.0
+offset_right = 232.0
+offset_bottom = 232.0
+script = ExtResource("1_at884")
+
+[node name="InventorySlot9" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 192.0
+offset_right = 360.0
+offset_bottom = 232.0
+script = ExtResource("1_at884")
+
+[node name="Grid" type="GridContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 320.0
+offset_top = 304.0
+offset_right = 736.0
+offset_bottom = 536.0
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 16
+columns = 6
+script = ExtResource("2_cbjcl")
