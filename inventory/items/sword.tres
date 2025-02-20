@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://dc3muhncfgnts"]
+
+[ext_resource type="Script" path="res://scripts/item_data.gd" id="1_2oiug"]
+[ext_resource type="Texture2D" uid="uid://bg2ig3yh7xlin" path="res://inventory/temp art/512/woodSword.png" id="2_w5phf"]
+
+[resource]
+script = ExtResource("1_2oiug")
+type = 1
+name = "Sword"
+damage = 5
+defense = 0
+description = "A wooden sword! It's not much, but it's something."
+texture = ExtResource("2_w5phf")

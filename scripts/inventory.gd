@@ -1,7 +1,12 @@
 extends Control
 
 var items_to_load := [
-	"res://inventory/items/coin.tres"
+	"res://inventory/items/coin.tres",
+	"res://inventory/items/armor.tres",
+	"res://inventory/items/bow.tres",
+	"res://inventory/items/potion.tres",
+	"res://inventory/items/staff.tres",
+	"res://inventory/items/sword.tres"
 ]
 
 func _ready():
