@@ -1,7 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://cq1dxd0m5csx1"]
+[gd_scene load_steps=15 format=3 uid="uid://cq1dxd0m5csx1"]
 
 [ext_resource type="Script" path="res://Player/Scripts/playerMovement.gd" id="1_7jpn7"]
 [ext_resource type="Texture2D" uid="uid://diaxm1a2f1b5n" path="res://Player/Sprites/ExamplePlayerSprite.png" id="2_m12ww"]
+[ext_resource type="Script" path="res://Player/Scripts/PlayerStateMachine.gd" id="3_nsaxw"]
+[ext_resource type="Script" path="res://Player/Scripts/state_idle.gd" id="4_ml0m6"]
+[ext_resource type="Script" path="res://Player/Scripts/state_walk.gd" id="5_1mifc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_edhvl"]
 radius = 25.02
@@ -23,8 +26,10 @@ tracks/0/keys = {
 "values": [0, 2, 1]
 }
 
-[sub_resource type="Animation" id="Animation_8br81"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_tq2l6"]
+resource_name = "Idle_side"
+length = 0.3
+loop_mode = 2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -32,10 +37,10 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.133333, 0.266667),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [0]
+"values": [14, 15, 16]
 }
 
 [sub_resource type="Animation" id="Animation_4gx53"]
@@ -55,10 +60,8 @@ tracks/0/keys = {
 "values": [7, 8, 9]
 }
 
-[sub_resource type="Animation" id="Animation_tq2l6"]
-resource_name = "Idle_side"
-length = 0.3
-loop_mode = 2
+[sub_resource type="Animation" id="Animation_8br81"]
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -66,10 +69,10 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.133333, 0.266667),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [14, 15, 16]
+"values": [0]
 }
 
 [sub_resource type="Animation" id="Animation_s6f20"]
@@ -120,7 +123,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [17, 18, 19, 20]
+"values": [10, 11, 12, 13]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_x6ehq"]
@@ -154,3 +157,12 @@ hframes = 21
 libraries = {
 "": SubResource("AnimationLibrary_x6ehq")
 }
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("3_nsaxw")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("4_ml0m6")
+
+[node name="Walk" type="Node" parent="StateMachine"]
+script = ExtResource("5_1mifc")
