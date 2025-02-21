@@ -1,0 +1,63 @@
+[gd_scene load_steps=5 format=3 uid="uid://bgog024wtpoul"]
+
+[ext_resource type="PackedScene" uid="uid://4xppvq5lmyab" path="res://UI/Scenes/NPRButton.tscn" id="1_6461k"]
+[ext_resource type="Texture2D" uid="uid://caourcpsoovm3" path="res://UI/tempButton.png" id="2_7o50m"]
+[ext_resource type="Theme" uid="uid://ca5qslylmgj8h" path="res://UI/UIMainSmall.tres" id="2_x3nwp"]
+[ext_resource type="Texture2D" uid="uid://84oosxa2vfuh" path="res://UI/tempButtonPressed.png" id="3_32a5l"]
+
+[node name="SaveSelect" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 568.0
+offset_top = 92.0
+offset_right = 754.0
+offset_bottom = 149.0
+
+[node name="Button2" type="Button" parent="."]
+layout_mode = 0
+offset_left = 571.0
+offset_top = 214.0
+offset_right = 757.0
+offset_bottom = 271.0
+
+[node name="Button3" type="Button" parent="."]
+layout_mode = 0
+offset_left = 568.0
+offset_top = 331.0
+offset_right = 754.0
+offset_bottom = 388.0
+
+[node name="Control" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" parent="Control" instance=ExtResource("1_6461k")]
+layout_mode = 0
+offset_left = 131.0
+offset_top = 251.5
+offset_right = 431.0
+offset_bottom = 301.5
+theme = ExtResource("2_x3nwp")
+text = "Continue"
+normalTex = ExtResource("2_7o50m")
+pressedTex = ExtResource("3_32a5l")
+
+[node name="Button2" parent="Control" instance=ExtResource("1_6461k")]
+layout_mode = 0
+offset_left = 134.0
+offset_top = 349.5
+offset_right = 434.0
+offset_bottom = 412.5
+theme = ExtResource("2_x3nwp")
+text = "Erase"
+normalTex = ExtResource("2_7o50m")
+pressedTex = ExtResource("3_32a5l")
