@@ -17,11 +17,11 @@ func _process(delta: float) -> void:
 	ChangeState( current_state.Process(delta) )
 	pass
 	
-func physics_process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	ChangeState( current_state.Physics(delta) )
 	pass
 	
-func _unhandle_input(event):
+func _unhandled_input(event):
 	ChangeState(current_state.HandleInput(event) )
 	pass
 
@@ -30,7 +30,7 @@ func _unhandle_input(event):
 func Initialize(_player : Player) -> void:
 	states = []
 	
-	for c in get_children():
+	for c in get_children(): 
 		if c is State:
 			states.append(c)
 	
