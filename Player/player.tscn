@@ -1,10 +1,12 @@
-[gd_scene load_steps=15 format=3 uid="uid://cq1dxd0m5csx1"]
+[gd_scene load_steps=17 format=3 uid="uid://cq1dxd0m5csx1"]
 
 [ext_resource type="Script" path="res://Player/Scripts/playerMovement.gd" id="1_7jpn7"]
 [ext_resource type="Texture2D" uid="uid://diaxm1a2f1b5n" path="res://Player/Sprites/ExamplePlayerSprite.png" id="2_m12ww"]
 [ext_resource type="Script" path="res://Player/Scripts/PlayerStateMachine.gd" id="3_nsaxw"]
 [ext_resource type="Script" path="res://Player/Scripts/state_idle.gd" id="4_ml0m6"]
 [ext_resource type="Script" path="res://Player/Scripts/state_walk.gd" id="5_1mifc"]
+[ext_resource type="Script" path="res://Melee Attack/Hitbox.gd" id="6_5ecle"]
+[ext_resource type="Script" path="res://Melee Attack/Hurtbox.gd" id="7_is8ll"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_edhvl"]
 radius = 25.02
@@ -166,3 +168,11 @@ script = ExtResource("4_ml0m6")
 
 [node name="Walk" type="Node" parent="StateMachine"]
 script = ExtResource("5_1mifc")
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="hitbox" type="Area2D" parent="Node2D"]
+script = ExtResource("6_5ecle")
+
+[node name="hurtbox" type="Area2D" parent="Node2D"]
+script = ExtResource("7_is8ll")
