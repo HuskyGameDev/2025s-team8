@@ -1,3 +1,12 @@
-[gd_scene format=3 uid="uid://b703kr3itnqo2"]
+[gd_scene load_steps=3 format=3 uid="uid://b703kr3itnqo2"]
+
+[ext_resource type="Texture2D" uid="uid://tdgeaufa7qox" path="res://GeneralSprites/slime-up.png" id="1_ritc3"]
+[ext_resource type="PackedScene" uid="uid://dh1y5183jb8ng" path="res://Melee Attack/hurtbox.tscn" id="2_qyxks"]
 
 [node name="FakeSlime" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(8, 8)
+texture = ExtResource("1_ritc3")
+
+[node name="Hurtbox" parent="." instance=ExtResource("2_qyxks")]
