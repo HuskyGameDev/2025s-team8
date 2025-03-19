@@ -18,7 +18,7 @@ func Process(_delta : float) -> State:
 	
 	if player.SetDirection():
 		player.UpdateAnimation("walk")
-	
+
 	return null
 	
 func Physics(_delta: float) -> State:

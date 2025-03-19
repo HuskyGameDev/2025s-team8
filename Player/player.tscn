@@ -141,6 +141,7 @@ _data = {
 
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(295, 187)
+collision_mask = 2
 script = ExtResource("1_7jpn7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -170,9 +171,12 @@ script = ExtResource("4_ml0m6")
 script = ExtResource("5_1mifc")
 
 [node name="Node2D" type="Node2D" parent="."]
+scale = Vector2(1.03035, 1)
 
 [node name="hitbox" type="Area2D" parent="Node2D"]
+scale = Vector2(1.02992, 0.93672)
 script = ExtResource("6_5ecle")
 
 [node name="hurtbox" type="Area2D" parent="Node2D"]
+monitorable = false
 script = ExtResource("7_is8ll")
