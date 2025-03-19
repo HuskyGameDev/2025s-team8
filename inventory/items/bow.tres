@@ -9,5 +9,6 @@ type = 1
 name = "Bow"
 damage = 8
 defense = 0
+rarity = 1
 description = "A basic bow. It looks fairly weathered."
 texture = ExtResource("2_k41ur")

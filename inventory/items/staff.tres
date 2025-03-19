@@ -9,5 +9,6 @@ type = 1
 name = "Staff"
 damage = 7
 defense = 0
+rarity = 2
 description = "A magical staff! I wonder what you can do with this."
 texture = ExtResource("2_jro1y")

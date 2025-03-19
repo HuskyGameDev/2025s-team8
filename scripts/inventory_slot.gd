@@ -2,6 +2,7 @@ class_name InventorySlot
 extends PanelContainer
 
 @export var type: ItemData.Type
+var shown: bool = true
 
 func init(t: ItemData.Type, vec: Vector2) -> void:
 	type = t
@@ -35,3 +36,16 @@ func _drop_data(at_position: Vector2, data: Variant) -> void:
 		#again decreas player stats
 		var tempForNoErrors
 	data.reparent(self)
+	
+#Most likely a temp function but allows for the inventory to have its visibility changed
+func _input(event):
+	if event is InputEventKey and event.is_released():
+		if event.keycode == KEY_E:
+			if shown:
+				hide()
+				shown = false
+				print("Here")
+			else:
+				show()
+				shown = true
+				print("Not here")

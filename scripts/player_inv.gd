@@ -16,7 +16,6 @@ func _ready():
 		slot.init(ItemData.Type.MAIN, Vector2(32, 32))
 		%Grid.add_child(slot)
 	for i in items_to_load.size():
-		#Needs data to be passed to it, needs fix
 		var item = InventoryItem.new(null)
 		item._init(load(items_to_load[i]))
 		%Grid.get_child(i).add_child(item)

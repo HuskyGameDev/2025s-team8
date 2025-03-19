@@ -9,5 +9,6 @@ type = 0
 name = "Armor"
 damage = 0
 defense = 10
+rarity = 0
 description = "A base set of armor. It isn't much but it will get the job done!"
 texture = ExtResource("2_a4ryd")

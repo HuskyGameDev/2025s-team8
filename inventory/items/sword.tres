@@ -9,5 +9,6 @@ type = 1
 name = "Sword"
 damage = 5
 defense = 0
+rarity = 2
 description = "A wooden sword! It's not much, but it's something."
 texture = ExtResource("2_w5phf")
