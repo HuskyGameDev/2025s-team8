@@ -10,6 +10,8 @@ var pos_items := [
 	"res://inventory/items/sword.tres",
 	"res://inventory/items/potion.tres"
 ]
+#Min number of items that should be in the chest
+var min_items: int = 1
 
 var rand = RandomNumberGenerator.new()
 
@@ -23,10 +25,26 @@ func _ready() -> void:
 		var slot := InventorySlot.new()
 		slot.init(ItemData.Type.MAIN, Vector2(32, 32))
 		%Chest.add_child(slot)
-	#This will most likely change, should fill chest randomly on each run
-	#Will need way to tie rarity to the rand nums so that higher rarity = less spawn chance
-	for i in pos_items.size():
-		#var item = InventoryItem.new(null)
-		#item._init(load(pos_items[i]))
-		#%Chest.get_child(i).add_child(item)
-		print(rand.randi_range(1, 100))
+		
+	var cur_items: int = 0
+	var rand_value: int = 0
+	
+	while cur_items < min_items:
+		for i in pos_items.size():
+			var item = InventoryItem.new(null)
+			item._init(load(pos_items[i]))
+			
+			rand_value = rand.randi_range(1, 100)
+			
+			if item.data.Rarity.Common and rand_value > 20:
+				%Chest.get_child(i).add_child(item)
+				cur_items += 1
+			elif item.data.Rarity.Uncommon and rand_value > 40:
+				%Chest.get_child(i).add_child(item)
+				cur_items += 1
+			elif item.data.Rarity.Rare and rand_value > 60:
+				%Chest.get_child(i).add_child(item)
+				cur_items += 1
+			elif item.data.Rarity.Legendary and rand_value > 80:
+				%Chest.get_child(i).add_child(item)
+				cur_items += 1
