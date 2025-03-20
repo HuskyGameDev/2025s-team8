@@ -9,5 +9,7 @@ type = 2
 name = "Coin"
 damage = 0
 defense = 0
+rarity = 0
+slot_type = 3
 description = "This is a coin!"
 texture = ExtResource("2_1kndh")

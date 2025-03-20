@@ -1,14 +1,15 @@
 extends Control
 
+
 #Will need way for player to interact so that it shows on screen
 #but this can be worried about a bit later, will also need to be able to differentiate
 #between different chests
 
 var pos_items := [
 	#Add items that can appear in chest
-	"res://inventory/items/staff.tres",
-	"res://inventory/items/sword.tres",
-	"res://inventory/items/potion.tres"
+	preload("res://inventory/items/staff.tres").duplicate(),
+	preload("res://inventory/items/sword.tres").duplicate(),
+	preload("res://inventory/items/potion.tres").duplicate()
 ]
 #Min number of items that should be in the chest
 var min_items: int = 1
@@ -32,7 +33,7 @@ func _ready() -> void:
 	while cur_items < min_items:
 		for i in pos_items.size():
 			var item = InventoryItem.new(null)
-			item._init(load(pos_items[i]))
+			item._init(pos_items[i])
 			
 			rand_value = rand.randi_range(1, 100)
 			

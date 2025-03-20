@@ -1,12 +1,13 @@
 extends Control
 
+#Use this template for loading instances of a resource
 var items_to_load := [
-	"res://inventory/items/coin.tres",
-	"res://inventory/items/armor.tres",
-	"res://inventory/items/bow.tres",
-	"res://inventory/items/potion.tres",
-	"res://inventory/items/staff.tres",
-	"res://inventory/items/sword.tres"
+	preload("res://inventory/items/coin.tres").duplicate(),
+	preload("res://inventory/items/armor.tres").duplicate(),
+	preload("res://inventory/items/bow.tres").duplicate(),
+	preload("res://inventory/items/potion.tres").duplicate(),
+	preload("res://inventory/items/staff.tres").duplicate(),
+	preload("res://inventory/items/sword.tres").duplicate()
 ]
 
 func _ready():
@@ -17,5 +18,5 @@ func _ready():
 		%Grid.add_child(slot)
 	for i in items_to_load.size():
 		var item = InventoryItem.new(null)
-		item._init(load(items_to_load[i]))
+		item._init(items_to_load[i])
 		%Grid.get_child(i).add_child(item)

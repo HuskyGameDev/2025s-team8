@@ -10,5 +10,6 @@ name = "Potion"
 damage = 0
 defense = 0
 rarity = 3
+slot_type = 3
 description = "This is a potion! It has no effect!"
 texture = ExtResource("2_g8bfk")

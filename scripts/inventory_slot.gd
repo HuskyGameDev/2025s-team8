@@ -4,11 +4,6 @@ extends PanelContainer
 @export var type: ItemData.Type
 var shown: bool = true
 
-#Following are temps to test changes to player attack and defense
-#Each slot has own stats for now, should not be this way
-var dam: int
-var def: int
-
 func init(t: ItemData.Type, vec: Vector2) -> void:
 	type = t
 	custom_minimum_size = vec
@@ -27,51 +22,54 @@ func _can_drop_data(at_position: Vector2, data: Variant) -> bool:
 	return false
 
 #https://www.youtube.com/watch?v=UUzuUzPVNrE
-#Issues with properly changing stats, unsure of exact reason currently
-#This is using values for each slot indiviualy, not overall
-#Need checks for the types of slots
-
-"""
-Current description of issues with stats:
-	Replacing an item in the same spot will decrease stats (may be fixed)
-	Moving item in unequipped slots will still decreas stats
-	Swapping items produces a few errors that seem to work together
-		Will double reduce in slot being replaced
-	
-	Main issue seems to be in regard to reducing when moving among unequipped
-	May need to store the current type of slot that the item is in to better determine when to decrease
-	Increasing seems to work fine currently
-"""
-
+#All prints are currently used for testing
+#Data is the item being dragged, item is the item its being swapped with
 func _drop_data(at_position: Vector2, data: Variant) -> void:
+	#if slot already has an item
 	if get_child_count() > 0:
 		var item := get_child(0)
 		
+		#If trying to place item back in slot that it is in
 		if item == data:
 			return
 			
-		#decrease player stats, when item in slot
-		dam -= item.data.damage
-		def -= item.data.defense
+		#This is fine as there should only be 1 of each slot type other than main
+		#The only feasible change to this would be for RANDOM for things like potions
 		
-		print("Damage: %d\nDefense: %d\nItem: %s\n" % [dam, def, item.data.name])
+		#If swapping with currently equipped item, reduce by the items stats
+		if item.data.slot_type != ItemData.Type.MAIN:
+			Temp.dam -= item.data.damage
+			Temp.def -= item.data.defense
+			item.data.slot_type = ItemData.Type.MAIN
 		
+		#If swapping with currently unequipped item, increase by data's stats
+		if data.data.slot_type != ItemData.Type.MAIN:
+			Temp.dam += item.data.damage
+			Temp.def += item.data.defense
+			item.data.slot_type = item.data.type
+		
+		#Put the item in data's place
 		item.reparent(data.get_parent())
+		
+		#print("Damage: %d\nDefense: %d\nSlot: %s\n" % [Temp.dam, Temp.def, item.data.slot_type])
+		
+	#If equipping data, increase by data's stats
 	if type != ItemData.Type.MAIN:
-		#increase player stats, when placing into equipped slots
-		dam += data.data.damage
-		def += data.data.defense
+		Temp.dam += data.data.damage
+		Temp.def += data.data.defense
+		data.data.slot_type = data.data.type
 		
-		print("Damage: %d\nDefense: %d\nItem: %s\n" % [dam, def, data.data.name])
+		#print("Damage: %d\nDefense: %d\nSlot: %s\n" % [Temp.dam, Temp.def, data.data.slot_type])
 		
+	#If unequipping data, decrease by data's stats
 	else:
-		#again decreas player stats, when placing into empty slot
+		if data.data.slot_type != ItemData.Type.MAIN:
+			Temp.dam -= data.data.damage
+			Temp.def -= data.data.defense
+			data.data.slot_type = ItemData.Type.MAIN
 		
-		dam -= data.data.damage
-		def -= data.data.defense
-		
-		print("Damage: %d\nDefense: %d\nItem: %s\n" % [dam, def, data.data.name])
-		
+		#print("Damage: %d\nDefense: %d\nSlot: %s\n" % [Temp.dam, Temp.def, data.data.slot_type])
+	print("Damage: %d\nDefense: %d\n" % [Temp.dam, Temp.def])
 	data.reparent(self)
 	
 #Most likely a temp function but allows for the inventory to have its visibility changed
@@ -81,8 +79,8 @@ func _input(event):
 			if shown:
 				hide()
 				shown = false
-				print("Here")
+				#print("Here")
 			else:
 				show()
 				shown = true
-				print("Not here")
+				#print("Not here")
