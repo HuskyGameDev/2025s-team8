@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://ciwgj5o0k5b2e"]
+
+[ext_resource type="Script" path="res://UI/Scripts/LoadScreen.cs" id="1_cdkaa"]
+[ext_resource type="Theme" uid="uid://ca5qslylmgj8h" path="res://UI/UIMainSmall.tres" id="2_3lryh"]
+
+[sub_resource type="Gradient" id="Gradient_jnj5m"]
+colors = PackedColorArray(0.2484, 0.2484, 0.2484, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ylm2k"]
+gradient = SubResource("Gradient_jnj5m")
+fill_to = Vector2(1, 1)
+
+[node name="LoadScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cdkaa")
+
+[node name="bkg" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = SubResource("GradientTexture2D_ylm2k")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 1645.0
+offset_top = 985.0
+offset_right = 1895.0
+offset_bottom = 1055.0
+theme = ExtResource("2_3lryh")
+text = "Loading..."
+horizontal_alignment = 1
+vertical_alignment = 1

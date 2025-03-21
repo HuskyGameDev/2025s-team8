@@ -14,6 +14,7 @@ public partial class MainMenu : Control {
     const string TRANSITION_PATH = "res://UI/Scenes/Transition.tscn";
     const string SAVE_SELECT_PATH = "res://UI/Scenes/SaveSelect.tscn";
     const string SETTINGS_SCENE_PATH = "res://UI/Scenes/SettingsMenu.tscn";
+    const string LOAD_SCREEN_PATH = "res://UI/Scenes/LoadScreen.tscn";
 
     public override void _Ready() {
 		ResourceLoader.LoadThreadedRequest(TRANSITION_PATH);
@@ -23,6 +24,7 @@ public partial class MainMenu : Control {
             continueButton.Pressed += ToSaveSelect;
         }
         if (newgameButton != null) {
+            ResourceLoader.LoadThreadedRequest(LOAD_SCREEN_PATH);
             newgameButton.Pressed += BeginNewGame;
         }
         if (settingsButton != null) {
@@ -50,7 +52,21 @@ public partial class MainMenu : Control {
     }
 
     private void BeginNewGame() {
-        // Currently Does Nothing
+        // Get copies
+        PackedScene transitionScene = (PackedScene) ResourceLoader.LoadThreadedGet(TRANSITION_PATH);
+		Node tNode = transitionScene.Instantiate();
+        PackedScene loadScene = (PackedScene) ResourceLoader.LoadThreadedGet(LOAD_SCREEN_PATH);
+		Node lNode = loadScene.Instantiate();
+
+        // Add into scene (Root -> Transition -> LoadScreen)
+        Node root = this.GetTree().GetRoot();
+        root.AddChild(tNode);
+
+        // PROBABLY SOME EXTRAS HERE FOR SETTING UP LOADSCREEN TO ACTUALLY START A NEW GAME
+        //   BUT THAT IS NOT IMPLEMENTED YET
+        
+        // Begin the transition
+        ((Transition)tNode).BeginTransition(lNode, this, Transition.Mode.topLeft);
     }
 
     private void ToSettings() {

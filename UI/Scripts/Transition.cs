@@ -32,6 +32,7 @@ public partial class Transition : Control {
 		if (Math.Abs(curScrollDist) >= Math.Abs(scrollDist)) { // If Done
 			isScrolling = false;
 			// Move the child of toOffset (the new thing) to the parent of this node...
+			SetActive(toOffset.GetChild(0), true); // no need to reactivate fromOffset child, it is being deleted
             toOffset.GetChild(0).Reparent(this.GetParent());
 
             // ...so that it survives the deletion of this Transition instance
@@ -53,6 +54,10 @@ public partial class Transition : Control {
 			toScrollOffset = 1920;
 		}
 
+		// disable the two nodes (no clicking during transition!)
+		SetActive(to, false);
+		SetActive(from, false);
+
 		// Set initial and begin
 		if (to.GetParent() != null) to.Reparent(toOffset);
 		else toOffset.AddChild(to);
@@ -67,6 +72,15 @@ public partial class Transition : Control {
 		toOffset.Position = toRect.Position * -1; // Keep this node at a relative 0,0
 		fromRect.Position = new Vector2((float)(curScrollDist + fromScrollOffset), 0);
 		fromOffset.Position = fromRect.Position * -1;
+	}
+
+	private void SetActive(Node n, bool b) {
+		n.SetProcess(b);
+		n.SetProcessInput(b);
+		n.SetProcessInternal(b);
+		n.SetProcessShortcutInput(b);
+		n.SetProcessUnhandledInput(b);
+		n.SetProcessUnhandledKeyInput(b);
 	}
 
 	public enum Mode {

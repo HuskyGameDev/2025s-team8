@@ -12,6 +12,10 @@ public partial class SettingsMenu : Control {
     private Button controllerButton;
     [Export]
     private Button back;
+    [Export]
+    private Button reset;
+    [Export]
+    private Button apply;
 
     private TabContainer tc;
 
@@ -33,6 +37,12 @@ public partial class SettingsMenu : Control {
         }
         if (back != null) {
             back.Pressed += GoBack;
+        }
+        if (reset != null) {
+            reset.Pressed += GoBack;
+        }
+        if (apply != null) {
+            apply.Pressed += GoBack;
         }
 
         tc = this.GetNode<TabContainer>("./TabContainer");
@@ -61,5 +71,17 @@ public partial class SettingsMenu : Control {
 
         // Begin the transition
         ((Transition)tNode).BeginTransition(rNode, this, Transition.Mode.bottomLeft);
+    }
+
+    private void Apply() {
+        Node n = tc.GetChild(tc.CurrentTab);
+        if (n is ISettingsCategory) {
+            ISettingsCategory isc = (ISettingsCategory)n;
+            
+        }
+    }
+
+    private void Reset() {
+
     }
 }

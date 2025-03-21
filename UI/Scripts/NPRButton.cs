@@ -15,6 +15,8 @@ public partial class NPRButton : Button {
     private Texture2D focusedTex = null;
     [Export]
     private Texture2D hoveredTex = null;
+    [Export]
+    private Texture2D disabledTex = null;
 
     private bool isPressed = false;
     private bool isFocused = false;
@@ -56,11 +58,16 @@ public partial class NPRButton : Button {
             UpdateState();
         };
 
-        // disable, focus, hover, normal, pressed
+        UpdateState();
     }
 
     private void UpdateState() {
-        if (isPressed) {
+        if (this.Disabled == true) {
+            if (disabledTex != null) {
+                npr.Texture = disabledTex;
+                return;
+            }
+        } else if (isPressed) {
             if (pressedTex != null) {
                 npr.Texture = pressedTex;
                 return;
