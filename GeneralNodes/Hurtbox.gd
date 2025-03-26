@@ -9,7 +9,8 @@ signal received_damage(damage: int)
 func _init() -> void:
 	collision_layer = 0
 	#Only areas or physics bodies in layer 2 will trigger the area_entered signal.
-	collision_mask = 2 
+	
+	collision_mask = 10
 	
 	
 # .

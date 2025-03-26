@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://ejtkdqywn740"]
 
 [ext_resource type="Texture2D" uid="uid://j7vhr3yganqp" path="res://Scenes/TemporaryTestingScene/Dungeon Tile Set.png" id="1_jwj5e"]
-[ext_resource type="Texture2D" uid="uid://dej7yx3lsc7aa" path="res://Player/Sprites/icon.svg" id="3_s8ijy"]
+[ext_resource type="Texture2D" uid="uid://ogupfqckdevr" path="res://Player/Sprites/icon.svg" id="3_s8ijy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cgmxa"]
 texture = ExtResource("1_jwj5e")
