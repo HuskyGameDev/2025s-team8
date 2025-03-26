@@ -10,15 +10,23 @@ var attacking: bool = false
 
 @onready var walk: State = $"../Walk"
 
+@onready var hitbox: Hitbox = $"../../interactions/Hitbox"
+
 func Enter() -> void:
 	player.UpdateAnimation("attack")
 	animation_player.animation_finished.connect(EndAttack)
 	attacking = true
+	
+	#this essentially delays the animation for turning on the hurt
+	await get_tree().create_timer(.075).timeout
+	hitbox.monitoring = true
 	pass
 	
 func Exit() -> void:
 	animation_player.animation_finished.disconnect( EndAttack)
 	attacking = false
+	
+	hitbox.monitoring = true
 	pass
 	
 func Process(_delta : float) -> State:
