@@ -2,13 +2,12 @@ class_name InventorySlot
 extends PanelContainer
 
 @export var type: ItemData.Type
-var shown: bool = true
 
 func init(t: ItemData.Type, vec: Vector2) -> void:
 	type = t
 	custom_minimum_size = vec
 	
-func _can_drop_data(at_position: Vector2, data: Variant) -> bool:
+func _can_drop_data(_at_position: Vector2, data: Variant) -> bool:
 	if data is InventoryItem:
 		if type == ItemData.Type.MAIN:
 			if get_child_count() == 0:
@@ -24,7 +23,7 @@ func _can_drop_data(at_position: Vector2, data: Variant) -> bool:
 #https://www.youtube.com/watch?v=UUzuUzPVNrE
 #All prints are currently used for testing
 #Data is the item being dragged, item is the item its being swapped with
-func _drop_data(at_position: Vector2, data: Variant) -> void:
+func _drop_data(_at_position: Vector2, data: Variant) -> void:
 	#if slot already has an item
 	if get_child_count() > 0:
 		var item := get_child(0)
@@ -73,14 +72,14 @@ func _drop_data(at_position: Vector2, data: Variant) -> void:
 	data.reparent(self)
 	
 #Most likely a temp function but allows for the inventory to have its visibility changed
+#When actual input is decided, this function will most likely be moved to the individual inventories
+#Currently each inventory is set to a different key
 func _input(event):
 	if event is InputEventKey and event.is_released():
-		if event.keycode == KEY_E:
-			if shown:
+		if event.keycode == KEY_E and type != ItemData.Type.MAIN:
+			if visible:
 				hide()
-				shown = false
 				#print("Here")
 			else:
 				show()
-				shown = true
 				#print("Not here")

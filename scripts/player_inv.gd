@@ -10,13 +10,26 @@ var items_to_load := [
 	preload("res://inventory/items/sword.tres").duplicate()
 ]
 
+
 func _ready():
 	#creates a number of slots
 	for i in 24:
 		var slot := InventorySlot.new()
-		slot.init(ItemData.Type.MAIN, Vector2(32, 32))
-		%Grid.add_child(slot)
+		slot.init(ItemData.Type.MAIN, Vector2(48, 48))
+		self.add_child(slot)
 	for i in items_to_load.size():
 		var item = InventoryItem.new(null)
 		item._init(items_to_load[i])
-		%Grid.get_child(i).add_child(item)
+		self.get_child(i).add_child(item)
+		
+func _input(event):
+	if event is InputEventKey and event.is_released():
+		if event.keycode == KEY_F:
+			if visible:
+				hide()
+				#shown = false
+				#print("Here")
+			else:
+				show()
+				#shown = true
+				#print("Not here")

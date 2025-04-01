@@ -25,7 +25,8 @@ func _ready() -> void:
 	for i in 24:
 		var slot := InventorySlot.new()
 		slot.init(ItemData.Type.MAIN, Vector2(32, 32))
-		%Chest.add_child(slot)
+		#%Chest.add_child(slot)
+		self.add_child(slot)
 		
 	var cur_items: int = 0
 	var rand_value: int = 0
@@ -38,14 +39,28 @@ func _ready() -> void:
 			rand_value = rand.randi_range(1, 100)
 			
 			if item.data.Rarity.Common and rand_value > 20:
-				%Chest.get_child(i).add_child(item)
+				#%Chest.get_child(i).add_child(item)
+				self.get_child(i).add_child(item)
 				cur_items += 1
 			elif item.data.Rarity.Uncommon and rand_value > 40:
-				%Chest.get_child(i).add_child(item)
+				#%Chest.get_child(i).add_child(item)
+				self.get_child(i).add_child(item)
 				cur_items += 1
 			elif item.data.Rarity.Rare and rand_value > 60:
-				%Chest.get_child(i).add_child(item)
+				#%Chest.get_child(i).add_child(item)
+				self.get_child(i).add_child(item)
 				cur_items += 1
 			elif item.data.Rarity.Legendary and rand_value > 80:
-				%Chest.get_child(i).add_child(item)
+				#%Chest.get_child(i).add_child(item)
+				self.get_child(i).add_child(item)
 				cur_items += 1
+				
+func _input(event):
+	if event is InputEventKey and event.is_released():
+		if event.keycode == KEY_G:
+			if visible:
+				hide()
+				#print("Here")
+			else:
+				show()
+				#print("Not here")
