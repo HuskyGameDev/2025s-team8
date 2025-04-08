@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://xm21yvwr1n61"]
+
+[ext_resource type="Script" path="res://scripts/item_data.gd" id="1_gq8vy"]
+[ext_resource type="Texture2D" uid="uid://cogpy1ykrrxnw" path="res://inventory/temp art/512/wand.png" id="2_jro1y"]
+
+[resource]
+script = ExtResource("1_gq8vy")
+type = 1
+name = "Staff"
+damage = 7
+defense = 0
+rarity = 2
+slot_type = 3
+description = "A magical staff! I wonder what you can do with this."
+texture = ExtResource("2_jro1y")

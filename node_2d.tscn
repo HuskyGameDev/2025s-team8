@@ -1,0 +1,80 @@
+[gd_scene load_steps=4 format=3 uid="uid://h65kwo5pyyxy"]
+
+[ext_resource type="Script" path="res://scripts/inventory_slot.gd" id="1_c6kff"]
+[ext_resource type="Script" path="res://scripts/player_inv.gd" id="2_hcslw"]
+[ext_resource type="Script" path="res://scripts/chest_inv.gd" id="3_yb10t"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Armor" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 80.0
+offset_right = 240.0
+offset_bottom = 128.0
+script = ExtResource("1_c6kff")
+
+[node name="Weapon" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 16.0
+offset_right = 240.0
+offset_bottom = 64.0
+script = ExtResource("1_c6kff")
+type = 1
+
+[node name="Rand" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 144.0
+offset_right = 240.0
+offset_bottom = 192.0
+script = ExtResource("1_c6kff")
+type = 2
+
+[node name="Player_inv" type="GridContainer" parent="."]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 0
+offset_left = 64.0
+offset_top = 320.0
+offset_right = 640.0
+offset_bottom = 640.0
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 16
+columns = 6
+script = ExtResource("2_hcslw")
+
+[node name="Chest1" type="GridContainer" parent="."]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 0
+offset_left = 704.0
+offset_top = 384.0
+offset_right = 1152.0
+offset_bottom = 640.0
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 16
+columns = 6
+script = ExtResource("3_yb10t")
+
+[node name="Chest2" type="GridContainer" parent="."]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 0
+offset_left = 704.0
+offset_top = 64.0
+offset_right = 1152.0
+offset_bottom = 320.0
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 16
+columns = 6
+script = ExtResource("3_yb10t")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 176.0
+offset_bottom = 104.0

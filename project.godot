@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+Temp="*res://scripts/Temp.gd"
 Config="*res://Config.cs"
 
 [display]
