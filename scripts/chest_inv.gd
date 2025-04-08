@@ -12,7 +12,7 @@ var pos_items := [
 	preload("res://inventory/items/potion.tres").duplicate()
 ]
 #Min number of items that should be in the chest
-var min_items: int = 1
+var min_items: int = 2
 
 var rand = RandomNumberGenerator.new()
 
@@ -30,6 +30,7 @@ func _ready() -> void:
 		
 	var cur_items: int = 0
 	var rand_value: int = 0
+	var added: bool = false
 	
 	while cur_items < min_items:
 		for i in pos_items.size():
@@ -38,26 +39,26 @@ func _ready() -> void:
 			
 			rand_value = rand.randi_range(1, 100)
 			
-			if item.data.Rarity.Common and rand_value > 20:
+			if item.data.rarity == ItemData.Rarity.Common and rand_value > 20:
 				#%Chest.get_child(i).add_child(item)
-				self.get_child(i).add_child(item)
-				cur_items += 1
-			elif item.data.Rarity.Uncommon and rand_value > 40:
+				added = true
+			elif item.data.rarity == ItemData.Rarity.Uncommon and rand_value > 40:
 				#%Chest.get_child(i).add_child(item)
-				self.get_child(i).add_child(item)
-				cur_items += 1
-			elif item.data.Rarity.Rare and rand_value > 60:
+				added = true
+			elif item.data.rarity == ItemData.Rarity.Rare and rand_value > 60:
 				#%Chest.get_child(i).add_child(item)
-				self.get_child(i).add_child(item)
-				cur_items += 1
-			elif item.data.Rarity.Legendary and rand_value > 80:
+				added = true
+			elif item.data.rarity == ItemData.Rarity.Legendary and rand_value > 80:
 				#%Chest.get_child(i).add_child(item)
-				self.get_child(i).add_child(item)
+				added = true
+				
+			if added:
+				self.get_child(cur_items).add_child(item)
 				cur_items += 1
 				
 func _input(event):
 	if event is InputEventKey and event.is_released():
-		if event.keycode == KEY_G:
+		if event.keycode == KEY_F:
 			if visible:
 				hide()
 				#print("Here")

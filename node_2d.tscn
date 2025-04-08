@@ -39,6 +39,7 @@ script = ExtResource("1_c6kff")
 type = 2
 
 [node name="Player_inv" type="GridContainer" parent="."]
+custom_minimum_size = Vector2(10, 10)
 layout_mode = 0
 offset_left = 64.0
 offset_top = 320.0
@@ -50,6 +51,7 @@ columns = 6
 script = ExtResource("2_hcslw")
 
 [node name="Chest1" type="GridContainer" parent="."]
+custom_minimum_size = Vector2(10, 10)
 layout_mode = 0
 offset_left = 704.0
 offset_top = 384.0
@@ -61,6 +63,7 @@ columns = 6
 script = ExtResource("3_yb10t")
 
 [node name="Chest2" type="GridContainer" parent="."]
+custom_minimum_size = Vector2(10, 10)
 layout_mode = 0
 offset_left = 704.0
 offset_top = 64.0

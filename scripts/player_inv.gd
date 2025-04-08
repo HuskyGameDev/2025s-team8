@@ -24,7 +24,7 @@ func _ready():
 		
 func _input(event):
 	if event is InputEventKey and event.is_released():
-		if event.keycode == KEY_F:
+		if event.keycode == KEY_E:
 			if visible:
 				hide()
 				#shown = false

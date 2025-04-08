@@ -11,7 +11,7 @@ func _ready() -> void:
 		tooltip_text = "%s\n%s\nStats: %s Damage, %s Defense" % [data.name, data.description, data.damage, data.defense]
 		
 func _init(d: ItemData) -> void:
-	data = d
+	self.data = d
 	
 func _get_drag_data(at_position: Vector2) -> Variant:
 	set_drag_preview(make_drag_preview(at_position))
