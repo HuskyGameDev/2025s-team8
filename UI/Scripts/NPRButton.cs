@@ -27,6 +27,11 @@ public partial class NPRButton : Button {
     public override void _Ready() {
         // Init
         normalTex = (Texture2D)GD.Load("res://UI/Assets/Button_Normal.png");
+        pressedTex = (Texture2D)GD.Load("res://UI/Assets/Button_Pressed.png");
+        // focusedTex = (Texture2D)GD.Load("res://UI/Assets/Button_Normal.png");
+        // hoveredTex = (Texture2D)GD.Load("res://UI/Assets/Button_Normal.png");
+        disabledTex = (Texture2D)GD.Load("res://UI/Assets/Button_Disabled.png");
+
         npr = (NinePatchRect)this.GetChild(0);
 
         // // Update Size/Scale

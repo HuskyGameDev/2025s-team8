@@ -39,10 +39,10 @@ public partial class SettingsMenu : Control {
             back.Pressed += GoBack;
         }
         if (reset != null) {
-            reset.Pressed += GoBack;
+            reset.Pressed += Reset;
         }
         if (apply != null) {
-            apply.Pressed += GoBack;
+            apply.Pressed += Apply;
         }
 
         tc = this.GetNode<TabContainer>("./TabContainer");
@@ -82,7 +82,6 @@ public partial class SettingsMenu : Control {
         if (n is SettingsCategory) {
             SettingsCategory sc = (SettingsCategory)n;
             sc.ApplyChanges();
-            
         }
     }
 
@@ -91,6 +90,8 @@ public partial class SettingsMenu : Control {
         if (n is SettingsCategory) {
             SettingsCategory sc = (SettingsCategory)n;
             sc.RevertToDefaults();
+        } else {
+            GD.Print(n.Name + "\n\n"); n.PrintTreePretty();
         }
     }
 }

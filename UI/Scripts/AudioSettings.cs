@@ -22,6 +22,7 @@ public partial class AudioSettings : SettingsCategory {
     private void Update(string cat, double val) {
         cfg.Set("Audio", cat, val);
         cfg.Save(); // The user should hear audio changes as they make them
+        // this.OnChangeMade();
     }
 
     //*** ISettingsCategoty impl ***//
@@ -33,14 +34,12 @@ public partial class AudioSettings : SettingsCategory {
         // NYI
     }
 
-    protected override void OnChangeMade() {
-        // NYI
-    }
-
     public override void RevertToDefaults() {
-        double d_masterAudio = (double)masterAudio.GetMeta("default");
-        cfg.Set("Audio", "Master", d_masterAudio);
-
+        if (masterAudio != null) {
+            double d_masterAudio = (double)masterAudio.GetMeta("default");
+            masterAudio.Value = d_masterAudio;
+            cfg.Set("Audio", "Master", d_masterAudio);
+        }
         cfg.Save();
     }
     

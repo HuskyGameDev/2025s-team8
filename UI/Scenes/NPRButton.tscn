@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://UI/Scripts/NPRButton.cs" id="2_ufqil"]
 [ext_resource type="Theme" uid="uid://bod7jw0dx53ng" path="res://UI/UIMain.tres" id="2_v7qtr"]
-[ext_resource type="Texture2D" uid="uid://bbvcgqgy2wtfk" path="res://UI/Button_Normal.png" id="3_ddnqy"]
+[ext_resource type="Texture2D" uid="uid://bbvcgqgy2wtfk" path="res://UI/Assets/Button_Normal.png" id="3_ddnqy"]
 
 [node name="Button" type="Button"]
 anchors_preset = -1

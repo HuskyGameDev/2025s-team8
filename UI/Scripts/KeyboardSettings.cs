@@ -94,6 +94,7 @@ public partial class KeyboardSettings : SettingsCategory {
         buttons[rebindId].ZIndex = 0; //reset
         rebindId = -1;
         rebindState = 0;
+        // this.OnChangeMade();
     }
 
     //***** HELPER METHODS *****//
@@ -119,16 +120,6 @@ public partial class KeyboardSettings : SettingsCategory {
             txt = txt.Substring(0, txt.Length-11);
         }
         return txt;
-    }
-
-    //***** PUBLIC ACCESS (primarily for Config) *****//
-    // Gets the names of all our (rebindable) controls.
-    public string[] GetControlNames() {
-        string[] ctrls = new string[buttons.Length];
-        for (int i = 0; i < buttons.Length; i++) {
-            ctrls[i] = (string)buttons[i].GetMeta("control");
-        }
-        return ctrls;
     }
 
     // Converts the config string into aan actual InputEvent
@@ -173,11 +164,8 @@ public partial class KeyboardSettings : SettingsCategory {
         // NYI
     }
 
-    protected override void OnChangeMade() {
-        // NYI
-    }
-
     public override void RevertToDefaults() {
+        GD.Print(":)");
         if (buttons.Length > 0) {
             // For each button, get its related default value
             for (int i = 0; i < buttons.Length; i++) {
@@ -192,6 +180,13 @@ public partial class KeyboardSettings : SettingsCategory {
                         // Replace this action with the default one
                         InputMap.ActionEraseEvent(actions[i], ieks[j]);
                         InputMap.ActionAddEvent(actions[i], ie);
+
+                        // Ensure that the button shows the correct bind
+                        string txt = StringifyEvent(ie);
+                        buttons[i].Text = txt;
+
+                        // Send changes to Config
+                        cfg.Set("Keyboard", actions[i], EncodeInputEvent(ie));
                         break;
                     }
                     if (j == ieks.Count - 1) {
@@ -200,13 +195,13 @@ public partial class KeyboardSettings : SettingsCategory {
                 }
             }
         }
+        cfg.Save();
     }
 
     public override void CfgInit() {
-		string[] ctrls = this.GetControlNames();
-		foreach (string ctrl in ctrls) {
-			Array<InputEvent> actions = InputMap.ActionGetEvents(ctrl);
-			foreach (InputEvent ie in actions) {
+		foreach (string ctrl in actions) {
+			Array<InputEvent> ies = InputMap.ActionGetEvents(ctrl);
+			foreach (InputEvent ie in ies) {
 				if (ie is not InputEventFromWindow) continue;
 				// This action *is* the keyboard (or mouse) action
 				string value = (string)cfg.Get("Keyboard", ctrl, "NOTFOUND");
@@ -216,8 +211,9 @@ public partial class KeyboardSettings : SettingsCategory {
 				} else if (!value.Equals(this.EncodeInputEvent(ie))){
 					// Config has a different setting than default, use it
 					InputEvent cfge = this.DecodeInputEvent(value); // Better hope the config does not have a malformed keybind...
-					InputMap.ActionAddEvent(ctrl, cfge);
+                    GD.Print(cfge.AsText());
 					InputMap.ActionEraseEvent(ctrl, ie);
+					InputMap.ActionAddEvent(ctrl, cfge);
 				}
 				// else, it is the default, nothing needs to be done
                 break;

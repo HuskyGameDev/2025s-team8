@@ -7,7 +7,10 @@ public abstract partial class SettingsCategory : Control {
 
     public abstract void DiscardChanges();
 
-    protected abstract void OnChangeMade();
+    // protected void OnChangeMade() {
+    //     SettingsMenu sMenu = this.GetNode<SettingsMenu>("../../");
+    //     sMenu.WhenChangeMade();
+    // }
 
     public abstract void RevertToDefaults();
 

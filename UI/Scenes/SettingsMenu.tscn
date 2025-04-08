@@ -6,7 +6,7 @@
 [ext_resource type="Theme" uid="uid://ca5qslylmgj8h" path="res://UI/UIMainSmall.tres" id="3_bdo0f"]
 [ext_resource type="Script" path="res://UI/Scripts/AudioSettings.cs" id="3_xndpi"]
 
-[node name="SettingsMenu" type="Control" node_paths=PackedStringArray("gameButton", "audioButton", "keyboardButton", "controllerButton", "back")]
+[node name="SettingsMenu" type="Control" node_paths=PackedStringArray("gameButton", "audioButton", "keyboardButton", "controllerButton", "back", "reset", "apply")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,6 +19,8 @@ audioButton = NodePath("audio")
 keyboardButton = NodePath("keyboard")
 controllerButton = NodePath("controller")
 back = NodePath("back")
+reset = NodePath("reset")
+apply = NodePath("apply")
 
 [node name="game" parent="." instance=ExtResource("2_leajx")]
 layout_mode = 0
@@ -88,7 +90,6 @@ offset_right = 250.0
 offset_bottom = 930.0
 theme = ExtResource("3_bdo0f")
 theme_override_font_sizes/font_size = 30
-disabled = true
 text = "Reset to Default"
 
 [node name="back" parent="." instance=ExtResource("2_leajx")]
@@ -107,7 +108,7 @@ layout_mode = 0
 offset_left = 250.0
 offset_right = 1920.0
 offset_bottom = 1080.0
-current_tab = 1
+current_tab = 2
 tabs_visible = false
 
 [node name="game" type="Control" parent="TabContainer"]
@@ -123,6 +124,7 @@ theme = ExtResource("3_bdo0f")
 text = "No settings in this tab yet!"
 
 [node name="audio" type="Control" parent="TabContainer" node_paths=PackedStringArray("masterAudio")]
+visible = false
 layout_mode = 2
 script = ExtResource("3_xndpi")
 masterAudio = NodePath("master")
@@ -155,7 +157,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="keyboard" type="Control" parent="TabContainer" node_paths=PackedStringArray("buttons")]
-visible = false
 layout_mode = 2
 script = ExtResource("2_rcoix")
 buttons = [NodePath("up"), NodePath("left"), NodePath("down"), NodePath("right"), NodePath("atk"), NodePath("next"), NodePath("prev")]
@@ -288,7 +289,7 @@ offset_bottom = 870.0
 theme = ExtResource("3_bdo0f")
 theme_override_font_sizes/font_size = 32
 metadata/control = "Next"
-metadata/default = "Mouse 5"
+metadata/default = "Mouse 4"
 
 [node name="Label" type="Label" parent="TabContainer/keyboard/next"]
 layout_mode = 0
@@ -311,7 +312,7 @@ offset_bottom = 1015.0
 theme = ExtResource("3_bdo0f")
 theme_override_font_sizes/font_size = 32
 metadata/control = "Prev"
-metadata/default = "Mouse 4"
+metadata/default = "Mouse 5"
 
 [node name="Label" type="Label" parent="TabContainer/keyboard/prev"]
 layout_mode = 0
