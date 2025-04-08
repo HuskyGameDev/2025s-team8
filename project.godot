@@ -67,6 +67,7 @@ attack={
 
 2d_physics/layer_1="Has the player and collisions"
 2d_physics/layer_2="Walls"
+2d_physics/layer_3="Enemies?"
 
 [rendering]
 

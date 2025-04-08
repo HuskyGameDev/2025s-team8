@@ -1,5 +1,4 @@
-class_name Hitbox
-extends Area2D
+class_name Hitbox extends Area2D
 
 signal Damaged(damaged : int)
 
@@ -8,7 +7,7 @@ signal Damaged(damaged : int)
 # change this collision layer or repaint the wall to avoid further issues
 # set collision layer.
 func _init() -> void:
-	collision_layer = 2
+	collision_layer = 3
 	collision_mask = 0
 
 
@@ -19,4 +18,5 @@ func get_damage() -> int:
 	return damage
 	
 func TakeDamage(damage: int) -> void:
+	print("I have taken damage")
 	Damaged.emit(damage)
