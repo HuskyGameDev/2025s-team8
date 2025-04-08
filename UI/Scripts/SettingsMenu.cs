@@ -90,8 +90,6 @@ public partial class SettingsMenu : Control {
         if (n is SettingsCategory) {
             SettingsCategory sc = (SettingsCategory)n;
             sc.RevertToDefaults();
-        } else {
-            GD.Print(n.Name + "\n\n"); n.PrintTreePretty();
         }
     }
 }

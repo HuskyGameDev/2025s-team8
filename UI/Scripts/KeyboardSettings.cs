@@ -48,7 +48,6 @@ public partial class KeyboardSettings : SettingsCategory {
         // Rebind validation
         if (rebindState != 1) return;
         if (!@event.IsActionType() || !(@event is InputEventFromWindow || @event is InputEventMouseMotion)) return;
-        GD.Print("R" + rebindId);
 
         // Begin rebinding
         rebindState = -1;
@@ -100,7 +99,6 @@ public partial class KeyboardSettings : SettingsCategory {
     //***** HELPER METHODS *****//
     private void SetNextRebind(int id) {
         if (rebindState != 0) return;
-        GD.Print(id);
         rebindState = 1;
         rebindId = id;
 		buttons[id].Text = "Enter key...";
@@ -165,7 +163,6 @@ public partial class KeyboardSettings : SettingsCategory {
     }
 
     public override void RevertToDefaults() {
-        GD.Print(":)");
         if (buttons.Length > 0) {
             // For each button, get its related default value
             for (int i = 0; i < buttons.Length; i++) {
