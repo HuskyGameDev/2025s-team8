@@ -6,6 +6,7 @@ signal health_changed(diff: int)
 #emitted when health reaches zero
 signal health_depleted
 
+#setting health
 @export var max_health: int =3 : set = set_max_health, get = get_max_health
 @export var invincible: bool = false : set = set_invincible, get = get_invincible
 
