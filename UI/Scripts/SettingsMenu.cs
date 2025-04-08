@@ -59,6 +59,10 @@ public partial class SettingsMenu : Control {
     }
 
     private void GoBack() {
+        // Save changes to disk
+        Config cfg = this.GetTree().GetRoot().GetNode<Config>("./Config");
+        cfg.Save();
+
         // Get copies
         PackedScene transitionScene = (PackedScene) ResourceLoader.LoadThreadedGet(TRANSITION_PATH);
 		Node tNode = transitionScene.Instantiate();
@@ -75,13 +79,18 @@ public partial class SettingsMenu : Control {
 
     private void Apply() {
         Node n = tc.GetChild(tc.CurrentTab);
-        if (n is ISettingsCategory) {
-            ISettingsCategory isc = (ISettingsCategory)n;
+        if (n is SettingsCategory) {
+            SettingsCategory sc = (SettingsCategory)n;
+            sc.ApplyChanges();
             
         }
     }
 
     private void Reset() {
-
+        Node n = tc.GetChild(tc.CurrentTab);
+        if (n is SettingsCategory) {
+            SettingsCategory sc = (SettingsCategory)n;
+            sc.RevertToDefaults();
+        }
     }
 }

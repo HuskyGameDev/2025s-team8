@@ -7,15 +7,15 @@ using System;
 public partial class NPRButton : Button {
     // Assumed to be Button -> NinePatchRect
     // If a section is left blank, it will default to normalTex
-    [Export]
+    // [Export]
     private Texture2D normalTex = null;
-    [Export]
+    // [Export]
     private Texture2D pressedTex = null;
-    [Export]
+    // [Export]
     private Texture2D focusedTex = null;
-    [Export]
+    // [Export]
     private Texture2D hoveredTex = null;
-    [Export]
+    // [Export]
     private Texture2D disabledTex = null;
 
     private bool isPressed = false;
@@ -26,11 +26,19 @@ public partial class NPRButton : Button {
 
     public override void _Ready() {
         // Init
-        if (normalTex == null) {
-            GD.PushWarning("NPRButton does not have a default texture!");
-            return;
-        }
+        normalTex = (Texture2D)GD.Load("res://UI/Assets/Button_Normal.png");
         npr = (NinePatchRect)this.GetChild(0);
+
+        // // Update Size/Scale
+        // double xscale = this.Size.X / 170.0;
+        // double yscale = this.Size.Y / 170.0;
+        // npr.Scale = new Vector2((float)xscale, (float)yscale);
+        // npr.Size = new Vector2(170, 170); // anchors instead?
+        // This is not the fix I wanted... But it will do for now
+        npr.Scale *= 4;
+        // npr.Size /= 4;
+        npr.SetDeferred("size", npr.Size / 4);
+        
 
         // Attach to Signals
         this.ButtonDown += () => {

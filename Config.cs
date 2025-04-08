@@ -13,10 +13,6 @@ public partial class Config : Node {
 	[Signal]
 	public delegate void OnKeyboardUpdateEventHandler();
 
-	bool videoUpdated = false;
-	[Signal]
-	public delegate void OnVideoUpdateEventHandler();
-
 	bool audioUpdated = false;
 	[Signal]
 	public delegate void OnAudioUpdateEventHandler();
@@ -45,7 +41,7 @@ public partial class Config : Node {
 		}
 		// Initialize the Config, whether pre-existing (to load custom configs), or new (to populate the config with defaults)
 		ResourceLoader.LoadThreadedRequest(SETTINGS_SCENE_PATH);
-		//InitConfig();
+		InitConfig();
     }
 
     public Variant Get(string cat, string id, Variant ifnull) {
@@ -71,9 +67,6 @@ public partial class Config : Node {
 					break;
 				case "Audio":
 					audioUpdated = true;
-					break;
-				case "Video":
-					videoUpdated = true;
 					break;
 				case "Keyboard":
 					keyboardUpdated = true;
@@ -104,10 +97,6 @@ public partial class Config : Node {
 				AudioServer.SetBusVolumeDb(MASTER_BUS, Mathf.LinearToDb(masterVol));
 				AudioServer.SetBusMute(MASTER_BUS, masterVol < 0.05);
 			}
-			if (videoUpdated) {
-				videoUpdated = false; // reset
-				EmitSignal(SignalName.OnVideoUpdate);
-			}
 			if (keyboardUpdated) {
 				keyboardUpdated = false; //reset
 				EmitSignal(SignalName.OnKeyboardUpdate);
@@ -118,55 +107,26 @@ public partial class Config : Node {
 //////////////////// PRIVATE CONFIG SETUP AND HELPERS BELOW ////////////////////
 	private void InitConfig() {
 		if (!fine) return;
+		// Get a copy of settings
+		PackedScene settingsScene = (PackedScene) ResourceLoader.LoadThreadedGet(SETTINGS_SCENE_PATH);
+		Control sNode = (Control)settingsScene.Instantiate();
+		sNode.Name = "TEMP";
+		sNode.Visible = false;
+		this.AddChild(sNode);
 
 		//* Gameplay Init (none yet)
 
 		//* Audio Init
-		int masterAudio = (int)this.Get("Audio", "Master", -1);
-		if (masterAudio == -1) {
-			// Give it the default
-			this.Set("Audio", "Master", 1);
-		}
-		if (masterAudio != 1) {
-			// mark, so that the Save() call later will update this for us.
-			audioUpdated = true;
-		}
+		sNode.GetNode<SettingsCategory>("./TabContainer/audio").CfgInit();
 
 		//* Keyboard Init
-		// Get a copy of settings (is not put into the scene!)
-		PackedScene settingsScene = (PackedScene) ResourceLoader.LoadThreadedGet(SETTINGS_SCENE_PATH);
-		Node sNode = settingsScene.Instantiate();
-
-		// Get the control names from KeyboardSettings, as it is the only place that knows which controls
-		//  are ours, and not defaults. (This is to prevent hardcoding control names somewhere)
-		KeyboardSettings ks = sNode.GetNode<KeyboardSettings>("./TabContainer/keyboard");
-		if (ks != null) {
-			string[] ctrls = ks.GetControlNames();
-			foreach (string ctrl in ctrls) {
-				Array<InputEvent> actions = InputMap.ActionGetEvents(ctrl);
-				foreach (InputEvent ie in actions) {
-					if (ie is not InputEventFromWindow) continue;
-					// This action *is* the keyboard (or mouse) action
-					string value = (string)this.Get("Keyboard", ctrl, "NOTFOUND");
-					if (value.Equals("NOTFOUND")) {
-						// Set it to the default in settings
-						this.Set("Keyboard", ctrl, ks.EncodeInputEvent(ie));
-					} else if (!value.Equals(ks.EncodeInputEvent(ie))){
-						// Config has a different setting than default, use it
-						InputEvent cfge = ks.DecodeInputEvent(value);
-						InputMap.ActionAddEvent(ctrl, cfge);
-						InputMap.ActionEraseEvent(ctrl, ie);
-					}
-					// else, it is the default, nothing needs to be done
-					break;
-				}
-			}
-		}
-
+		sNode.GetNode<SettingsCategory>("./TabContainer/keyboard").CfgInit();
 
 		//*Controller Init (not anywhere near ready to be implemented)
 
+		//* Cleanup and Finalize
 		SaveNoSignal();
+		this.GetNode("./TEMP").QueueFree();
 	}
 
 	// Same as Save(), but does not signal to other scripts. Intended primarily for Config setup/init
@@ -186,9 +146,6 @@ public partial class Config : Node {
 				float masterVol = (float)Get("Audio", "Master", 1);
 				AudioServer.SetBusVolumeDb(MASTER_BUS, Mathf.LinearToDb(masterVol));
 				AudioServer.SetBusMute(MASTER_BUS, masterVol < 0.05);
-			}
-			if (videoUpdated) {
-				videoUpdated = false; // reset
 			}
 			if (keyboardUpdated) {
 				keyboardUpdated = false; //reset

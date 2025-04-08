@@ -1,9 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bgog024wtpoul"]
+[gd_scene load_steps=3 format=3 uid="uid://bgog024wtpoul"]
 
 [ext_resource type="PackedScene" uid="uid://4xppvq5lmyab" path="res://UI/Scenes/NPRButton.tscn" id="1_6461k"]
 [ext_resource type="Script" path="res://UI/Scripts/SaveSelect.cs" id="1_alex8"]
-[ext_resource type="Texture2D" uid="uid://caourcpsoovm3" path="res://UI/tempButton.png" id="2_7o50m"]
-[ext_resource type="Texture2D" uid="uid://84oosxa2vfuh" path="res://UI/tempButtonPressed.png" id="3_32a5l"]
 
 [node name="SaveSelect" type="Control" node_paths=PackedStringArray("contButton", "eraseButton", "backButton")]
 layout_mode = 3
@@ -45,30 +43,33 @@ offset_bottom = 40.0
 
 [node name="Button" parent="Control" instance=ExtResource("1_6461k")]
 layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
 offset_left = 558.0
 offset_top = 285.0
 offset_right = 1058.0
 offset_bottom = 409.0
 text = "Continue"
-normalTex = ExtResource("2_7o50m")
-pressedTex = ExtResource("3_32a5l")
 
 [node name="Button2" parent="Control" instance=ExtResource("1_6461k")]
 layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
 offset_left = 559.0
 offset_top = 509.0
 offset_right = 1059.0
 offset_bottom = 633.0
 text = "Erase"
-normalTex = ExtResource("2_7o50m")
-pressedTex = ExtResource("3_32a5l")
 
 [node name="Button3" parent="Control" instance=ExtResource("1_6461k")]
 layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
 offset_left = 553.0
 offset_top = 726.0
 offset_right = 1053.0
 offset_bottom = 850.0
 text = "Back"
-normalTex = ExtResource("2_7o50m")
-pressedTex = ExtResource("3_32a5l")
