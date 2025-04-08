@@ -1,0 +1,71 @@
+[gd_scene load_steps=4 format=3 uid="uid://ccf5jqqm3kmh8"]
+
+[ext_resource type="Script" path="res://UI/Scripts/MainMenu.cs" id="1_vb0nr"]
+[ext_resource type="Theme" uid="uid://bod7jw0dx53ng" path="res://UI/UIMain.tres" id="1_yn3jy"]
+[ext_resource type="PackedScene" uid="uid://4xppvq5lmyab" path="res://UI/Scenes/NPRButton.tscn" id="3_wa0jo"]
+
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("continueButton", "newgameButton", "settingsButton", "quitButton")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vb0nr")
+continueButton = NodePath("continue")
+newgameButton = NodePath("newgame")
+settingsButton = NodePath("settings")
+quitButton = NodePath("quit")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 495.0
+offset_top = 25.0
+offset_right = 1425.0
+offset_bottom = 200.0
+theme = ExtResource("1_yn3jy")
+text = "Hell's Dungeon"
+
+[node name="continue" parent="." instance=ExtResource("3_wa0jo")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 710.0
+offset_top = 300.0
+offset_right = 1210.0
+offset_bottom = 425.0
+text = "Continue"
+
+[node name="newgame" parent="." instance=ExtResource("3_wa0jo")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 710.0
+offset_top = 450.0
+offset_right = 1210.0
+offset_bottom = 575.0
+text = "New Game"
+
+[node name="settings" parent="." instance=ExtResource("3_wa0jo")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 710.0
+offset_top = 600.0
+offset_right = 1210.0
+offset_bottom = 725.0
+text = "Settings"
+
+[node name="quit" parent="." instance=ExtResource("3_wa0jo")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 710.0
+offset_top = 750.0
+offset_right = 1210.0
+offset_bottom = 875.0
+text = "Quit"

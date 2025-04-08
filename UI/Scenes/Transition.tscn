@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://byrtkx7dd0vr0"]
+
+[ext_resource type="Texture2D" uid="uid://bb4uvnt5p80c5" path="res://UI/UI_TransitionTex.png" id="1_ka3t2"]
+[ext_resource type="Script" path="res://UI/Scripts/Transition.cs" id="2_o4sxn"]
+
+[node name="Transition" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1920.0
+offset_bottom = -1080.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_o4sxn")
+
+[node name="To" type="TextureRect" parent="."]
+clip_children = 1
+layout_mode = 0
+offset_right = 4080.0
+offset_bottom = 1080.0
+texture = ExtResource("1_ka3t2")
+
+[node name="ToOffset" type="Control" parent="To"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="From" type="TextureRect" parent="."]
+clip_children = 1
+layout_mode = 0
+offset_right = 4080.0
+offset_bottom = 1080.0
+texture = ExtResource("1_ka3t2")
+
+[node name="FromOffset" type="Control" parent="From"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0

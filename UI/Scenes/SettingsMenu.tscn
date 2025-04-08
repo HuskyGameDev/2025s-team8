@@ -1,0 +1,335 @@
+[gd_scene load_steps=6 format=3 uid="uid://b51ufu74l8slf"]
+
+[ext_resource type="Script" path="res://UI/Scripts/SettingsMenu.cs" id="1_71840"]
+[ext_resource type="PackedScene" uid="uid://4xppvq5lmyab" path="res://UI/Scenes/NPRButton.tscn" id="2_leajx"]
+[ext_resource type="Script" path="res://UI/Scripts/KeyboardSettings.cs" id="2_rcoix"]
+[ext_resource type="Theme" uid="uid://ca5qslylmgj8h" path="res://UI/UIMainSmall.tres" id="3_bdo0f"]
+[ext_resource type="Script" path="res://UI/Scripts/AudioSettings.cs" id="3_xndpi"]
+
+[node name="SettingsMenu" type="Control" node_paths=PackedStringArray("gameButton", "audioButton", "keyboardButton", "controllerButton", "back")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_71840")
+gameButton = NodePath("game")
+audioButton = NodePath("audio")
+keyboardButton = NodePath("keyboard")
+controllerButton = NodePath("controller")
+back = NodePath("back")
+
+[node name="game" parent="." instance=ExtResource("2_leajx")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 250.0
+offset_bottom = 75.0
+theme = ExtResource("3_bdo0f")
+text = "Gameplay"
+
+[node name="audio" parent="." instance=ExtResource("2_leajx")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_top = 150.0
+offset_right = 250.0
+offset_bottom = 225.0
+theme = ExtResource("3_bdo0f")
+text = "Audio"
+
+[node name="keyboard" parent="." instance=ExtResource("2_leajx")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_top = 300.0
+offset_right = 250.0
+offset_bottom = 375.0
+theme = ExtResource("3_bdo0f")
+text = "Keyboard"
+
+[node name="controller" parent="." instance=ExtResource("2_leajx")]
+visible = false
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_top = 450.0
+offset_right = 250.0
+offset_bottom = 525.0
+theme = ExtResource("3_bdo0f")
+text = "Controller"
+
+[node name="apply" parent="." instance=ExtResource("2_leajx")]
+visible = false
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_top = 705.0
+offset_right = 250.0
+offset_bottom = 780.0
+theme = ExtResource("3_bdo0f")
+theme_override_font_sizes/font_size = 32
+disabled = true
+text = "Apply Changes"
+
+[node name="reset" parent="." instance=ExtResource("2_leajx")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_top = 855.0
+offset_right = 250.0
+offset_bottom = 930.0
+theme = ExtResource("3_bdo0f")
+theme_override_font_sizes/font_size = 30
+disabled = true
+text = "Reset to Default"
+
+[node name="back" parent="." instance=ExtResource("2_leajx")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_top = 1005.0
+offset_right = 250.0
+offset_bottom = 1080.0
+theme = ExtResource("3_bdo0f")
+text = "Back"
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 0
+offset_left = 250.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+current_tab = 1
+tabs_visible = false
+
+[node name="game" type="Control" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Label" type="Label" parent="TabContainer/game"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme = ExtResource("3_bdo0f")
+text = "No settings in this tab yet!"
+
+[node name="audio" type="Control" parent="TabContainer" node_paths=PackedStringArray("masterAudio")]
+layout_mode = 2
+script = ExtResource("3_xndpi")
+masterAudio = NodePath("master")
+metadata/_tab_index = 1
+
+[node name="master" type="HSlider" parent="TabContainer/audio"]
+layout_mode = 0
+offset_left = 598.0
+offset_top = 106.0
+offset_right = 948.0
+offset_bottom = 126.0
+scale = Vector2(2, 2)
+theme = ExtResource("3_bdo0f")
+max_value = 1.0
+step = 0.01
+tick_count = 10
+ticks_on_borders = true
+metadata/default = 1.0
+
+[node name="Label" type="Label" parent="TabContainer/audio/master"]
+layout_mode = 0
+offset_left = -175.0
+offset_top = -10.0
+offset_right = 175.0
+offset_bottom = 70.0
+scale = Vector2(0.5, 0.5)
+theme = ExtResource("3_bdo0f")
+text = "Volume"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="keyboard" type="Control" parent="TabContainer" node_paths=PackedStringArray("buttons")]
+visible = false
+layout_mode = 2
+script = ExtResource("2_rcoix")
+buttons = [NodePath("up"), NodePath("left"), NodePath("down"), NodePath("right"), NodePath("atk"), NodePath("next"), NodePath("prev")]
+metadata/_tab_index = 2
+
+[node name="up" parent="TabContainer/keyboard" instance=ExtResource("2_leajx")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 835.0
+offset_top = 65.0
+offset_right = 1135.0
+offset_bottom = 145.0
+theme = ExtResource("3_bdo0f")
+theme_override_font_sizes/font_size = 32
+metadata/control = "Up"
+metadata/default = "Key W"
+
+[node name="Label" type="Label" parent="TabContainer/keyboard/up"]
+layout_mode = 0
+offset_left = -350.0
+offset_bottom = 80.0
+theme = ExtResource("3_bdo0f")
+text = "Move Up"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="left" parent="TabContainer/keyboard" instance=ExtResource("2_leajx")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 835.0
+offset_top = 210.0
+offset_right = 1135.0
+offset_bottom = 290.0
+theme = ExtResource("3_bdo0f")
+theme_override_font_sizes/font_size = 32
+metadata/control = "Left"
+metadata/default = "Key A"
+
+[node name="Label" type="Label" parent="TabContainer/keyboard/left"]
+layout_mode = 0
+offset_left = -350.0
+offset_bottom = 80.0
+theme = ExtResource("3_bdo0f")
+text = "Move Left"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="down" parent="TabContainer/keyboard" instance=ExtResource("2_leajx")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 835.0
+offset_top = 355.0
+offset_right = 1135.0
+offset_bottom = 435.0
+theme = ExtResource("3_bdo0f")
+theme_override_font_sizes/font_size = 32
+metadata/control = "Down"
+metadata/default = "Key S"
+
+[node name="Label" type="Label" parent="TabContainer/keyboard/down"]
+layout_mode = 0
+offset_left = -350.0
+offset_bottom = 80.0
+theme = ExtResource("3_bdo0f")
+text = "Move Down"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="right" parent="TabContainer/keyboard" instance=ExtResource("2_leajx")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 835.0
+offset_top = 500.0
+offset_right = 1135.0
+offset_bottom = 580.0
+theme = ExtResource("3_bdo0f")
+theme_override_font_sizes/font_size = 32
+metadata/control = "Right"
+metadata/default = "Key D"
+
+[node name="Label" type="Label" parent="TabContainer/keyboard/right"]
+layout_mode = 0
+offset_left = -350.0
+offset_bottom = 80.0
+theme = ExtResource("3_bdo0f")
+text = "Move Right"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="atk" parent="TabContainer/keyboard" instance=ExtResource("2_leajx")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 835.0
+offset_top = 645.0
+offset_right = 1135.0
+offset_bottom = 725.0
+theme = ExtResource("3_bdo0f")
+theme_override_font_sizes/font_size = 32
+metadata/control = "Attack"
+metadata/default = "Mouse 1"
+
+[node name="Label" type="Label" parent="TabContainer/keyboard/atk"]
+layout_mode = 0
+offset_left = -350.0
+offset_bottom = 80.0
+theme = ExtResource("3_bdo0f")
+text = "Attack"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="next" parent="TabContainer/keyboard" instance=ExtResource("2_leajx")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 835.0
+offset_top = 790.0
+offset_right = 1135.0
+offset_bottom = 870.0
+theme = ExtResource("3_bdo0f")
+theme_override_font_sizes/font_size = 32
+metadata/control = "Next"
+metadata/default = "Mouse 5"
+
+[node name="Label" type="Label" parent="TabContainer/keyboard/next"]
+layout_mode = 0
+offset_left = -350.0
+offset_bottom = 80.0
+theme = ExtResource("3_bdo0f")
+text = "Next"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="prev" parent="TabContainer/keyboard" instance=ExtResource("2_leajx")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 835.0
+offset_top = 935.0
+offset_right = 1135.0
+offset_bottom = 1015.0
+theme = ExtResource("3_bdo0f")
+theme_override_font_sizes/font_size = 32
+metadata/control = "Prev"
+metadata/default = "Mouse 4"
+
+[node name="Label" type="Label" parent="TabContainer/keyboard/prev"]
+layout_mode = 0
+offset_left = -350.0
+offset_bottom = 80.0
+theme = ExtResource("3_bdo0f")
+text = "Previous"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="controller" type="Control" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="Label" type="Label" parent="TabContainer/controller"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme = ExtResource("3_bdo0f")
+text = "Controller support is currently unimplemented."
