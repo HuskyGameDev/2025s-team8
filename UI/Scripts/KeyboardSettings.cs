@@ -208,7 +208,6 @@ public partial class KeyboardSettings : SettingsCategory {
 				} else if (!value.Equals(this.EncodeInputEvent(ie))){
 					// Config has a different setting than default, use it
 					InputEvent cfge = this.DecodeInputEvent(value); // Better hope the config does not have a malformed keybind...
-                    GD.Print(cfge.AsText());
 					InputMap.ActionEraseEvent(ctrl, ie);
 					InputMap.ActionAddEvent(ctrl, cfge);
 				}
