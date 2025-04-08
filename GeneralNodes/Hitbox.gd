@@ -1,6 +1,7 @@
 class_name Hitbox
 extends Area2D
 
+signal Damaged(damaged : int)
 
 @export var damage: int = 1: set = set_damage, get = get_damage
 # note by bryson, the collisions of the walls have been painted to the id of 2. 
@@ -17,3 +18,5 @@ func set_damage(value: int):
 func get_damage() -> int:
 	return damage
 	
+func TakeDamage(damage: int) -> void:
+	Damaged.emit(damage)

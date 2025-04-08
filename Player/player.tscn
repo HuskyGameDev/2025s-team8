@@ -194,19 +194,19 @@ _data = {
 "walk_up": SubResource("Animation_xbpmk")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_0w7wo"]
-radius = 23.0868
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_501hd"]
 radius = 24.0832
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_0w7wo"]
+radius = 23.0868
+
 [node name="Player" type="CharacterBody2D"]
-position = Vector2(295, 187)
+position = Vector2(1, -1)
+collision_layer = 3
 collision_mask = 2
 script = ExtResource("1_7jpn7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0, -27)
 shape = SubResource("CircleShape2D_edhvl")
 one_way_collision_margin = 10.0
@@ -239,22 +239,11 @@ script = ExtResource("5_1mifc")
 [node name="attack" type="Node" parent="StateMachine"]
 script = ExtResource("6_inhut")
 
-[node name="hurt" parent="." instance=ExtResource("7_6r4xj")]
-visible = false
-script = ExtResource("8_i54rl")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hurt"]
-visible = false
-position = Vector2(0, 16)
-shape = SubResource("CircleShape2D_0w7wo")
-debug_color = Color(0.963149, 0, 0.500419, 0.42)
-
 [node name="interactions" type="Node2D" parent="."]
 position = Vector2(0, -19)
 script = ExtResource("8_4i6ld")
 
 [node name="Hitbox" parent="interactions" instance=ExtResource("8_xntua")]
-position = Vector2(0, 16)
 collision_layer = 0
 collision_mask = 512
 monitoring = false
@@ -264,3 +253,14 @@ damage = 1
 [node name="CollisionShape2D" type="CollisionShape2D" parent="interactions/Hitbox"]
 shape = SubResource("CircleShape2D_501hd")
 debug_color = Color(0.308247, 0.493797, 1, 0.42)
+
+[node name="hurt" parent="interactions" instance=ExtResource("7_6r4xj")]
+position = Vector2(0, 35)
+script = ExtResource("8_i54rl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="interactions/hurt"]
+shape = SubResource("CircleShape2D_0w7wo")
+debug_color = Color(0.963149, 0, 0.500419, 0.42)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
