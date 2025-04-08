@@ -17,6 +17,7 @@ config/icon="res://Player/Sprites/icon.svg"
 
 [autoload]
 
+Temp="*res://inventory/scripts/Temp.gd"
 Config="*res://Config.cs"
 
 [display]
