@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://h65kwo5pyyxy"]
+[gd_scene load_steps=5 format=3 uid="uid://h65kwo5pyyxy"]
 
 [ext_resource type="Script" path="res://inventory/scripts/inventory_slot.gd" id="1_c6kff"]
 [ext_resource type="Script" path="res://inventory/scripts/player_inv.gd" id="2_hcslw"]
 [ext_resource type="Script" path="res://inventory/scripts/chest_inv.gd" id="3_yb10t"]
+[ext_resource type="Script" path="res://inventory/scripts/stat_label.gd" id="4_g61wg"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -53,10 +54,10 @@ script = ExtResource("2_hcslw")
 [node name="Chest1" type="GridContainer" parent="."]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 0
-offset_left = 704.0
-offset_top = 384.0
-offset_right = 1152.0
-offset_bottom = 640.0
+offset_left = 888.0
+offset_top = 408.0
+offset_right = 1336.0
+offset_bottom = 664.0
 theme_override_constants/h_separation = 16
 theme_override_constants/v_separation = 16
 columns = 6
@@ -78,3 +79,4 @@ script = ExtResource("3_yb10t")
 layout_mode = 0
 offset_right = 176.0
 offset_bottom = 104.0
+script = ExtResource("4_g61wg")
