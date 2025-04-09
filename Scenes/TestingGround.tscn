@@ -13,3 +13,19 @@ position = Vector2(240, 135)
 [node name="Dungeon01" parent="." instance=ExtResource("2_cv62i")]
 
 [node name="ShrimpleSlime" parent="." instance=ExtResource("3_gmyew")]
+visible = false
+
+[node name="ShrimpleSlime2" parent="." instance=ExtResource("3_gmyew")]
+position = Vector2(362, -53)
+
+[node name="ShrimpleSlime3" parent="." instance=ExtResource("3_gmyew")]
+position = Vector2(-19, 264)
+
+[node name="ShrimpleSlime4" parent="." instance=ExtResource("3_gmyew")]
+position = Vector2(398, 247)
+
+[node name="ShrimpleSlime5" parent="." instance=ExtResource("3_gmyew")]
+position = Vector2(471, 134)
+
+[node name="ShrimpleSlime6" parent="." instance=ExtResource("3_gmyew")]
+position = Vector2(15, 0)

@@ -11,6 +11,7 @@ var attacking: bool = false
 @onready var walk: State = $"../Walk"
 
 @onready var hitbox: Hitbox = $"../../interactions/Hitbox"
+
 @onready var hurtbox: Hurtbox = $"../../interactions/Hurtbox"
 
 func Enter() -> void:
@@ -24,7 +25,7 @@ func Enter() -> void:
 	pass
 	
 func Exit() -> void:
-	animation_player.animation_finished.disconnect( EndAttack)
+	animation_player.animation_finished.disconnect(EndAttack)
 	attacking = false
 	
 	hurtbox.monitoring = true

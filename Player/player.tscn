@@ -207,6 +207,7 @@ collision_mask = 2
 script = ExtResource("1_7jpn7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, -27)
 shape = SubResource("CircleShape2D_edhvl")
 one_way_collision_margin = 10.0
@@ -249,6 +250,7 @@ collision_mask = 512
 script = ExtResource("11_gcxqq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="interactions/Hitbox"]
+visible = false
 shape = SubResource("CircleShape2D_501hd")
 debug_color = Color(0.308247, 0.493797, 1, 0.42)
 
@@ -259,6 +261,7 @@ collision_mask = 4
 script = ExtResource("8_i54rl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="interactions/Hurtbox"]
+visible = false
 shape = SubResource("CircleShape2D_0w7wo")
 debug_color = Color(0.963149, 0, 0.500419, 0.42)
 
