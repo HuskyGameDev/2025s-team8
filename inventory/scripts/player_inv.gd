@@ -23,13 +23,8 @@ func _ready():
 		self.get_child(i).add_child(item)
 		
 func _input(event):
-	if event is InputEventKey and event.is_released():
-		if event.keycode == KEY_E:
-			if visible:
-				hide()
-				#shown = false
-				#print("Here")
-			else:
-				show()
-				#shown = true
-				#print("Not here")
+	if event is InputEventKey and Input.is_action_just_released("Inventory"):
+		if visible:
+			hide()
+		else:
+			show()

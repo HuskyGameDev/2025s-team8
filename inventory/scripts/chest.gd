@@ -18,6 +18,6 @@ func _on_body_exited(body):
 		chest_inventory.hide()
 
 func _input(event):
-	if event is InputEventKey and event.is_released() and event.keycode == KEY_F:
+	if event is InputEventKey and Input.is_action_just_released("Interact"):
 		if player_nearby:
 			chest_inventory.visible = not chest_inventory.visible

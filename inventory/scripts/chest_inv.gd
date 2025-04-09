@@ -57,13 +57,3 @@ func _ready() -> void:
 			if added:
 				self.get_child(cur_items).add_child(item)
 				cur_items += 1
-				
-func _input(event):
-	if event is InputEventKey and event.is_released() and false:
-		if event.keycode == KEY_F:
-			if visible:
-				hide()
-				#print("Here")
-			else:
-				show()
-				#print("Not here")
