@@ -9,7 +9,8 @@ var pos_items := [
 	#Add items that can appear in chest
 	preload("res://inventory/items/staff.tres").duplicate(),
 	preload("res://inventory/items/sword.tres").duplicate(),
-	preload("res://inventory/items/potion.tres").duplicate()
+	preload("res://inventory/items/potion.tres").duplicate(),
+	preload("res://inventory/items/coin.tres").duplicate()
 ]
 #Min number of items that should be in the chest
 var min_items: int = 2
@@ -20,11 +21,12 @@ var rand = RandomNumberGenerator.new()
 func _ready() -> void:
 	#Should create different seed on each run
 	rand.randomize()
+	hide()
 	
 	#Creates the amount of space in the chest
 	for i in 24:
 		var slot := InventorySlot.new()
-		slot.init(ItemData.Type.MAIN, Vector2(32, 32))
+		slot.init(ItemData.Type.MAIN, Vector2(24, 24))
 		#%Chest.add_child(slot)
 		self.add_child(slot)
 		
@@ -57,7 +59,7 @@ func _ready() -> void:
 				cur_items += 1
 				
 func _input(event):
-	if event is InputEventKey and event.is_released():
+	if event is InputEventKey and event.is_released() and false:
 		if event.keycode == KEY_F:
 			if visible:
 				hide()

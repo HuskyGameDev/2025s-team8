@@ -15,7 +15,7 @@ func _ready():
 	#creates a number of slots
 	for i in 24:
 		var slot := InventorySlot.new()
-		slot.init(ItemData.Type.MAIN, Vector2(48, 48))
+		slot.init(ItemData.Type.MAIN, Vector2(64, 64))
 		self.add_child(slot)
 	for i in items_to_load.size():
 		var item = InventoryItem.new(null)

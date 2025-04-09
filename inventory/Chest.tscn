@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://dytx21xto4i4b"]
+
+[ext_resource type="Script" path="res://inventory/scripts/chest.gd" id="1_vvwy0"]
+[ext_resource type="Texture2D" uid="uid://brqs35qrwbb8s" path="res://inventory/temp art/512/backpack.png" id="1_ylvnh"]
+[ext_resource type="Script" path="res://inventory/scripts/chest_inv.gd" id="2_kqorm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mgv8m"]
+radius = 24.0
+
+[node name="Chest" type="Area2D"]
+script = ExtResource("1_vvwy0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(376, 112)
+shape = SubResource("CircleShape2D_mgv8m")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(376, 112)
+scale = Vector2(0.0664062, 0.0664062)
+texture = ExtResource("1_ylvnh")
+
+[node name="Chest" type="GridContainer" parent="."]
+custom_minimum_size = Vector2(10, 10)
+offset_left = 280.0
+offset_top = -80.0
+offset_right = 480.0
+offset_bottom = 80.0
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 16
+columns = 6
+script = ExtResource("2_kqorm")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cq1dxd0m5csx1"]
+[gd_scene load_steps=29 format=3 uid="uid://cq1dxd0m5csx1"]
 
 [ext_resource type="Script" path="res://Player/Scripts/playerMovement.gd" id="1_7jpn7"]
 [ext_resource type="Texture2D" uid="uid://cnjgjy3iynxlu" path="res://Player/Sprites/PlayerSprite02.png" id="2_ilxdi"]
@@ -11,6 +11,9 @@
 [ext_resource type="Script" path="res://GeneralNodes/Hurtbox.gd" id="8_i54rl"]
 [ext_resource type="PackedScene" uid="uid://dh1y5183jb8ng" path="res://GeneralNodes/hurtbox.tscn" id="8_xntua"]
 [ext_resource type="Script" path="res://GeneralNodes/Hitbox.gd" id="11_gcxqq"]
+[ext_resource type="Script" path="res://inventory/scripts/inventory_slot.gd" id="12_4o1o5"]
+[ext_resource type="Script" path="res://inventory/scripts/player_inv.gd" id="13_p2coq"]
+[ext_resource type="Script" path="res://inventory/scripts/stat_label.gd" id="14_2rqd7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_edhvl"]
 radius = 25.02
@@ -267,3 +270,61 @@ debug_color = Color(0.963149, 0, 0.500419, 0.42)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="InventorySlot2" type="PanelContainer" parent="CanvasLayer/Control"]
+visible = false
+offset_left = 272.0
+offset_top = 184.0
+offset_right = 336.0
+offset_bottom = 248.0
+script = ExtResource("12_4o1o5")
+type = 2
+
+[node name="InventorySlot3" type="PanelContainer" parent="CanvasLayer/Control"]
+visible = false
+offset_left = 152.0
+offset_top = 184.0
+offset_right = 216.0
+offset_bottom = 248.0
+script = ExtResource("12_4o1o5")
+
+[node name="InventorySlot" type="PanelContainer" parent="CanvasLayer/Control"]
+visible = false
+offset_left = 32.0
+offset_top = 184.0
+offset_right = 96.0
+offset_bottom = 248.0
+script = ExtResource("12_4o1o5")
+type = 1
+
+[node name="Player_inv" type="GridContainer" parent="CanvasLayer/Control"]
+visible = false
+custom_minimum_size = Vector2(10, 10)
+offset_left = 40.0
+offset_top = 344.0
+offset_right = 528.0
+offset_bottom = 816.0
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 16
+columns = 6
+script = ExtResource("13_p2coq")
+
+[node name="Stats" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 48.0
+offset_right = 360.0
+offset_bottom = 168.0
+theme_override_font_sizes/font_size = 32
+script = ExtResource("14_2rqd7")
