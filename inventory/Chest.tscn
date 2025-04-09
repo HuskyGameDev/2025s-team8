@@ -11,21 +11,30 @@ radius = 24.0
 script = ExtResource("1_vvwy0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(376, 112)
+position = Vector2(929, 545)
 shape = SubResource("CircleShape2D_mgv8m")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(376, 112)
+position = Vector2(929, 545)
 scale = Vector2(0.0664062, 0.0664062)
 texture = ExtResource("1_ylvnh")
 
-[node name="Chest" type="GridContainer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="Chest" type="GridContainer" parent="CanvasLayer"]
 custom_minimum_size = Vector2(10, 10)
-offset_left = 280.0
-offset_top = -80.0
-offset_right = 480.0
-offset_bottom = 80.0
-theme_override_constants/h_separation = 16
-theme_override_constants/v_separation = 16
+offset_left = 728.0
+offset_top = 128.0
+offset_right = 1128.0
+offset_bottom = 448.0
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
 columns = 6
 script = ExtResource("2_kqorm")

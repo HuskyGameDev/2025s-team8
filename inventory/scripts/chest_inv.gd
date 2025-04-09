@@ -26,7 +26,7 @@ func _ready() -> void:
 	#Creates the amount of space in the chest
 	for i in 24:
 		var slot := InventorySlot.new()
-		slot.init(ItemData.Type.MAIN, Vector2(24, 24))
+		slot.init(ItemData.Type.MAIN, Vector2(64, 64))
 		#%Chest.add_child(slot)
 		self.add_child(slot)
 		
@@ -57,13 +57,3 @@ func _ready() -> void:
 			if added:
 				self.get_child(cur_items).add_child(item)
 				cur_items += 1
-				
-func _input(event):
-	if event is InputEventKey and event.is_released() and false:
-		if event.keycode == KEY_F:
-			if visible:
-				hide()
-				#print("Here")
-			else:
-				show()
-				#print("Not here")

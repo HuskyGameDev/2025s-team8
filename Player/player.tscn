@@ -284,33 +284,37 @@ mouse_filter = 2
 
 [node name="InventorySlot2" type="PanelContainer" parent="CanvasLayer/Control"]
 visible = false
-offset_left = 272.0
-offset_top = 184.0
-offset_right = 336.0
-offset_bottom = 248.0
+layout_mode = 0
+offset_left = 360.0
+offset_top = 216.0
+offset_right = 424.0
+offset_bottom = 280.0
 script = ExtResource("12_4o1o5")
 type = 2
 
 [node name="InventorySlot3" type="PanelContainer" parent="CanvasLayer/Control"]
 visible = false
-offset_left = 152.0
-offset_top = 184.0
-offset_right = 216.0
-offset_bottom = 248.0
+layout_mode = 0
+offset_left = 240.0
+offset_top = 216.0
+offset_right = 304.0
+offset_bottom = 280.0
 script = ExtResource("12_4o1o5")
 
 [node name="InventorySlot" type="PanelContainer" parent="CanvasLayer/Control"]
 visible = false
-offset_left = 32.0
-offset_top = 184.0
-offset_right = 96.0
-offset_bottom = 248.0
+layout_mode = 0
+offset_left = 120.0
+offset_top = 216.0
+offset_right = 184.0
+offset_bottom = 280.0
 script = ExtResource("12_4o1o5")
 type = 1
 
 [node name="Player_inv" type="GridContainer" parent="CanvasLayer/Control"]
 visible = false
 custom_minimum_size = Vector2(10, 10)
+layout_mode = 0
 offset_left = 40.0
 offset_top = 344.0
 offset_right = 528.0

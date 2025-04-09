@@ -70,16 +70,10 @@ func _drop_data(_at_position: Vector2, data: Variant) -> void:
 		#print("Damage: %d\nDefense: %d\nSlot: %s\n" % [Player_Stats.dam, Player_Stats.def, data.data.slot_type])
 	print("Damage: %d\nDefense: %d\n" % [Player_Stats.dam, Player_Stats.def])
 	data.reparent(self)
-	
-#Most likely a temp function but allows for the inventory to have its visibility changed
-#When actual input is decided, this function will most likely be moved to the individual inventories
-#Currently each inventory is set to a different key
+
 func _input(event):
-	if event is InputEventKey and event.is_released():
-		if event.keycode == KEY_E and type != ItemData.Type.MAIN:
+	if event is InputEventKey and Input.is_action_just_released("Inventory") and type != ItemData.Type.MAIN:
 			if visible:
 				hide()
-				#print("Here")
 			else:
 				show()
-				#print("Not here")
