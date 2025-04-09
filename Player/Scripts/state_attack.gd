@@ -12,6 +12,8 @@ var attacking: bool = false
 
 @onready var hitbox: Hitbox = $"../../interactions/Hitbox"
 
+@onready var hurtbox: Hurtbox = $"../../interactions/Hurtbox"
+
 func Enter() -> void:
 	player.UpdateAnimation("attack")
 	animation_player.animation_finished.connect(EndAttack)
@@ -19,14 +21,14 @@ func Enter() -> void:
 	
 	#this essentially delays the animation for turning on the hurt
 	await get_tree().create_timer(.075).timeout
-	hitbox.monitoring = true
+	hurtbox.monitoring = true
 	pass
 	
 func Exit() -> void:
-	animation_player.animation_finished.disconnect( EndAttack)
+	animation_player.animation_finished.disconnect(EndAttack)
 	attacking = false
 	
-	hitbox.monitoring = true
+	hurtbox.monitoring = true
 	pass
 	
 func Process(_delta : float) -> State:
@@ -50,3 +52,6 @@ func HandleInput(_event: InputEvent) -> State:
 	#
 func EndAttack(_newAnimName : String) -> void:
 	attacking = false
+	hurtbox.monitoring = false;
+
+	

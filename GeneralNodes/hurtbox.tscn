@@ -3,4 +3,5 @@
 [ext_resource type="Script" path="res://GeneralNodes/Hurtbox.gd" id="1_nj736"]
 
 [node name="Hurtbox" type="Area2D"]
+monitorable = false
 script = ExtResource("1_nj736")

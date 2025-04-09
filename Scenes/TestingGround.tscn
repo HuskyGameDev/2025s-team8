@@ -1,13 +1,31 @@
-[gd_scene load_steps=3 format=3 uid="uid://j2ey5y83jld0"]
+[gd_scene load_steps=4 format=3 uid="uid://j2ey5y83jld0"]
 
 [ext_resource type="PackedScene" uid="uid://cq1dxd0m5csx1" path="res://Player/player.tscn" id="1_6exw8"]
 [ext_resource type="PackedScene" uid="uid://ejm2wcvxoaoq" path="res://Tile Maps/base dungeon.tscn" id="2_cv62i"]
+[ext_resource type="PackedScene" uid="uid://dbb2tnmyhd6xr" path="res://SlimeEnemy/slimeEnemy.tscn" id="3_gmyew"]
 
 [node name="TestingGround" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_6exw8")]
 top_level = true
-position = Vector2(901, 171)
+position = Vector2(240, 135)
 
-[node name="BaseDungeon" parent="." instance=ExtResource("2_cv62i")]
-show_behind_parent = true
+[node name="Dungeon01" parent="." instance=ExtResource("2_cv62i")]
+
+[node name="ShrimpleSlime" parent="." instance=ExtResource("3_gmyew")]
+visible = false
+
+[node name="ShrimpleSlime2" parent="." instance=ExtResource("3_gmyew")]
+position = Vector2(362, -53)
+
+[node name="ShrimpleSlime3" parent="." instance=ExtResource("3_gmyew")]
+position = Vector2(-19, 264)
+
+[node name="ShrimpleSlime4" parent="." instance=ExtResource("3_gmyew")]
+position = Vector2(398, 247)
+
+[node name="ShrimpleSlime5" parent="." instance=ExtResource("3_gmyew")]
+position = Vector2(471, 134)
+
+[node name="ShrimpleSlime6" parent="." instance=ExtResource("3_gmyew")]
+position = Vector2(15, 0)

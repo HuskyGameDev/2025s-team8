@@ -51,12 +51,13 @@ func SetDirection() -> bool:
 	sprite.scale.x = -1 if cardinal_direction == Vector2.LEFT else 1
 	return true
 
+#function to change update the animation
 
 
 
 #function to change update the animation
 func UpdateAnimation(state: String) -> void: 
-	animation_player.play( state + "_" + AnimDirection() )
+	animation_player.play(state + "_" + AnimDirection())
 	#print(state + "_" + AnimDirection() )
 	pass
 	
