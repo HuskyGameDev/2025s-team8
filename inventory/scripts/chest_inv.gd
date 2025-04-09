@@ -26,7 +26,7 @@ func _ready() -> void:
 	#Creates the amount of space in the chest
 	for i in 24:
 		var slot := InventorySlot.new()
-		slot.init(ItemData.Type.MAIN, Vector2(24, 24))
+		slot.init(ItemData.Type.MAIN, Vector2(64, 64))
 		#%Chest.add_child(slot)
 		self.add_child(slot)
 		
