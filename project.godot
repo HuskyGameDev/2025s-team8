@@ -19,6 +19,7 @@ config/icon="res://Player/Sprites/icon.svg"
 
 Temp="*res://inventory/scripts/Temp.gd"
 Config="*res://Config.cs"
+LevelManager="*res://World_LevelLoader/LevelManager.gd"
 
 [display]
 
