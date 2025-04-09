@@ -142,7 +142,13 @@ public partial class KeyboardSettings : SettingsCategory {
         string s = "";
         if (ie is InputEventKey) {
             s += "Key ";
-            s += OS.GetKeycodeString(((InputEventKey)ie).Keycode);
+            if (((InputEventKey)ie).Keycode != Key.None) {
+                s += OS.GetKeycodeString(((InputEventKey)ie).Keycode);
+            } else {
+                // it will be in Physical Keycode instead
+                s += OS.GetKeycodeString(((InputEventKey)ie).PhysicalKeycode);
+            }
+            // Techinically, Unicode is also an option, but absolutely not
         }
         else if (ie is InputEventMouseButton) {
             s += "Mouse ";
@@ -205,9 +211,18 @@ public partial class KeyboardSettings : SettingsCategory {
 				if (value.Equals("NOTFOUND")) {
 					// Set it to the default in settings
 					cfg.Set("Keyboard", ctrl, this.EncodeInputEvent(ie));
+
 				} else if (!value.Equals(this.EncodeInputEvent(ie))){
 					// Config has a different setting than default, use it
-					InputEvent cfge = this.DecodeInputEvent(value); // Better hope the config does not have a malformed keybind...
+					InputEvent cfge = this.DecodeInputEvent(value);
+
+
+                    // Try to better ensure that malformed keybinds are not overwriting ones that, at the very least, still work
+                    if (cfge is null || (cfge is InputEventKey && ((InputEventKey)cfge).Keycode == Key.None)) {
+                        GD.PrintErr("CONTROL \"" + ctrl + "\" FAILED TO UPDATE FROM CONFIG");
+                        break;
+                    }
+
 					InputMap.ActionEraseEvent(ctrl, ie);
 					InputMap.ActionAddEvent(ctrl, cfge);
 				}
