@@ -16,7 +16,7 @@
 [ext_resource type="Script" path="res://inventory/scripts/stat_label.gd" id="14_2rqd7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_edhvl"]
-radius = 25.02
+radius = 18.8119
 
 [sub_resource type="Animation" id="Animation_c7b5j"]
 resource_name = "Idle_down"
@@ -205,13 +205,14 @@ radius = 23.0868
 
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(1, -1)
+scale = Vector2(0.75, 0.75)
 collision_layer = 3
 collision_mask = 2
 script = ExtResource("1_7jpn7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
-position = Vector2(0, -27)
+position = Vector2(-1.33333, -16)
 shape = SubResource("CircleShape2D_edhvl")
 one_way_collision_margin = 10.0
 
@@ -269,7 +270,7 @@ shape = SubResource("CircleShape2D_0w7wo")
 debug_color = Color(0.963149, 0, 0.500419, 0.42)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
+zoom = Vector2(2.5, 2.5)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

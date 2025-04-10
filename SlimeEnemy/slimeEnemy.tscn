@@ -59,7 +59,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_aa2n2"]
-radius = 102.176
+radius = 94.451
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ljg62"]
 radius = 22.561
@@ -72,8 +72,9 @@ radius = 21.8403
 
 [node name="ShrimpleSlime" type="CharacterBody2D"]
 position = Vector2(18, 11)
+scale = Vector2(0.9, 0.9)
 collision_layer = 6
-collision_mask = 0
+collision_mask = 2
 script = ExtResource("1_c6y2h")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -96,6 +97,8 @@ shape = SubResource("CircleShape2D_aa2n2")
 debug_color = Color(0.642402, 0.523623, 0.00628106, 0.42)
 
 [node name="HitBox" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("3_uceoe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
