@@ -1,6 +1,6 @@
 class_name state_attack extends State
 
-#tutorial is using animatino player
+#tutorial is using animatinon player
 #consider switching to time
 
 var attacking: bool = false
@@ -28,7 +28,7 @@ func Exit() -> void:
 	animation_player.animation_finished.disconnect(EndAttack)
 	attacking = false
 	
-	hurtbox.monitoring = true
+	hurtbox.monitoring = false
 	pass
 	
 func Process(_delta : float) -> State:

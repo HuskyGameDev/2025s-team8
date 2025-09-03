@@ -8,7 +8,7 @@ signal Damaged(damaged : int)
 # set collision layer.
 func _init() -> void:
 	collision_layer = 3
-	collision_mask = 0
+	collision_mask = 3
 
 
 func set_damage(value: int):
@@ -18,5 +18,5 @@ func get_damage() -> int:
 	return damage
 	
 func TakeDamage(damage: int) -> void:
-	print("I have taken damage")
 	Damaged.emit(damage)
+#
