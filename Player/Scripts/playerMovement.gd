@@ -9,12 +9,43 @@ var direction : Vector2 = Vector2.ZERO
 @onready var sprite : Sprite2D = $Sprite2D
 @onready var state_machine : PlayerStateMachine = $StateMachine
 
+#health here
+signal player_damaged(hurt_box: Hurtbox)
+var invincible : bool = false
+var hp : int = 10
+var max_hp: int = 10
+@onready var hitbox: Hitbox = $interactions/Hitbox
+@onready var effect_player: AnimationPlayer = $EffectPlayer
+
+ #references the hitbox of the player 
+
 signal DirectionChanged( _new_direction: Vector2)
 	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	state_machine.Initialize(self)
+	hitbox.Damaged.connect(TakeDamage)
+	update_hp(10)
 	pass # Replace with function body.
+
+func TakeDamage(hurt_box: Hurtbox) -> void:
+	if hp > 0:
+		player_damaged.emit(hurt_box)
+	else:
+		player_damaged.emit(hurt_box)
+	
+	#queue_free()
+	if hp <= 0:
+		queue_free()
+	pass
+	
+func update_hp(delta:int) -> void:
+	hp = hp + delta
+	if hp > max_hp:
+		hp = max_hp
+		
+
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -69,3 +100,15 @@ func AnimDirection() -> String:
 		return "up"
 	else:
 		return "side"
+		
+func _on_detection_area_body_entered(_body: Node2D) -> void:
+	
+	pass # Replace with function body.
+
+func MakeInvincible ( _duration : float = 1.0) -> void:
+	invincible = true
+	
+	await get_tree().create_timer(_duration).timeout # wait 1 seconf before code continues
+	
+	invincible = false
+	pass

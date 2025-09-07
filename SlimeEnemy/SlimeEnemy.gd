@@ -7,10 +7,13 @@ var direction : Vector2 = Vector2.ZERO
 var knockback : float = 10
 #@onready var mc: Player = $"."
 
+var hp: int = 3
+
+
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
 @onready var sprite : Sprite2D = $Sprite2D
 # Called when the node enters the scene tree for the first time.
-var hp: int = 3
+
 
 func _physics_process(_delta: float):
 	
@@ -46,7 +49,6 @@ func _ready():
 	
 func TakeDamage(_damage:int) -> void:
 	hp = hp - _damage#underscore means optional
-	print("The player has taken damage")
 	#queue_free()
 	if hp <= 0:
 		queue_free()
