@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://nc2ehch2j28e"]
+
+[ext_resource type="Script" path="res://Projectiles/projectile.gd" id="1_754fr"]
+[ext_resource type="Texture2D" uid="uid://h0o680jeoqp2" path="res://Projectiles/pixil-frame-0 - 2025-09-07T135944.104.png" id="2_77ofa"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ltu5o"]
+radius = 2.0
+
+[node name="Hurtbox" type="Area2D"]
+scale = Vector2(2, 2)
+collision_layer = 8
+collision_mask = 11
+priority = 1
+script = ExtResource("1_754fr")
+damage = 1.0
+speed = 200.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_77ofa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ltu5o")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

@@ -14,10 +14,14 @@ var attacking: bool = false
 
 @onready var hurtbox: Hurtbox = $"../../interactions/Hurtbox"
 
+#temporary addition just to visualize the hurtbox area
+@onready var attackSprite: Sprite2D = $"../../interactions/Hurtbox/Sprite2D"
+
 func Enter() -> void:
 	player.UpdateAnimation("attack")
 	animation_player.animation_finished.connect(EndAttack)
 	attacking = true
+	attackSprite.visible = true
 	
 	#this essentially delays the animation for turning on the hurt
 	await get_tree().create_timer(.075).timeout
@@ -53,5 +57,6 @@ func HandleInput(_event: InputEvent) -> State:
 func EndAttack(_newAnimName : String) -> void:
 	attacking = false
 	hurtbox.monitoring = false;
+	attackSprite.visible = false
 
 	
