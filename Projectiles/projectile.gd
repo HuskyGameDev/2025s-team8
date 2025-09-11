@@ -14,10 +14,3 @@ func _process(delta: float) -> void:
 
 func _on_body_entered(a):
 	queue_free()
-
-
-func _on_area_entered(area):
-	if area is Hitbox:
-		area.TakeDamage(damage)
-		print("Damaged a hitbox.")
-		queue_free()
