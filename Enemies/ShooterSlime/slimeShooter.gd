@@ -1,7 +1,7 @@
 extends Enemy
 
 
-@export var move_speed : float = 100
+var move_speed : float = 40
 var wander_dir_timer : float = 0
 var randAngle = randf() * TAU
 
@@ -11,7 +11,7 @@ var shoot_timer: float = shoot_delay
 
 
 func _physics_process(delta: float):
-	if chase_player:
+	if player_found:
 		chase(player.position - position)
 		try_shoot(delta)
 	else:
@@ -63,10 +63,10 @@ func shoot():
 func _on_detection_area_body_entered(_body: Node2D) -> void:
 	if(player == null and _body is Player):
 		player = _body
-		chase_player = true
+		player_found = true
 		
 		
-func _on_detection_area_body_exited(_body: Node2D) -> void:
-	if(_body is Player):
-		player = null
-		chase_player = false	
+#func _on_detection_area_body_exited(_body: Node2D) -> void:
+	#if(_body is Player):
+		#player = null
+		#chase_player = false	
