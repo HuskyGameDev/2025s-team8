@@ -32,7 +32,7 @@ func Exit() -> void:
 	animation_player.animation_finished.disconnect(EndAttack)
 	attacking = false
 	
-	hurtbox.monitoring = true
+	hurtbox.monitoring = false
 	pass
 	
 func Process(_delta : float) -> State:
