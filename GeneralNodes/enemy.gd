@@ -18,7 +18,14 @@ func _ready():
 		
 func TakeDamage(_damage:int) -> void:
 	hp = hp - _damage#underscore means optional
+	flash_red()
 	print(enemy_name + " took " + str(_damage) + " damage.")
 	if hp <= 0:
 		queue_free()
+		
+		
+func flash_red():
+	$Sprite2D.modulate = Color(1,0,0)
+	await get_tree().create_timer(0.1).timeout
+	$Sprite2D.modulate = Color(1,1,1,1)
 		

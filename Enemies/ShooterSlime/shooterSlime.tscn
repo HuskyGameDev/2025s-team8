@@ -73,7 +73,6 @@ scale = Vector2(0.9, 0.9)
 collision_layer = 4
 collision_mask = 7
 script = ExtResource("1_x183d")
-move_speed = 60.0
 projectile_scene = ExtResource("2_5jurx")
 enemy_name = "Shooter"
 
