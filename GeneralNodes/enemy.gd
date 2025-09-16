@@ -5,8 +5,7 @@ class_name Enemy extends CharacterBody2D
 @export var player: Node2D = null
 #@onready var mc: Player = $"."
 
-# Called when the node enters the scene tree for the first time.
-var hp: int = 3
+@export var hp: int = 3
 
 @export var enemy_name : String
 
@@ -25,7 +24,7 @@ func TakeDamage(_damage:int) -> void:
 		
 		
 func flash_red():
-	$Sprite2D.modulate = Color(1,0,0)
+	$Sprite2D.modulate = Color(200,0,0) # reddw
 	await get_tree().create_timer(0.1).timeout
-	$Sprite2D.modulate = Color(1,1,1,1)
+	$Sprite2D.modulate = Color(1,1,1,1) # back to normal
 		
