@@ -22,10 +22,10 @@ func Enter() -> void:
 	#knockback here
 	direction = player.global_position.direction_to(hurt_box.global_position)
 	player.velocity = direction *-knockback_speed
-	player.set_direction()
+	player.SetDirection()
 	
 	#Invincible state
-	player.MakenvInvincible(invulnerable_duration)
+	player.MakeInvincible(invulnerable_duration)
 	player.effect_player.play("damaged")
 	
 	pass

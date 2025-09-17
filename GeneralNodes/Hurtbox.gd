@@ -4,11 +4,11 @@ extends Area2D
 
 signal received_damage(damage: int) #any time damage is recieved
 @export var damage : int = 1
+
 #@export var health: Health
 
 func _init() -> void:
-	collision_layer = 0
-	collision_mask = 3
+	pass
 	
 	
 # .
@@ -18,6 +18,6 @@ func _ready() -> void:
 # .
 func _on_area_entered(a : Area2D) -> void:
 	if a is Hitbox:
-		a.TakeDamage(damage)
+		a.TakeDamage(self)
 		#health.health -= hitbox.damage
 		

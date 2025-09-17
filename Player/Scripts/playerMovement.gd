@@ -18,6 +18,9 @@ var max_hp: int = 10
 @onready var effect_player: AnimationPlayer = $EffectPlayer
 
  #references the hitbox of the player 
+@onready var mainhitbox: Hitbox = $interactions/Hitbox
+@onready var mainhurtbox: Hurtbox = $interactions/Hurtbox
+
 
 signal DirectionChanged( _new_direction: Vector2)
 	
@@ -29,13 +32,14 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func TakeDamage(hurt_box: Hurtbox) -> void:
+	if invincible == true:
+		return
+	update_hp(-hurt_box.damage)
+	#queue_free()
+	
 	if hp > 0:
 		player_damaged.emit(hurt_box)
 	else:
-		player_damaged.emit(hurt_box)
-	
-	#queue_free()
-	if hp <= 0:
 		queue_free()
 	pass
 	
@@ -43,7 +47,6 @@ func update_hp(delta:int) -> void:
 	hp = hp + delta
 	if hp > max_hp:
 		hp = max_hp
-		
 
 	pass
 
@@ -107,8 +110,11 @@ func _on_detection_area_body_entered(_body: Node2D) -> void:
 
 func MakeInvincible ( _duration : float = 1.0) -> void:
 	invincible = true
-	
+	mainhitbox.monitorable = false
+	mainhitbox.monitoring = false
 	await get_tree().create_timer(_duration).timeout # wait 1 seconf before code continues
 	
 	invincible = false
+	mainhitbox.monitorable = true
+	mainhitbox.monitoring = true
 	pass
