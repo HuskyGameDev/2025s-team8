@@ -10,7 +10,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_4qagi")
-texts = Array[String](["This is for a test", "Second test", "Third test"])
+texts = Array[String](["This is the first.", "The second.", "And the third."])
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -27,3 +27,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/normal_font_size = 100
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -136.0
+offset_top = -69.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 50
+text = "Enter"
