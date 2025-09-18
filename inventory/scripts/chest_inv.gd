@@ -1,16 +1,25 @@
 extends Control
 
 
+const Item: CSharpScript = preload("res://Classes/Items/Item.cs")
+
 #Will need way for player to interact so that it shows on screen
 #but this can be worried about a bit later, will also need to be able to differentiate
 #between different chests
 
+var Items = load("res://Inventory/Items.cs")
+
+
 var pos_items := [
 	#Add items that can appear in chest
-	preload("res://inventory/items/staff.tres").duplicate(),
-	preload("res://inventory/items/sword.tres").duplicate(),
-	preload("res://inventory/items/potion.tres").duplicate(),
-	preload("res://inventory/items/coin.tres").duplicate()
+	Items.staff,
+	Items.sword,
+	Items.potion,
+	Items.coin
+	# preload("res://Inventory/items/staff.tres").duplicate(),
+	# preload("res://Inventory/items/sword.tres").duplicate(),
+	# preload("res://Inventory/items/potion.tres").duplicate(),
+	# preload("res://Inventory/items/coin.tres").duplicate()
 ]
 #Min number of items that should be in the chest
 var min_items: int = 2
@@ -26,7 +35,7 @@ func _ready() -> void:
 	#Creates the amount of space in the chest
 	for i in 24:
 		var slot := InventorySlot.new()
-		slot.init(ItemData.Type.MAIN, Vector2(64, 64))
+		slot.init(Item, Vector2(64, 64))
 		#%Chest.add_child(slot)
 		self.add_child(slot)
 		

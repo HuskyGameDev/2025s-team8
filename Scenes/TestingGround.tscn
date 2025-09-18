@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cq1dxd0m5csx1" path="res://Player/player.tscn" id="1_6exw8"]
 [ext_resource type="PackedScene" uid="uid://ejm2wcvxoaoq" path="res://Tile Maps/base dungeon.tscn" id="2_cv62i"]
 [ext_resource type="PackedScene" uid="uid://dbb2tnmyhd6xr" path="res://SlimeEnemy/slimeEnemy.tscn" id="3_gmyew"]
-[ext_resource type="PackedScene" uid="uid://dytx21xto4i4b" path="res://inventory/Chest.tscn" id="4_rkng0"]
+[ext_resource type="PackedScene" uid="uid://dytx21xto4i4b" path="res://Inventory/Chest.tscn" id="4_rkng0"]
 
 [node name="TestingGround" type="Node2D"]
 

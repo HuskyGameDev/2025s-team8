@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cbkg21grvejbp"
-path="res://.godot/imported/upg_armor.png-216ea5d335f21c2c0b5de113371057e2.ctex"
+path="res://.godot/imported/upg_armor.png-0bf72135acd3cd0c5a68477058d16c64.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://inventory/temp art/512/upg_armor.png"
-dest_files=["res://.godot/imported/upg_armor.png-216ea5d335f21c2c0b5de113371057e2.ctex"]
+source_file="res://Inventory/temp art/512/upg_armor.png"
+dest_files=["res://.godot/imported/upg_armor.png-0bf72135acd3cd0c5a68477058d16c64.ctex"]
 
 [params]
 

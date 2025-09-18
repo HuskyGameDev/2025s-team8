@@ -27,7 +27,6 @@ theme = ExtResource("1_yn3jy")
 text = "Hell's Dungeon"
 
 [node name="continue" parent="." instance=ExtResource("3_wa0jo")]
-visible = false
 layout_mode = 0
 anchors_preset = 0
 anchor_right = 0.0

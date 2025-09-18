@@ -2,12 +2,12 @@ extends Control
 
 #Use this template for loading instances of a resource
 var items_to_load := [
-	preload("res://inventory/items/coin.tres").duplicate(),
-	preload("res://inventory/items/armor.tres").duplicate(),
-	preload("res://inventory/items/bow.tres").duplicate(),
-	preload("res://inventory/items/potion.tres").duplicate(),
-	preload("res://inventory/items/staff.tres").duplicate(),
-	preload("res://inventory/items/sword.tres").duplicate()
+	preload("res://Inventory/items/coin.tres").duplicate(),
+	preload("res://Inventory/items/armor.tres").duplicate(),
+	preload("res://Inventory/items/bow.tres").duplicate(),
+	preload("res://Inventory/items/potion.tres").duplicate(),
+	preload("res://Inventory/items/staff.tres").duplicate(),
+	preload("res://Inventory/items/sword.tres").duplicate()
 ]
 
 

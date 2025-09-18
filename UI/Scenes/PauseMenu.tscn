@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0oosrgye12er"]
+
+[ext_resource type="Script" path="res://UI/Scripts/PauseMenu.cs" id="1_pp1ki"]
+[ext_resource type="PackedScene" uid="uid://4xppvq5lmyab" path="res://UI/Scenes/NPRButton.tscn" id="1_yqsp2"]
+
+[node name="PauseMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+script = ExtResource("1_pp1ki")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 286.0
+offset_top = 139.0
+offset_right = 1629.0
+offset_bottom = 983.0
+
+[node name="unpause" parent="Panel" instance=ExtResource("1_yqsp2")]
+layout_mode = 1
+offset_left = 345.0
+offset_top = 73.0
+offset_right = 915.473
+offset_bottom = 73.44
+text = "Return to Game"
+
+[node name="settings" parent="Panel" instance=ExtResource("1_yqsp2")]
+layout_mode = 1
+offset_left = 433.0
+offset_top = 600.0
+offset_right = 860.473
+offset_bottom = 600.44
+text = "Exit to Menu"
+
+[node name="exit" parent="Panel" instance=ExtResource("1_yqsp2")]
+layout_mode = 1
+offset_left = 514.0
+offset_top = 348.0
+offset_right = 513.12
+offset_bottom = 348.44
+text = "Settings"

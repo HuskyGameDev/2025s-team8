@@ -16,12 +16,13 @@ public partial class MainMenu : Control {
     const string SETTINGS_SCENE_PATH = "res://UI/Scenes/SettingsMenu.tscn";
     const string LOAD_SCREEN_PATH = "res://UI/Scenes/LoadScreen.tscn";
 
-
+    const string PAUSE_MENU_PATH = "res://UI/Scenes/PauseMenu.tscn";
     const string GAME_SCENE_PATH = "res://Scenes/TestingGround.tscn";
 
     public override void _Ready() {
 		ResourceLoader.LoadThreadedRequest(TRANSITION_PATH);
 		ResourceLoader.LoadThreadedRequest(GAME_SCENE_PATH);
+		ResourceLoader.LoadThreadedRequest(PAUSE_MENU_PATH);
 
         if (continueButton != null) {
             ResourceLoader.LoadThreadedRequest(SAVE_SELECT_PATH);
@@ -58,9 +59,9 @@ public partial class MainMenu : Control {
     private void BeginNewGame() {
         // // Get copies
         // PackedScene transitionScene = (PackedScene) ResourceLoader.LoadThreadedGet(TRANSITION_PATH);
-		// Node tNode = transitionScene.Instantiate();
+        // Node tNode = transitionScene.Instantiate();
         // PackedScene loadScene = (PackedScene) ResourceLoader.LoadThreadedGet(LOAD_SCREEN_PATH);
-		// Node lNode = loadScene.Instantiate();
+        // Node lNode = loadScene.Instantiate();
 
         // // Add into scene (Root -> Transition -> LoadScreen)
         // Node root = this.GetTree().GetRoot();
@@ -68,13 +69,24 @@ public partial class MainMenu : Control {
 
         // // PROBABLY SOME EXTRAS HERE FOR SETTING UP LOADSCREEN TO ACTUALLY START A NEW GAME
         // //   BUT THAT IS NOT IMPLEMENTED YET
-        
+
         // // Begin the transition
         // ((Transition)tNode).BeginTransition(lNode, this, Transition.Mode.topLeft);
 
+
+        // // Bit of a work-around for now, since Transition is not being currently used
+        Node root = this.GetTree().GetRoot();
+
+        // Add the Pause Menu in
+        PackedScene pauseScene = (PackedScene) ResourceLoader.LoadThreadedGet(PAUSE_MENU_PATH);
+        Node pNode = pauseScene.Instantiate();
+        ((PauseMenu)pNode).BeginHidden();
+        root.AddChild(pNode);
+
+        // Add the actual game scene in
         PackedScene gameScene = (PackedScene) ResourceLoader.LoadThreadedGet(GAME_SCENE_PATH);
         Node gNode = gameScene.Instantiate();
-        this.GetParent().AddChild(gNode);
+        this.GetParent().AddChild(gNode); // I *dont* know why it is GetParent() instead of a specific location.
         this.QueueFree();
     }
 

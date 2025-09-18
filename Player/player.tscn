@@ -11,9 +11,9 @@
 [ext_resource type="Script" path="res://GeneralNodes/Hurtbox.gd" id="8_i54rl"]
 [ext_resource type="PackedScene" uid="uid://dh1y5183jb8ng" path="res://GeneralNodes/hurtbox.tscn" id="8_xntua"]
 [ext_resource type="Script" path="res://GeneralNodes/Hitbox.gd" id="11_gcxqq"]
-[ext_resource type="Script" path="res://inventory/scripts/inventory_slot.gd" id="12_4o1o5"]
-[ext_resource type="Script" path="res://inventory/scripts/player_inv.gd" id="13_p2coq"]
-[ext_resource type="Script" path="res://inventory/scripts/stat_label.gd" id="14_2rqd7"]
+[ext_resource type="Script" path="res://Inventory/Scripts/inventory_slot.gd" id="12_4o1o5"]
+[ext_resource type="Script" path="res://Inventory/Scripts/player_inv.gd" id="13_p2coq"]
+[ext_resource type="Script" path="res://Inventory/Scripts/stat_label.gd" id="14_2rqd7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_edhvl"]
 radius = 18.8119

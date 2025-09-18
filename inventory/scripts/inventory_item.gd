@@ -1,16 +1,18 @@
 class_name InventoryItem
 extends TextureRect
 
-@export var data: ItemData
+const Item: CSharpScript = preload("res://Classes/Items/Item.cs")
+
+var data: Item
 
 func _ready() -> void:
 	if data:
 		expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		texture = data.texture
-		tooltip_text = "%s\n%s\nStats: %s Damage, %s Defense" % [data.name, data.description, data.damage, data.defense]
+		texture = data.Call("GetTex")
+		tooltip_text = data.Call("GetTooltip");
 		
-func _init(d: ItemData) -> void:
+func _init(d: Item) -> void:
 	self.data = d
 	
 func _get_drag_data(at_position: Vector2) -> Variant:

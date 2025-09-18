@@ -12,29 +12,58 @@ public partial class SaveSelect : Control {
     const string TRANSITION_PATH = "res://UI/Scenes/Transition.tscn";
     const string LOAD_SCREEN_PATH = "res://UI/Scenes/LoadScreen.tscn";
     private const string MAINMENU_SCENE_PATH = "res://UI/Scenes/MainMenu.tscn";
-    
 
-    public override void _Ready() {
-        if (contButton != null) {
-		    ResourceLoader.LoadThreadedRequest(LOAD_SCREEN_PATH);
+
+    public override void _Ready()
+    {
+        if (contButton != null)
+        {
+            ResourceLoader.LoadThreadedRequest(LOAD_SCREEN_PATH);
             backButton.Pressed += Continue;
 
         }
-        if (eraseButton != null) {
+        if (eraseButton != null)
+        {
             backButton.Pressed += Erase;
-            
+
         }
-        if (backButton != null) {
-		    ResourceLoader.LoadThreadedRequest(MAINMENU_SCENE_PATH);
-		    ResourceLoader.LoadThreadedRequest(TRANSITION_PATH);
+        if (backButton != null)
+        {
+            ResourceLoader.LoadThreadedRequest(MAINMENU_SCENE_PATH);
+            ResourceLoader.LoadThreadedRequest(TRANSITION_PATH);
             backButton.Pressed += GoBack;
         }
 
         // Find and list all save files
-        // NYI
+        DirAccess dir = DirAccess.Open("user://saves");
+        dir.ListDirBegin();
+        string s = dir.GetNext();
+        while (s != "")
+        {
+            if (!s.EndsWith(".hdsave"))
+            {
+                s = dir.GetNext();
+                continue;
+            }
+            // Open the save file for some basic display data
+            // NYI
+
+            // Build the button & display for this save file
+            // NYI
+
+            GD.Print(s);
+            s = dir.GetNext();
+        }
     }
 
-    private void Continue() {
+    private void BuildButton(string s)
+    {
+        SaveLoad.SaveState sv = SaveLoad.LoadBasic(s);
+    }
+
+
+    private void Continue()
+    {
         // NYI
     }
 

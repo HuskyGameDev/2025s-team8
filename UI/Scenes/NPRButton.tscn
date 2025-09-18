@@ -6,10 +6,10 @@
 
 [node name="Button" type="Button"]
 anchors_preset = -1
-anchor_right = 0.052
-anchor_bottom = 0.093
-offset_right = 70.16
-offset_bottom = 69.56
+anchor_right = 0.089
+anchor_bottom = 0.157
+offset_right = -0.880005
+offset_bottom = 0.439987
 theme = ExtResource("2_v7qtr")
 script = ExtResource("2_ufqil")
 
