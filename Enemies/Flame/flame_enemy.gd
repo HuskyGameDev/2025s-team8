@@ -9,6 +9,8 @@ var randAngle = randf() * TAU
 var shoot_delay: float = 1.5
 var shoot_timer: float = shoot_delay
 
+@onready var nav: NavigationAgent2D = $NavigationAgent2D
+
 
 func _physics_process(delta: float):
 	if player_found:
@@ -31,9 +33,13 @@ func wander(delta : float):
 
 func chase(dif) -> void:
 	var distance = dif.length()
-	if(distance > 120):
-		velocity = dif.normalized() * move_speed
-	elif(distance < 90): # too close, back up!
+	if(distance > 100):
+		#velocity = dif.normalized() * move_speed
+		nav.target_position = player.position
+		if(nav.is_navigation_finished() == false):
+			var navDir = (nav.get_next_path_position() - position).normalized()
+			velocity = navDir * move_speed
+	elif(distance < 60): # too close, back up!
 		velocity = -dif.normalized() * move_speed
 	else:
 		velocity = Vector2.ZERO

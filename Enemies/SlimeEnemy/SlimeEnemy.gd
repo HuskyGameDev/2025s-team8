@@ -7,6 +7,7 @@ var randAngle = randf() * TAU
 var leap_timer: float = 0
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
 @onready var sprite : Sprite2D = $Sprite2D
+@onready var nav: NavigationAgent2D = $NavigationAgent2D
 
 @export var hurt_box: Hurtbox
 
@@ -49,20 +50,17 @@ func chase(dif, delta) -> void:
 			leap_force = 1
 			hurt_box.monitoring = false
 	
-	
-	
-	
-	
 	if(distance > 50 or leap_force > 1):
-		velocity = dif.normalized() * move_speed * leap_force
+		#velocity = dif.normalized * move_speed * leap_force
+		nav.target_position = player.position
+		if(nav.is_navigation_finished() == false):
+			var navDir = (nav.get_next_path_position() - position).normalized()
+			velocity = navDir * move_speed * leap_force
 	elif(distance < 40): # too close, back up!
 		velocity = -dif.normalized() * move_speed
 	else:
 		velocity = Vector2.ZERO
 		
-
-
-
 
 func _on_detection_area_body_entered(_body: Node2D) -> void:
 	if(player == null and _body is Player):
