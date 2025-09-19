@@ -1,5 +1,8 @@
 extends Control
 
+# NOTE: Sizing and positioning should be fixed, thorough testing not done though
+# NOTE: Still need to create solution for text larger than box (reduce font size, scrolling, or others)
+
 @export var texts: Array[String] = []
 @export var speed := 0.1  # seconds per character
 
@@ -16,6 +19,8 @@ var char_index = 0		# Index within the displaying string
 # Hide is there only for if there is no text
 func _ready() -> void:
 	hide()
+	# Ensures the textbox fill the top of the screen no matter screen size (Broken due to player)
+	size = get_viewport_rect().size
 	start_text(texts)
 
 func start_text(new_text: Array[String]):

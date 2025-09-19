@@ -326,6 +326,7 @@ columns = 6
 script = ExtResource("13_p2coq")
 
 [node name="Stats" type="Label" parent="CanvasLayer/Control"]
+visible = false
 layout_mode = 0
 offset_left = 48.0
 offset_top = 48.0
