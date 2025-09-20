@@ -1,0 +1,72 @@
+[gd_scene load_steps=11 format=3 uid="uid://bo7a38y2j0fna"]
+
+[ext_resource type="Script" path="res://Enemies/Skeleton/Scripts/Skeleton.gd" id="1_v6e46"]
+[ext_resource type="Texture2D" uid="uid://bvmg38v75l4cw" path="res://GeneralSprites/SkeletonSpriteV1.png" id="2_mpd5k"]
+[ext_resource type="Script" path="res://Enemies/Skeleton/Scripts/skeleton_state_machine.gd" id="3_ca31t"]
+[ext_resource type="Script" path="res://Enemies/Skeleton/Scripts/state_idle.gd" id="4_6icue"]
+[ext_resource type="Script" path="res://Enemies/Skeleton/Scripts/state_walk.gd" id="5_0b8gi"]
+[ext_resource type="Script" path="res://Enemies/Skeleton/Scripts/state_attack.gd" id="6_j50yd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sq0bw"]
+size = Vector2(23, 38.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v8xq6"]
+radius = 118.87
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wdhbp"]
+size = Vector2(22.875, 38.4375)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gaaqg"]
+radius = 20.025
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_v6e46")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.3125, 1.3125)
+texture = ExtResource("2_mpd5k")
+hframes = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-1, 5)
+shape = SubResource("RectangleShape2D_sq0bw")
+
+[node name="detection_area" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
+visible = false
+shape = SubResource("CircleShape2D_v8xq6")
+
+[node name="hit_box" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hit_box"]
+visible = false
+position = Vector2(-1, 5)
+shape = SubResource("RectangleShape2D_wdhbp")
+debug_color = Color(0.87889, 0.00037927, 0.826153, 0.42)
+
+[node name="hurt_box" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurt_box"]
+visible = false
+position = Vector2(5, 5)
+shape = SubResource("CircleShape2D_gaaqg")
+
+[node name="SkeletonStateMachine" type="Node" parent="."]
+script = ExtResource("3_ca31t")
+
+[node name="idle" type="Node" parent="SkeletonStateMachine"]
+script = ExtResource("4_6icue")
+
+[node name="walk" type="Node" parent="SkeletonStateMachine"]
+script = ExtResource("5_0b8gi")
+
+[node name="attack" type="Node" parent="SkeletonStateMachine"]
+script = ExtResource("6_j50yd")
+
+[node name="stun" type="Node" parent="SkeletonStateMachine"]

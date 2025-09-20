@@ -16,6 +16,8 @@ signal slime_damaged(hurt_box: Hurtbox)
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
 @onready var sprite : Sprite2D = $Sprite2D
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
+
+
 # Called when the node enters the scene tree for the first time.
 
 #This code is not mine it was made by Derek
@@ -74,8 +76,7 @@ func UpdateAnimation(state: String) -> void:
 func _on_detection_area_body_exited(_body: Node2D) -> void:
 	player = null
 	chase_player = false
-	
-	
+
 func _ready():
 	$HitBox.Damaged.connect( TakeDamage )
 	

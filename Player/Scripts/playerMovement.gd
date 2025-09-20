@@ -11,9 +11,11 @@ var direction : Vector2 = Vector2.ZERO
 
 #health here
 signal player_damaged(hurt_box: Hurtbox)
+signal update_hp_progress()
 var invincible : bool = false
 var hp : int = 10
 var max_hp: int = 10
+
 @onready var hitbox: Hitbox = $interactions/Hitbox
 @onready var effect_player: AnimationPlayer = $EffectPlayer
 
@@ -35,6 +37,7 @@ func TakeDamage(hurt_box: Hurtbox) -> void:
 	if invincible == true:
 		return
 	update_hp(-hurt_box.damage)
+	update_hp_progress.emit()
 	#queue_free()
 	
 	if hp > 0:
@@ -47,7 +50,9 @@ func update_hp(delta:int) -> void:
 	hp = hp + delta
 	if hp > max_hp:
 		hp = max_hp
-
+		
+	#update_hp_progress.emit()
+	
 	pass
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://cq1dxd0m5csx1"]
+[gd_scene load_steps=37 format=3 uid="uid://cq1dxd0m5csx1"]
 
 [ext_resource type="Script" path="res://Player/Scripts/playerMovement.gd" id="1_7jpn7"]
 [ext_resource type="Texture2D" uid="uid://cnjgjy3iynxlu" path="res://Player/Sprites/PlayerSprite02.png" id="2_ilxdi"]
@@ -12,6 +12,9 @@
 [ext_resource type="Script" path="res://GeneralNodes/Hurtbox.gd" id="8_i54rl"]
 [ext_resource type="PackedScene" uid="uid://dh1y5183jb8ng" path="res://GeneralNodes/hurtbox.tscn" id="8_xntua"]
 [ext_resource type="Script" path="res://GeneralNodes/Hitbox.gd" id="11_gcxqq"]
+[ext_resource type="Texture2D" uid="uid://dlevvr0nj0k4j" path="res://GeneralSprites/healthUnder.png" id="13_hqobn"]
+[ext_resource type="Texture2D" uid="uid://dprkcq7y1wwjb" path="res://GeneralSprites/healthOver.png" id="14_0wb2u"]
+[ext_resource type="Script" path="res://Player/Scripts/healthBar.gd" id="15_w4cov"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_edhvl"]
 radius = 17.1172
@@ -355,6 +358,7 @@ script = ExtResource("8_4i6ld")
 collision_mask = 512
 monitorable = true
 script = ExtResource("11_gcxqq")
+player_found = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="interactions/Hitbox"]
 visible = false
@@ -375,6 +379,21 @@ debug_color = Color(0.963149, 0, 0.500419, 0.42)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
+
+[node name="ProgressBar" type="ProgressBar" parent="Camera2D" node_paths=PackedStringArray("player")]
+offset_left = -418.0
+offset_top = -168.0
+offset_right = -291.0
+offset_bottom = -141.0
+script = ExtResource("15_w4cov")
+player = NodePath("../..")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Camera2D"]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+texture_under = ExtResource("13_hqobn")
+texture_progress = ExtResource("14_0wb2u")
 
 [node name="EffectPlayer" type="AnimationPlayer" parent="."]
 libraries = {
