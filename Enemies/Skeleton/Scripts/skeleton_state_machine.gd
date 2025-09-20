@@ -47,7 +47,7 @@ func Initialize(_skeleton : Skeleton) -> void:
 	process_mode = Node.PROCESS_MODE_INHERIT
 
 
-func ChangeState(new_state: State) -> void:
+func ChangeState(new_state: skeleton_state) -> void:
 	if new_state == null || new_state == current_state:
 		return
 	if current_state:

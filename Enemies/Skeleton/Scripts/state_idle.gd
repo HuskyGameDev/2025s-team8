@@ -1,25 +1,25 @@
-class_name skeleton_state_idle extends State
+class_name skeleton_state_idle extends skeleton_state
 
-@onready var walk: State = $"../Walk"
-@onready var attack: State = $"../attack"
+@onready var walk: skeleton_state = $"../Walk"
+@onready var attack: skeleton_state = $"../attack"
 
 func Enter() -> void:
-	player.UpdateAnimation("idle")
+	skeleton.UpdateAnimation("idle")
 	pass
 	
 func Exit() -> void:
 	pass
 	
-func Process(_delta : float) -> State:
-	if player.direction != Vector2.ZERO:
+func Process(_delta : float) -> skeleton_state:
+	if skeleton.direction != Vector2.ZERO:
 		return walk
-	player.velocity = Vector2.ZERO
+	skeleton.velocity = Vector2.ZERO
 	return null
 	
 func Physics(_delta: float) -> State:
 	return null
 	
-func HandleInput(_event: InputEvent) -> State: #lmb for attack
+func HandleInput(_event: InputEvent) -> skeleton_state: #lmb for attack
 	if _event.is_action_pressed("attack"):
 			return attack
 		

@@ -1,11 +1,15 @@
-class_name skeleton_state_walk extends State
+class_name skeleton_state_walk extends skeleton_state
 
 @export var move_speed : float = 125
-@onready var idle : State = $"../Idle"
-@onready var attack: State = $"../attack"
+#@onready var idle : State = $"../Idle"
+@onready var idle: skeleton_state_idle = $"../idle"
+
+#@onready var attack: State = $"../attack"
+@onready var attack: skeleton_state_attack = $"../attack"
+
 
 func Enter() -> void:
-	player.UpdateAnimation("walk")
+	skeleton.UpdateAnimation("walk")
 	pass
 	
 func Exit() -> void:
@@ -13,13 +17,13 @@ func Exit() -> void:
 
 
 func Process(_delta : float) -> State:
-	if player.direction == Vector2.ZERO:
+	if skeleton.direction == Vector2.ZERO:
 		return idle
 	
-	player.velocity = player.direction * move_speed
+	skeleton.velocity = skeleton.direction * move_speed
 	
-	if player.SetDirection():
-		player.UpdateAnimation("walk")
+	if skeleton.SetDirection():
+		skeleton.UpdateAnimation("walk")
 	return null
 
 

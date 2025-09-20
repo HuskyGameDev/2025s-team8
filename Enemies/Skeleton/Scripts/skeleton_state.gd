@@ -18,12 +18,12 @@ func Enter() -> void:
 func Exit() -> void:
 	pass
 	
-func Process(_delta : float) -> State:
+func Process(_delta : float) -> skeleton_state:
 	return null
 	
-func Physics(_delta: float) -> State:
+func Physics(_delta: float) -> skeleton_state:
 	return null
 	
-func HandleInput(_event: InputEvent) -> State:
+func HandleInput(_event: InputEvent) -> skeleton_state:
 	return null
 	
