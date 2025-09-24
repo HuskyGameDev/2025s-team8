@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://mfw6jtfn4mfu"]
+
+[ext_resource type="Script" path="res://Weapons/sword.gd" id="1_n8obb"]
+[ext_resource type="Texture2D" uid="uid://p16ya64mftmr" path="res://Player/Sprites/pixil-frame-0 - 2025-09-07T001213.181.png" id="2_m3y33"]
+[ext_resource type="Script" path="res://GeneralNodes/Hurtbox.gd" id="3_y7kld"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yq45c"]
+radius = 17.8045
+
+[node name="Sword" type="Node2D"]
+script = ExtResource("1_n8obb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_m3y33")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitoring = false
+script = ExtResource("3_y7kld")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_yq45c")
