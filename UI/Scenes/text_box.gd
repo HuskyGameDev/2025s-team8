@@ -1,10 +1,11 @@
 extends Control
 
-# NOTE: Sizing and positioning should be fixed, thorough testing not done though
 # NOTE: Still need to create solution for text larger than box (reduce font size, scrolling, or others)
+# NOTE: Player cannot attack while text is up for some reason.
 
 @export var texts: Array[String] = []
-@export var speed := 0.1  # seconds per character
+@export var speed := 0.1 # seconds per character
+@export var delay := 3 # Determines how many seconds after the scene starts, the text box will appeat
 
 var cur_ind = 0			# The current string in the array
 var waiting = false		# If waiting for user input
@@ -21,6 +22,7 @@ func _ready() -> void:
 	hide()
 	# Ensures the textbox fill the top of the screen no matter screen size (Broken due to player)
 	size = get_viewport_rect().size
+	await get_tree().create_timer(delay).timeout
 	start_text(texts)
 
 func start_text(new_text: Array[String]):
