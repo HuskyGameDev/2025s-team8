@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class SaveSelect : Control
+public partial class SaveSelect : Control, ITransitionOnDeath
 {
     [Export]
     private Button contButton;
@@ -22,6 +22,7 @@ public partial class SaveSelect : Control
 
     private const string SAVEWIDGET_PATH = "res://UI/Prefabs/SaveWidget.tscn";
     private ButtonGroup widgetGroup;
+    private int onDeathMode = 0;
 
     public override void _Ready()
     {
@@ -96,6 +97,7 @@ public partial class SaveSelect : Control
     private void Continue()
     {
         PlayerData pd = this.GetTree().GetRoot().GetNode<PlayerData>("./PlayerData");
+        Node GAME_ROOT = this.GetTree().GetNodesInGroup("GAME_ROOT")[0];
 
         // Get the save file for the selected save file
         BaseButton bb = widgetGroup.GetPressedButton();
@@ -103,17 +105,73 @@ public partial class SaveSelect : Control
         string saveName = (string)widget.GetMeta("saveName");
         pd.save = PlayerData.Load(saveName);
 
-        // Add the Pause Menu in
-        PackedScene pauseScene = (PackedScene) ResourceLoader.LoadThreadedGet(PAUSE_MENU_PATH);
-        Node pNode = pauseScene.Instantiate();
-        ((PauseMenu)pNode).BeginHidden();
-        UI_ROOT.AddChild(pNode);
+        // New Experimental Means of Loading
+        PackedScene transitionScene = (PackedScene)ResourceLoader.LoadThreadedGet(TRANSITION_PATH);
+        Node tNode = transitionScene.Instantiate();
+        PackedScene loadScene = (PackedScene)ResourceLoader.LoadThreadedGet(LOAD_SCREEN_PATH);
+        Node lNode = loadScene.Instantiate();
 
-        // Add the actual game scene in
-        PackedScene gameScene = (PackedScene) ResourceLoader.LoadThreadedGet(GAME_SCENE_PATH);
-        Node gNode = gameScene.Instantiate();
-        GAME_ROOT.AddChild(gNode);
-        this.QueueFree();
+        // Add into scene (UI Root -> Transition -> LoadScreen)
+        UI_ROOT.AddChild(tNode);
+        onDeathMode = 1;
+
+        // Begin the transition
+        ((Transition)tNode).BeginTransition(lNode, this, Transition.Mode.topRight);
+
+        // // Inject the save data (since nothing truly "uses" SaveState in any game scene yet)
+        // // NYI
+        // this.QueueFree();
+        // return;
+        // // NYI
+
+        // Array<Node> ns = this.GetTree().GetNodesInGroup("PLAYER");
+        // if (ns.Count == 1) // if it is greater than 1, then somthing is up
+        // {
+        //     Node player = ns[0];
+        //     Node invRoot = player.GetNode("./CanvasLayer/Control");
+
+        //     InventorySlot wpn = invRoot.GetNode<InventorySlot>("./WeaponSlot");
+        //     InventorySlot arm = invRoot.GetNode<InventorySlot>("./ArmorSlot");
+        //     InventorySlot rnd = invRoot.GetNode<InventorySlot>("./RandomSlot");
+        //     Array<Node> inv = invRoot.GetNode("./Player_inv").GetChildren(); // should all be InventorySlots, but cannot implicit cast godot arrays like that
+
+        //     if (pd.save.weaponId != null && pd.save.weaponId != "")
+        //     {
+        //         InventoryItem wpnItem = new InventoryItem();
+        //         wpnItem.Init(Items.items.Get(pd.save.weaponId));
+        //         wpn.AddChild(wpnItem);
+        //     }
+        //     if (pd.save.armorId != null && pd.save.armorId != "")
+        //     {
+        //         InventoryItem armItem = new InventoryItem();
+        //         armItem.Init(Items.items.Get(pd.save.armorId));
+        //         arm.AddChild(armItem);
+        //     }
+        //     if (pd.save.consumableId != null && pd.save.consumableId != "")
+        //     {
+        //         InventoryItem rndItem = new InventoryItem();
+        //         rndItem.Init(Items.items.Get(pd.save.consumableId));
+        //         rnd.AddChild(rndItem);
+        //     }
+
+        //     for (int i = 0; i < pd.save.inv.Count; i++)
+        //     {
+        //         // NYI, as this will conflict with TestingGround's automatic item gen
+        //         if (pd.save.inv[i] != null && pd.save.inv[i] != "")
+        //         {
+
+        //         }
+        //     }
+
+        //     ns = this.GetTree().GetNodesInGroup("STASH");
+        //     if (ns.Count == 1)
+        //     {
+        //         Node stash = ns[0];
+        //         // NYI!!!!
+        //         // We do not have a stash system yet lmao
+        //     }
+
+        // }
     }
 
     private void Erase()
@@ -147,6 +205,18 @@ public partial class SaveSelect : Control
         {
             eraseButton.Disabled = false;
             ((NPRButton)eraseButton).UpdateState();
+        }
+    }
+
+    public void OnDeath(Node other)
+    {
+        if (onDeathMode == 1)
+        {
+            LoadScreen.LoadData[] data = new LoadScreen.LoadData[2]{
+                new LoadScreen.LoadData(PAUSE_MENU_PATH, LoadScreen.Type.UI, false),
+                new LoadScreen.LoadData(GAME_SCENE_PATH, LoadScreen.Type.GAME)
+            };
+            ((LoadScreen)other).Init(data, LoadScreen.Mode.LOAD);
         }
     }
 }

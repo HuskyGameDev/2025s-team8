@@ -12,11 +12,13 @@ public partial class PauseMenu : Control, ITransitionOnDeath
 	private Button exitButton { get; set; } = null;
 
 	private const string TRANSITION_PATH = "res://UI/Scenes/Transition.tscn";
-	private const string SETTINGS_SCENE_PATH = "UI/Scenes/SettingsMenu.tscn";
-	private const string MAIN_MENU_SCENE_PATH = "UI/Scenes/MainMenu.tscn";
+	private const string SETTINGS_SCENE_PATH = "res://UI/Scenes/SettingsMenu.tscn";
+	private const string MAIN_MENU_SCENE_PATH = "res://UI/Scenes/MainMenu.tscn";
+	private const string LOAD_SCREEN_PATH = "res://UI/Scenes/LoadScreen.tscn";
 	private Node UI_ROOT = null;
 
 	private bool ignoreNext = false;
+	private int onDeathMode = 0;
 
 	public override void _Ready()
 	{
@@ -35,7 +37,7 @@ public partial class PauseMenu : Control, ITransitionOnDeath
 		}
 
 		ResourceLoader.LoadThreadedRequest(SETTINGS_SCENE_PATH);
-		ResourceLoader.LoadThreadedRequest(MAIN_MENU_SCENE_PATH);
+		ResourceLoader.LoadThreadedRequest(LOAD_SCREEN_PATH);
 		ResourceLoader.LoadThreadedRequest(TRANSITION_PATH);
 
 		UI_ROOT = this.GetTree().GetNodesInGroup("UI_ROOT")[0];
@@ -89,6 +91,7 @@ public partial class PauseMenu : Control, ITransitionOnDeath
 
 		// Ensure return path is set properly
 		((SettingsMenu)sNode).ReturnTo("res://UI/Scenes/PauseMenu.tscn");
+		onDeathMode = 1;
 
 		// Begin the transition
 		((Transition)tNode).BeginTransition(sNode, this, Transition.Mode.topRight);
@@ -160,22 +163,31 @@ public partial class PauseMenu : Control, ITransitionOnDeath
 			GD.PrintErr("NO SAVE FILE LOADED? SAVE DATA IS LOST!");
 		}
 
-		// Remove the game scene
-		Node GAME_ROOT = this.GetTree().GetNodesInGroup("GAME_ROOT")[0];
-		GAME_ROOT.GetChild(0).QueueFree();
+		// // Get copies
+		// PackedScene transitionScene = (PackedScene)ResourceLoader.LoadThreadedGet(TRANSITION_PATH);
+		// Node tNode = transitionScene.Instantiate();
+		// PackedScene returnScene = (PackedScene)ResourceLoader.LoadThreadedGet(MAIN_MENU_SCENE_PATH);
+		// Node mNode = returnScene.Instantiate();
 
-		// Get copies
-		PackedScene transitionScene = (PackedScene)ResourceLoader.LoadThreadedGet(TRANSITION_PATH);
-		Node tNode = transitionScene.Instantiate();
-		PackedScene returnScene = (PackedScene)ResourceLoader.LoadThreadedGet(MAIN_MENU_SCENE_PATH);
-		Node mNode = returnScene.Instantiate();
+		// // Add into scene
+		// UI_ROOT.AddChild(tNode);
 
-		// Add into scene
-		UI_ROOT.AddChild(tNode);
+		// // Begin the transition
+		// ((Transition)tNode).DoUnpauseNext(true);
+		// ((Transition)tNode).BeginTransition(mNode, this, Transition.Mode.bottomLeft);
 
-		// Begin the transition
-		((Transition)tNode).DoUnpauseNext(true);
-		((Transition)tNode).BeginTransition(mNode, this, Transition.Mode.bottomLeft);
+		// New Experimental Means of Loading
+        PackedScene transitionScene = (PackedScene)ResourceLoader.LoadThreadedGet(TRANSITION_PATH);
+        Node tNode = transitionScene.Instantiate();
+        PackedScene loadScene = (PackedScene)ResourceLoader.LoadThreadedGet(LOAD_SCREEN_PATH);
+        Node lNode = loadScene.Instantiate();
+
+        // Add into scene (UI Root -> Transition -> LoadScreen)
+        UI_ROOT.AddChild(tNode);
+        onDeathMode = 2;
+
+        // Begin the transition
+        ((Transition)tNode).BeginTransition(lNode, this, Transition.Mode.topRight);
 	}
 
 	public void BeginHidden()
@@ -184,8 +196,24 @@ public partial class PauseMenu : Control, ITransitionOnDeath
 	}
 
 	// ITransitionOnDeath impl
-	public void OnDeath()
+	public void OnDeath(Node other)
 	{
-		this.GetTree().Paused = false;
+		if (onDeathMode == 0)
+		{
+			this.GetTree().Paused = false;
+		} // else if (onDeathMode == 1) // do nothing
+		else if (onDeathMode == 2)
+		{
+			// Remove the game scene
+			Node GAME_ROOT = this.GetTree().GetNodesInGroup("GAME_ROOT")[0];
+			GAME_ROOT.GetChild(0).QueueFree();
+			this.GetTree().Paused = false; // unpause!
+
+			// Setup the LoadScreen
+            LoadScreen.LoadData[] data = new LoadScreen.LoadData[1]{
+                new LoadScreen.LoadData(MAIN_MENU_SCENE_PATH, LoadScreen.Type.UI)
+            };
+            ((LoadScreen)other).Init(data, LoadScreen.Mode.SAVE_LOAD);
+		}
 	}
 }

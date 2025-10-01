@@ -27,10 +27,10 @@ public partial class SaveWidget : Button
 		this.SetMeta("saveName", s);
 	}
 
-    public void SetButtonGroup(ButtonGroup b)
-    {
-		this.ButtonGroup = b;
-    }
+    // public void SetButtonGroup(ButtonGroup b)
+    // {
+	// 	this.ButtonGroup = b;
+    // }
 
 	// Getters (only saveName is needed)
     public string GetSaveName()

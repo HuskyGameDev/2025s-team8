@@ -38,7 +38,7 @@ public partial class Transition : Control {
 			// see if the old thing has a transition death trigger
 			if (fromOffset.GetChild(0) is ITransitionOnDeath)
 			{
-				((ITransitionOnDeath)fromOffset.GetChild(0)).OnDeath();
+				((ITransitionOnDeath)fromOffset.GetChild(0)).OnDeath(toOffset.GetChild(0));
 			}
 
 			// Move the child of toOffset (the new thing) to the parent of this node...

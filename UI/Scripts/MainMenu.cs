@@ -64,7 +64,7 @@ public partial class MainMenu : Control {
         PackedScene transitionScene = (PackedScene) ResourceLoader.LoadThreadedGet(TRANSITION_PATH);
 		Node tNode = transitionScene.Instantiate();
         PackedScene ngScene = (PackedScene) ResourceLoader.LoadThreadedGet(NEW_GAME_PATH);
-		Node ngNode = ngScene.Instantiate();
+		Node ngNode = ngScene.Instantiate(); // Sometimes dying?
 
         // Add into scene (UI Root -> Transition -> NewGame)
         UI_ROOT.AddChild(tNode);
