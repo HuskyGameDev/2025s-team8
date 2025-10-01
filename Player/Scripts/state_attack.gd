@@ -16,7 +16,7 @@ func Enter() -> void:
 	animation_player.animation_finished.connect(EndAttack)
 	attacking = true
 	
-	weapons[1].attack() # swap the index to swap weapons
+	weapons[0].attack() # swap the index to swap weapons
 						# weapons will be connected to corresponding inventory items in the future
 	pass
 	

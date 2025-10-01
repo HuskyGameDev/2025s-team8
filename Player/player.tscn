@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cq1dxd0m5csx1"]
+[gd_scene load_steps=30 format=3 uid="uid://cq1dxd0m5csx1"]
 
 [ext_resource type="Script" path="res://Player/Scripts/playerMovement.gd" id="1_7jpn7"]
 [ext_resource type="Texture2D" uid="uid://cnjgjy3iynxlu" path="res://Player/Sprites/PlayerSprite02.png" id="2_ilxdi"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://inventory/scripts/inventory_slot.gd" id="12_4o1o5"]
 [ext_resource type="PackedScene" uid="uid://mfw6jtfn4mfu" path="res://Weapons/sword.tscn" id="13_46be7"]
 [ext_resource type="Script" path="res://inventory/scripts/player_inv.gd" id="13_p2coq"]
+[ext_resource type="PackedScene" uid="uid://cmmxmfbjl7cpk" path="res://Weapons/spear.tscn" id="13_pgrnk"]
 [ext_resource type="Script" path="res://inventory/scripts/stat_label.gd" id="14_2rqd7"]
 [ext_resource type="PackedScene" uid="uid://bhowjlq8pc5kp" path="res://Weapons/bow.tscn" id="14_hn6ef"]
 
@@ -266,6 +267,9 @@ scale = Vector2(1.33333, 1.33333)
 
 [node name="Bow" parent="interactions/Weapons" instance=ExtResource("14_hn6ef")]
 position = Vector2(0, 20)
+
+[node name="Spear" parent="interactions/Weapons" instance=ExtResource("13_pgrnk")]
+position = Vector2(0, 30)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2.5, 2.5)
