@@ -20,6 +20,26 @@ func _ready() -> void:
 	state_machine.Initialize(self)
 	pass # Replace with function body.
 
+func TakeDamage(hurt_box: Hurtbox) -> void:
+	if invincible == true:
+		return
+	update_hp(-hurt_box.damage)
+	update_hp_progress.emit()
+	#queue_free()
+	
+	if hp > 0:
+		player_damaged.emit(hurt_box)
+	else:
+		queue_free()
+	pass
+	
+func update_hp(delta:int) -> void:
+	hp = hp + delta
+	if hp > max_hp:
+		hp = max_hp
+		
+	#update_hp_progress.emit()	
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
