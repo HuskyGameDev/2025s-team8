@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://cuh5kjuynwmrv"]
+[gd_scene load_steps=13 format=4 uid="uid://cuh5kjuynwmrv"]
 
 [ext_resource type="PackedScene" uid="uid://c1mcpvksyv08s" path="res://UI/Scenes/TextBox.tscn" id="1_6f6b3"]
 [ext_resource type="Texture2D" uid="uid://bmt56ljcu5h03" path="res://Tile Maps/Sprites/Dungeon Tile Set.png" id="1_fvsde"]
@@ -170,6 +170,9 @@ sources/0 = SubResource("TileSetAtlasSource_rh7s3")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cs13w"]
 size = Vector2(105, 48)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cnomq"]
+size = Vector2(20, 48)
+
 [node name="Tutorial" type="Node2D"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -181,7 +184,7 @@ offset_right = 0.0
 offset_bottom = 0.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texts = Array[String](["Hello, new adventurer! I hope you're ready to begin!", "To start, why don't you try using W A S D to move around?", "When you're ready, just walk ahead into the easiest obstacle course ever designed!", "Now, let's move on to something very important: the inventory!", "Use E to open your inventory.", "The first slot is for your weapons, the second for your armor, and the third for anything else you may find useful on your travels.", "You can drag and drop any item between slots, along with getting a useful bit of information if you hover over each item.", "Hold on... Is that a chest in the corner?", "Go on over to it and use F to interact with it.", "Feel free to take anything you find during your exploration, I'm sure their original owner won't miss it.", "Be careful! I've heard that there are dangerous slimes ahead!", "Slay the foul beasts using left click and go about your adventure!", "...Or just run past them, but where's the fun in that!", "Reach the end and be brought to your first real dungeon!"])
+texts = Array[String](["Hello, new adventurer! I hope you're ready to begin!", "To start, why don't you try using W A S D to move around?", "When you're ready, just walk ahead into the easiest obstacle course ever designed!", "If you want to move faster, try tapping Shift as you move.", "Now, let's move on to something very important: the inventory!", "Use E to open your inventory.", "The first slot is for your weapons, the second for your armor, and the third for anything else you may find useful on your travels.", "You can drag and drop any item between slots, along with getting a useful bit of information if you hover over each item.", "Hold on... Is that a bag in the corner?", "Go on over to it and use F to interact with it.", "Feel free to take anything you find during your exploration, I'm sure their original owner won't miss it.", "Be careful! I've heard that there are dangerous slimes ahead!", "Slay the foul beasts using left click and go about your adventure!", "...Or just run past them, but where's the fun in that!", "Reach the end and be brought to your first real dungeon!"])
 delay = 1
 
 [node name="Player" parent="." instance=ExtResource("2_rbh2g")]
@@ -216,3 +219,21 @@ newScene = ExtResource("8_y6xrb")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-35.5, 0)
 shape = SubResource("RectangleShape2D_cs13w")
+
+[node name="door1" type="StaticBody2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(344, 152)
+collision_layer = 3
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="door1"]
+shape = SubResource("RectangleShape2D_cnomq")
+
+[node name="door2" type="StaticBody2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(872, 152)
+collision_layer = 3
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="door2"]
+shape = SubResource("RectangleShape2D_cnomq")

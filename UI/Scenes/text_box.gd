@@ -2,6 +2,8 @@ extends Control
 
 # NOTE: Still need to create solution for text larger than box (reduce font size, scrolling, or others)
 # NOTE: Player cannot attack while text is up for some reason.
+#NOTE: This will include code specifically for the tutorial pacing, removing this scripts ability to be reused
+# There is most likely a way to change that if the script is needed later.
 
 @export var texts: Array[String] = []
 @export var speed := 0.1 # seconds per character
@@ -12,6 +14,9 @@ var waiting = false		# If waiting for user input
 var typing = false		# If tween animation is running
 var full_text = ""		# The string currently being displayed
 var char_index = 0		# Index within the displaying string
+
+@onready var door1 = %door1
+@onready var door2 = %door2
 
 @onready var label = $Panel/RichTextLabel
 @onready var tween = create_tween()  # Create a tween dynamically
@@ -39,6 +44,12 @@ func show_text(text: String):
 	# Stop any active tween
 	if tween:
 		tween.kill()
+	
+	if cur_ind == 2:
+		door1.queue_free()
+	
+	if cur_ind == 11:
+		door2.queue_free()
 
 	full_text = text
 	char_index = 0
