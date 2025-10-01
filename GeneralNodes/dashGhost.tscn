@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://csk8dn5exdny0"]
+
+[ext_resource type="Texture2D" uid="uid://ck1cgrh5rptu8" path="res://GeneralSprites/pixilart-sprite (55).png" id="1_efvce"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a7cle"]
+atlas = ExtResource("1_efvce")
+region = Rect2(0, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rqqnp"]
+atlas = ExtResource("1_efvce")
+region = Rect2(32, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2g38a"]
+atlas = ExtResource("1_efvce")
+region = Rect2(64, 0, 32, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_31t7w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a7cle")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rqqnp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2g38a")
+}],
+"loop": false,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="DashGhost" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_31t7w")
+autoplay = "default"
+frame = 2
+frame_progress = 1.0
