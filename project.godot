@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Hell's Dungeon"
-run/main_scene="res://UI/Scenes/MainMenu.tscn"
+run/main_scene="res://Scenes/HellsDungeon.tscn"
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 config/icon="res://Player/Sprites/icon.svg"
 
@@ -20,6 +20,8 @@ config/icon="res://Player/Sprites/icon.svg"
 Player_Stats="*res://Inventory/Scripts/Stats.gd"
 Config="*res://Config.cs"
 LevelManager="*res://World_LevelLoader/LevelManager.gd"
+PlayerData="*res://PlayerData.cs"
+Init="*res://Init.cs"
 
 [display]
 
@@ -33,6 +35,13 @@ window/stretch/aspect="keep_width"
 [dotnet]
 
 project/assembly_name="Hell-s Dungeon"
+
+[global_group]
+
+UI_ROOT="Root node for most UI elements"
+PLAYER=""
+STASH="The player's stash"
+GAME_ROOT="Root node for most game elements"
 
 [input]
 

@@ -1,6 +1,6 @@
 extends Control
 
-
+"""
 const Item: CSharpScript = preload("res://Classes/Items/Item.cs")
 
 #Will need way for player to interact so that it shows on screen
@@ -66,3 +66,4 @@ func _ready() -> void:
 			if added:
 				self.get_child(cur_items).add_child(item)
 				cur_items += 1
+"""

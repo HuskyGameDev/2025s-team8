@@ -1,6 +1,7 @@
 class_name InventoryItem
 extends TextureRect
 
+"""
 const Item: CSharpScript = preload("res://Classes/Items/Item.cs")
 
 var data: Item
@@ -33,3 +34,4 @@ func make_drag_preview(at_position: Vector2) -> Control:
 	c.add_child(t)
 	
 	return c
+"""

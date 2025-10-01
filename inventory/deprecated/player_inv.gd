@@ -1,5 +1,6 @@
 extends Control
 
+"""
 #Use this template for loading instances of a resource
 var items_to_load := [
 	preload("res://Inventory/items/coin.tres").duplicate(),
@@ -28,3 +29,4 @@ func _input(event):
 			hide()
 		else:
 			show()
+"""

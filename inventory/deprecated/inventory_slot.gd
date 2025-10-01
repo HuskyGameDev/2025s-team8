@@ -1,6 +1,7 @@
 class_name InventorySlot
 extends PanelContainer
 
+"""
 @export var type: ItemData.Type
 
 func init(t: ItemData.Type, vec: Vector2) -> void:
@@ -77,3 +78,4 @@ func _input(event):
 				hide()
 			else:
 				show()
+"""

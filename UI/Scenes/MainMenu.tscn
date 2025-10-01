@@ -2,15 +2,11 @@
 
 [ext_resource type="Script" path="res://UI/Scripts/MainMenu.cs" id="1_vb0nr"]
 [ext_resource type="Theme" uid="uid://bod7jw0dx53ng" path="res://UI/UIMain.tres" id="1_yn3jy"]
-[ext_resource type="PackedScene" uid="uid://4xppvq5lmyab" path="res://UI/Scenes/NPRButton.tscn" id="3_wa0jo"]
+[ext_resource type="PackedScene" uid="uid://4xppvq5lmyab" path="res://UI/Prefabs/NPRButton.tscn" id="3_wa0jo"]
 
 [node name="MainMenu" type="Control" node_paths=PackedStringArray("continueButton", "newgameButton", "settingsButton", "quitButton")]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
 script = ExtResource("1_vb0nr")
 continueButton = NodePath("continue")
 newgameButton = NodePath("newgame")
@@ -46,7 +42,7 @@ offset_left = 710.0
 offset_top = 450.0
 offset_right = 1210.0
 offset_bottom = 575.0
-text = "Play"
+text = "New Game"
 
 [node name="settings" parent="." instance=ExtResource("3_wa0jo")]
 layout_mode = 0
