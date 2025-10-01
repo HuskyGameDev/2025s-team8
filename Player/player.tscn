@@ -373,7 +373,6 @@ script = ExtResource("8_i54rl")
 damage = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="interactions/Hurtbox"]
-visible = false
 shape = SubResource("CircleShape2D_0w7wo")
 debug_color = Color(0.963149, 0, 0.500419, 0.42)
 

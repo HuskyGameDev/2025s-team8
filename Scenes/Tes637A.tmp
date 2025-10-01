@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://j2ey5y83jld0"]
+[gd_scene load_steps=6 format=3 uid="uid://j2ey5y83jld0"]
 
 [ext_resource type="PackedScene" uid="uid://cq1dxd0m5csx1" path="res://Player/player.tscn" id="1_6exw8"]
 [ext_resource type="PackedScene" uid="uid://ejm2wcvxoaoq" path="res://Tile Maps/base dungeon.tscn" id="2_cv62i"]
+[ext_resource type="PackedScene" uid="uid://dbb2tnmyhd6xr" path="res://SlimeEnemy/slimeEnemy.tscn" id="3_gmyew"]
 [ext_resource type="PackedScene" uid="uid://dtya1roial8hc" path="res://Enemies/Knight/Knight.tscn" id="4_vt3qm"]
 
 [sub_resource type="TileSet" id="TileSet_8yqti"]
@@ -14,10 +15,29 @@ position = Vector2(240, 135)
 
 [node name="Dungeon01" parent="." instance=ExtResource("2_cv62i")]
 
+[node name="ShrimpleSlime" parent="." instance=ExtResource("3_gmyew")]
+position = Vector2(-188, -543)
+
+[node name="ShrimpleSlime2" parent="." instance=ExtResource("3_gmyew")]
+position = Vector2(73, -491)
+
+[node name="ShrimpleSlime3" parent="." instance=ExtResource("3_gmyew")]
+position = Vector2(303, -476)
+
+[node name="ShrimpleSlime4" parent="." instance=ExtResource("3_gmyew")]
+position = Vector2(657, -454)
+
+[node name="ShrimpleSlime5" parent="." instance=ExtResource("3_gmyew")]
+visible = false
+position = Vector2(722, 167)
+
+[node name="ShrimpleSlime6" parent="." instance=ExtResource("3_gmyew")]
+position = Vector2(-461, -449)
+
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 tile_set = SubResource("TileSet_8yqti")
 
 [node name="Knight" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_vt3qm")]
 position = Vector2(47, 93)
+player_found = null
 player = NodePath("../Player")
-hp = 10

@@ -1,5 +1,4 @@
-class_name Hurtbox
-extends Area2D
+class_name Hurtbox extends Area2D
 
 
 signal received_damage(damage: int) #any time damage is recieved
@@ -19,5 +18,6 @@ func _ready() -> void:
 func _on_area_entered(a : Area2D) -> void:
 	if a is Hitbox:
 		a.TakeDamage(self)
+
 		#health.health -= hitbox.damage
 		

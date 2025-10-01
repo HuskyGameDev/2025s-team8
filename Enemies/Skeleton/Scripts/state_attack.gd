@@ -1,4 +1,4 @@
-class_name skeleton_state_attack extends State
+class_name skeleton_state_attack extends skeleton_state
 
 #tutorial is using animatinon player
 #consider switching to time
@@ -22,7 +22,7 @@ var attacking: bool = false
 @onready var hurt_box: Hurtbox = $"../../hurt_box"
 
 func Enter() -> void:
-	player.UpdateAnimation("attack")
+	skeleton.UpdateAnimation("attack")
 	animation_player.animation_finished.connect(EndAttack)
 	attacking = true
 	
@@ -38,22 +38,22 @@ func Exit() -> void:
 	hurt_box.monitoring = false
 	pass
 	
-func Process(_delta : float) -> State:
-	player.velocity = Vector2.ZERO
+func Process(_delta : float) -> skeleton_state:
+	skeleton.velocity = Vector2.ZERO
 	
 	
 	if attacking == false:
-		if player.direction == Vector2.ZERO:
+		if skeleton.direction == Vector2.ZERO:
 			return idle
 		else:
 			return walk
 	
 	return null
 	
-func Physics(_delta: float) -> State:
+func Physics(_delta: float) -> skeleton_state:
 	return null
 	
-func HandleInput(_event: InputEvent) -> State:
+func HandleInput(_event: InputEvent) -> skeleton_state:
 	return null
 	
 	#

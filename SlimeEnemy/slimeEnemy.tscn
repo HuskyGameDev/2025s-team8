@@ -96,6 +96,7 @@ debug_color = Color(0.642402, 0.523623, 0.00628106, 0.42)
 [node name="HitBox" type="Area2D" parent="."]
 collision_layer = 4
 collision_mask = 4
+monitoring = false
 script = ExtResource("3_uceoe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]

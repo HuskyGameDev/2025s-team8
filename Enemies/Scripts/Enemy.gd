@@ -7,6 +7,7 @@ class_name Enemy extends CharacterBody2D
 @export var hp: int = 3
 @export var enemy_name : String
 # Called when the node enters the scene tree for the first time.
+
 func _ready():
 	$HitBox.Damaged.connect( TakeDamage )
 

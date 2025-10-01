@@ -16,7 +16,7 @@ func Process(_delta : float) -> skeleton_state:
 	skeleton.velocity = Vector2.ZERO
 	return null
 	
-func Physics(_delta: float) -> State:
+func Physics(_delta: float) -> skeleton_state:
 	return null
 	
 func HandleInput(_event: InputEvent) -> skeleton_state: #lmb for attack

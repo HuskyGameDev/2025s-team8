@@ -16,7 +16,7 @@ func Exit() -> void:
 	pass
 
 
-func Process(_delta : float) -> State:
+func Process(_delta : float) -> skeleton_state:
 	if skeleton.direction == Vector2.ZERO:
 		return idle
 	
@@ -27,11 +27,11 @@ func Process(_delta : float) -> State:
 	return null
 
 
-func Physics(_delta: float) -> State:
+func Physics(_delta: float) -> skeleton_state:
 	return null
 
 
-func HandleInput(_event: InputEvent) -> State:
+func HandleInput(_event: InputEvent) -> skeleton_state:
 	#repeat code from idle for attack
 	if _event.is_action_pressed("attack"):
 			return attack
