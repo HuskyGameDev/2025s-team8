@@ -69,3 +69,14 @@ func AnimDirection() -> String:
 		return "up"
 	else:
 		return "side"
+
+func MakeInvincible ( _duration : float = 1.0) -> void:
+	invincible = true
+	mainhitbox.monitorable = false
+	mainhitbox.monitoring = false
+	await get_tree().create_timer(_duration).timeout # wait 1 seconf before code continues
+	
+	invincible = false
+	mainhitbox.monitorable = true
+	mainhitbox.monitoring = true
+	pass
