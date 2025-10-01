@@ -9,6 +9,10 @@ var direction : Vector2 = Vector2.ZERO
 @onready var sprite : Sprite2D = $Sprite2D
 @onready var state_machine : PlayerStateMachine = $StateMachine
 
+var invincible : bool = false
+@onready var mainhitbox: Hitbox = $interactions/Hitbox
+@onready var mainhurtbox: Hurtbox = $interactions/Hurtbox
+
 signal DirectionChanged( _new_direction: Vector2)
 signal player_damage(hurt_box: Hurtbox)
 # Called when the node enters the scene tree for the first time.
