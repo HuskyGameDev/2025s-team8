@@ -1,2 +1,2 @@
 # Hell's Dungeon
-# An extraction dungeon crawler
+An dungeon crawler with extraction elements
