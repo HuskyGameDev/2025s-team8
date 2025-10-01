@@ -5,7 +5,7 @@ extends Control
 
 @export var texts: Array[String] = []
 @export var speed := 0.1 # seconds per character
-@export var delay := 3 # Determines how many seconds after the scene starts, the text box will appeat
+@export var delay := 3 # Determines how many seconds after the scene starts, the text box will appear
 
 var cur_ind = 0			# The current string in the array
 var waiting = false		# If waiting for user input

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://cuh5kjuynwmrv"]
+[gd_scene load_steps=12 format=4 uid="uid://cuh5kjuynwmrv"]
 
 [ext_resource type="PackedScene" uid="uid://c1mcpvksyv08s" path="res://UI/Scenes/TextBox.tscn" id="1_6f6b3"]
 [ext_resource type="Texture2D" uid="uid://bmt56ljcu5h03" path="res://Tile Maps/Sprites/Dungeon Tile Set.png" id="1_fvsde"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://cq1dxd0m5csx1" path="res://Player/player.tscn" id="2_rbh2g"]
 [ext_resource type="PackedScene" uid="uid://dytx21xto4i4b" path="res://inventory/Chest.tscn" id="5_wfov5"]
 [ext_resource type="PackedScene" uid="uid://dbb2tnmyhd6xr" path="res://SlimeEnemy/slimeEnemy.tscn" id="5_xehpi"]
+[ext_resource type="Script" path="res://GeneralNodes/sceneChange.gd" id="7_626xn"]
+[ext_resource type="PackedScene" uid="uid://j2ey5y83jld0" path="res://Scenes/TestingGround.tscn" id="8_y6xrb"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rh7s3"]
 texture = ExtResource("1_fvsde")
@@ -165,6 +167,9 @@ physics_layer_0/collision_layer = 3
 physics_layer_0/collision_mask = 0
 sources/0 = SubResource("TileSetAtlasSource_rh7s3")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cs13w"]
+size = Vector2(105, 48)
+
 [node name="Tutorial" type="Node2D"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -176,7 +181,7 @@ offset_right = 0.0
 offset_bottom = 0.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texts = Array[String](["Hello new adventurer! I hope you're ready to begin!", "To start, why don't you try using W A S D to move around.", "When you're ready, just walk ahead into the easiest obstacle course ever designed!", "Now, let's move on to something very important: the inventory!", "Use E to open your inventory.", "The first slot is for your weapons, the second for your armor, and the third for anything else you may find useful on your travels.", "You can drag and drop any item between slots along with getting a useful bit of information if you hover over each item.", "Hold on... Is that a chest in the corner?", "Go on over to it and use F to interact with it.", "Be careful! I've heard that there are dangerous slimes ahead!", "Slay the foul beast and go about your adventure!", "...Or just run past it, but where's the fun in that!"])
+texts = Array[String](["Hello, new adventurer! I hope you're ready to begin!", "To start, why don't you try using W A S D to move around?", "When you're ready, just walk ahead into the easiest obstacle course ever designed!", "Now, let's move on to something very important: the inventory!", "Use E to open your inventory.", "The first slot is for your weapons, the second for your armor, and the third for anything else you may find useful on your travels.", "You can drag and drop any item between slots, along with getting a useful bit of information if you hover over each item.", "Hold on... Is that a chest in the corner?", "Go on over to it and use F to interact with it.", "Feel free to take anything you find during your exploration, I'm sure their original owner won't miss it.", "Be careful! I've heard that there are dangerous slimes ahead!", "Slay the foul beasts using left click and go about your adventure!", "...Or just run past them, but where's the fun in that!", "Reach the end and be brought to your first real dungeon!"])
 delay = 1
 
 [node name="Player" parent="." instance=ExtResource("2_rbh2g")]
@@ -203,12 +208,11 @@ scale = Vector2(0.81, 0.81)
 [node name="ShrimpleSlime" parent="." instance=ExtResource("5_xehpi")]
 position = Vector2(1768, 152)
 
-[node name="Label" type="Label" parent="."]
-offset_left = 2064.0
-offset_top = 120.0
-offset_right = 2320.0
-offset_bottom = 304.0
-text = "Put way to exit level here. Could just be
-simple script that checks for collision,
-waits a sec or two, and then switches
-scenes."
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(2008, 152)
+script = ExtResource("7_626xn")
+newScene = ExtResource("8_y6xrb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-35.5, 0)
+shape = SubResource("RectangleShape2D_cs13w")
