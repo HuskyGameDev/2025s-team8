@@ -10,7 +10,7 @@ var direction : Vector2 = Vector2.ZERO
 @onready var state_machine : PlayerStateMachine = $StateMachine
 
 signal DirectionChanged( _new_direction: Vector2)
-	
+signal player_damage(hurt_box: Hurtbox)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	state_machine.Initialize(self)

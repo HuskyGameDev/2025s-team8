@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cq1dxd0m5csx1"]
+[gd_scene load_steps=31 format=3 uid="uid://cq1dxd0m5csx1"]
 
 [ext_resource type="Script" path="res://Player/Scripts/playerMovement.gd" id="1_7jpn7"]
 [ext_resource type="Texture2D" uid="uid://cnjgjy3iynxlu" path="res://Player/Sprites/PlayerSprite02.png" id="2_ilxdi"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Player/Scripts/state_attack.gd" id="6_inhut"]
 [ext_resource type="PackedScene" uid="uid://csk8dn5exdny0" path="res://GeneralNodes/dashGhost.tscn" id="6_xinf4"]
 [ext_resource type="Script" path="res://Player/Scripts/InteractionsFix.gd" id="8_4i6ld"]
+[ext_resource type="Script" path="res://Player/Scripts/stun_state.gd" id="8_dbfju"]
 [ext_resource type="PackedScene" uid="uid://dh1y5183jb8ng" path="res://GeneralNodes/hurtbox.tscn" id="8_xntua"]
 [ext_resource type="Script" path="res://GeneralNodes/Hitbox.gd" id="11_gcxqq"]
 [ext_resource type="Script" path="res://inventory/scripts/inventory_slot.gd" id="12_4o1o5"]
@@ -244,6 +245,9 @@ ghost_scene = ExtResource("6_xinf4")
 
 [node name="attack" type="Node" parent="StateMachine"]
 script = ExtResource("6_inhut")
+
+[node name="stun" type="Node" parent="StateMachine"]
+script = ExtResource("8_dbfju")
 
 [node name="interactions" type="Node2D" parent="."]
 position = Vector2(0, -19)
