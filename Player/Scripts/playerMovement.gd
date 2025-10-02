@@ -14,8 +14,8 @@ var direction : Vector2 = Vector2.ZERO
 signal player_damaged(hurt_box: Hurtbox)
 var invincible : bool = false
 
-@onready var mainhitbox: Hitbox = $interactions/Hitbox
-@onready var mainhurtbox: Hurtbox = $interactions/Hurtbox
+#@onready var mainhitbox: Hitbox = $interactions/Hitbox
+#@onready var mainhurtbox: Hurtbox = $interactions/Hurtbox
 
 signal DirectionChanged( _new_direction: Vector2)
 signal player_damage(hurt_box: Hurtbox)
@@ -100,13 +100,12 @@ func AnimDirection() -> String:
 	else:
 		return "side"
 
-func MakeInvincible ( _duration : float = 1.0) -> void:
-	invincible = true
-	mainhitbox.monitorable = false
-	mainhitbox.monitoring = false
-	await get_tree().create_timer(_duration).timeout # wait 1 seconf before code continues
+#func MakeInvincible ( _duration : float = 1.0) -> void:
+#	invincible = true
+#	mainhitbox.monitoring = false
+#	await get_tree().create_timer(_duration).timeout # wait 1 seconf before code continues
 	
-	invincible = false
-	mainhitbox.monitorable = true
-	mainhitbox.monitoring = true
-	pass
+#	invincible = false
+#	mainhitbox.monitorable = true
+#	mainhitbox.monitoring = true
+#	pass
