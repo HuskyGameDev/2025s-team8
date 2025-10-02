@@ -9,6 +9,7 @@ var direction : Vector2 = Vector2.ZERO
 @onready var sprite : Sprite2D = $Sprite2D
 @onready var state_machine : PlayerStateMachine = $StateMachine
 
+signal player_damaged(hurt_box: Hurtbox)
 var invincible : bool = false
 @onready var mainhitbox: Hitbox = $interactions/Hitbox
 @onready var mainhurtbox: Hurtbox = $interactions/Hurtbox
