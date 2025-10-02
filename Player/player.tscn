@@ -11,12 +11,9 @@
 [ext_resource type="Script" path="res://Player/Scripts/stun_state.gd" id="8_dbfju"]
 [ext_resource type="PackedScene" uid="uid://dh1y5183jb8ng" path="res://GeneralNodes/hurtbox.tscn" id="8_xntua"]
 [ext_resource type="Script" path="res://GeneralNodes/Hitbox.gd" id="11_gcxqq"]
-[ext_resource type="Script" path="res://inventory/scripts/inventory_slot.gd" id="12_4o1o5"]
-[ext_resource type="PackedScene" uid="uid://mfw6jtfn4mfu" path="res://Weapons/sword.tscn" id="13_46be7"]
-[ext_resource type="Script" path="res://inventory/scripts/player_inv.gd" id="13_p2coq"]
-[ext_resource type="PackedScene" uid="uid://cmmxmfbjl7cpk" path="res://Weapons/spear.tscn" id="13_pgrnk"]
-[ext_resource type="Script" path="res://inventory/scripts/stat_label.gd" id="14_2rqd7"]
-[ext_resource type="PackedScene" uid="uid://bhowjlq8pc5kp" path="res://Weapons/bow.tscn" id="14_hn6ef"]
+[ext_resource type="Script" path="res://Inventory/Scripts/InventorySlot.cs" id="12_my8ii"]
+[ext_resource type="Script" path="res://Inventory/Scripts/PlayerInv.cs" id="13_0h7oe"]
+[ext_resource type="Script" path="res://Inventory/Scripts/stat_label.gd" id="14_2rqd7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_edhvl"]
 radius = 18.8119
@@ -260,7 +257,7 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_501hd"]
 radius = 24.0832
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["PLAYER"]]
 position = Vector2(1, -1)
 scale = Vector2(0.75, 0.75)
 collision_mask = 3
@@ -343,33 +340,34 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="InventorySlot2" type="PanelContainer" parent="CanvasLayer/Control"]
+[node name="RandomSlot" type="PanelContainer" parent="CanvasLayer/Control"]
 visible = false
 layout_mode = 0
 offset_left = 360.0
 offset_top = 216.0
 offset_right = 424.0
 offset_bottom = 280.0
-script = ExtResource("12_4o1o5")
-type = 2
+script = ExtResource("12_my8ii")
+type = 3
 
-[node name="InventorySlot3" type="PanelContainer" parent="CanvasLayer/Control"]
+[node name="ArmorSlot" type="PanelContainer" parent="CanvasLayer/Control"]
 visible = false
 layout_mode = 0
 offset_left = 240.0
 offset_top = 216.0
 offset_right = 304.0
 offset_bottom = 280.0
-script = ExtResource("12_4o1o5")
+script = ExtResource("12_my8ii")
+type = 2
 
-[node name="InventorySlot" type="PanelContainer" parent="CanvasLayer/Control"]
+[node name="WeaponSlot" type="PanelContainer" parent="CanvasLayer/Control"]
 visible = false
 layout_mode = 0
 offset_left = 120.0
 offset_top = 216.0
 offset_right = 184.0
 offset_bottom = 280.0
-script = ExtResource("12_4o1o5")
+script = ExtResource("12_my8ii")
 type = 1
 
 [node name="Player_inv" type="GridContainer" parent="CanvasLayer/Control"]
@@ -383,7 +381,7 @@ offset_bottom = 816.0
 theme_override_constants/h_separation = 16
 theme_override_constants/v_separation = 16
 columns = 6
-script = ExtResource("13_p2coq")
+script = ExtResource("13_0h7oe")
 
 [node name="Stats" type="Label" parent="CanvasLayer/Control"]
 visible = false
