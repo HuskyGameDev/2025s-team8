@@ -1,6 +1,8 @@
 class_name Player extends CharacterBody2D
 #note this is a script that will eventually get replaced by the state machine. The state machine
 #will store the previous statement and remember it to make transitions in between actions smoother
+@export var hp: int = 20
+@export var max_hp: int = 20
 
 var cardinal_direction : Vector2 = Vector2.DOWN #part of sprite movement
 var direction : Vector2 = Vector2.ZERO
@@ -16,6 +18,7 @@ var invincible : bool = false
 
 signal DirectionChanged( _new_direction: Vector2)
 signal player_damage(hurt_box: Hurtbox)
+signal update_hp_progress()
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	state_machine.Initialize(self)
