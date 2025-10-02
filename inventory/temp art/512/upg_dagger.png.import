@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cvliql40875yw"
-path="res://.godot/imported/upg_dagger.png-20519bd6139337ff7bdb56132f7a9d40.ctex"
+path="res://.godot/imported/upg_dagger.png-fb32c295ab9e7cbf165ad686834b8b68.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://inventory/temp art/512/upg_dagger.png"
-dest_files=["res://.godot/imported/upg_dagger.png-20519bd6139337ff7bdb56132f7a9d40.ctex"]
+source_file="res://Inventory/temp art/512/upg_dagger.png"
+dest_files=["res://.godot/imported/upg_dagger.png-fb32c295ab9e7cbf165ad686834b8b68.ctex"]
 
 [params]
 

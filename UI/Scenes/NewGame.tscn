@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://78b85vmma3rs"]
+
+[ext_resource type="Script" path="res://UI/Scripts/NewGame.cs" id="1_71pqn"]
+[ext_resource type="Theme" uid="uid://bbb0y8sgvh8bs" path="res://UI/UIMainMed.tres" id="2_6tb08"]
+[ext_resource type="PackedScene" uid="uid://4xppvq5lmyab" path="res://UI/Prefabs/NPRButton.tscn" id="3_viyoa"]
+[ext_resource type="Theme" uid="uid://bod7jw0dx53ng" path="res://UI/UIMain.tres" id="4_uk5gw"]
+
+[node name="NewGame" type="Control" node_paths=PackedStringArray("beginButton", "backButton", "playerName")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_71pqn")
+beginButton = NodePath("begin")
+backButton = NodePath("back")
+playerName = NodePath("name")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 402.0
+offset_top = 50.0
+offset_right = 1518.0
+offset_bottom = 160.0
+theme = ExtResource("2_6tb08")
+text = "Enter your character's name:"
+horizontal_alignment = 1
+
+[node name="name" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 236.0
+offset_top = 474.0
+offset_right = 1296.0
+offset_bottom = 606.0
+theme = ExtResource("4_uk5gw")
+placeholder_text = "Player Name"
+alignment = 1
+max_length = 32
+
+[node name="begin" parent="." instance=ExtResource("3_viyoa")]
+layout_mode = 1
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 1323.0
+offset_top = 478.0
+offset_right = 1667.0
+offset_bottom = 602.0
+text = "Begin!"
+
+[node name="back" parent="." instance=ExtResource("3_viyoa")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 710.0
+offset_top = 905.0
+offset_right = 1210.0
+offset_bottom = 1030.0
+text = "Back"

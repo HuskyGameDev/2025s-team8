@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c1fhu0il1vfot"
-path="res://.godot/imported/axeDouble2.png-227ce9e54df1a26a35c69daa157c8c9c.ctex"
+path="res://.godot/imported/axeDouble2.png-57235b6fac153cf720bf15714899b8e5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://inventory/temp art/512/axeDouble2.png"
-dest_files=["res://.godot/imported/axeDouble2.png-227ce9e54df1a26a35c69daa157c8c9c.ctex"]
+source_file="res://Inventory/temp art/512/axeDouble2.png"
+dest_files=["res://.godot/imported/axeDouble2.png-57235b6fac153cf720bf15714899b8e5.ctex"]
 
 [params]
 

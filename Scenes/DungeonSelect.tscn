@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0svsqcjg3vt6"]
+
+[ext_resource type="Theme" uid="uid://dyxfi3de2g1r" path="res://Scenes/DungeonSelect.tres" id="1_mwlte"]
+
+[node name="DungeonSelect" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="d1" type="Button" parent="."]
+offset_left = 331.0
+offset_top = 449.0
+offset_right = 506.0
+offset_bottom = 502.0
+theme = ExtResource("1_mwlte")
+text = "Dungeon 1"
+
+[node name="d2" type="Button" parent="."]
+offset_left = 976.0
+offset_top = 239.0
+offset_right = 1151.0
+offset_bottom = 292.0
+theme = ExtResource("1_mwlte")
+text = "Dungeon 2"
+
+[node name="d3" type="Button" parent="."]
+offset_left = 1504.0
+offset_top = 536.0
+offset_right = 1679.0
+offset_bottom = 589.0
+theme = ExtResource("1_mwlte")
+text = "Dungeon 3"
+
+[node name="home" type="Button" parent="."]
+offset_left = 126.0
+offset_top = 866.0
+offset_right = 301.0
+offset_bottom = 919.0
+theme = ExtResource("1_mwlte")
+text = "Home
+"
