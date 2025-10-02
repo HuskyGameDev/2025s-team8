@@ -14,7 +14,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	ChangeState( current_state.Process(delta) )
+	ChangeState( await current_state.Process(delta) ) #(Derek): I'm not sure if having an await here is a bad idea, but it works
 	pass
 	
 func _physics_process(delta: float) -> void:

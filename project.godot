@@ -11,15 +11,17 @@ config_version=5
 [application]
 
 config/name="Hell's Dungeon"
-run/main_scene="res://UI/Scenes/MainMenu.tscn"
+run/main_scene="res://Scenes/HellsDungeon.tscn"
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 config/icon="res://Player/Sprites/icon.svg"
 
 [autoload]
 
-Player_Stats="*res://inventory/scripts/Stats.gd"
+Player_Stats="*res://Inventory/Scripts/Stats.gd"
 Config="*res://Config.cs"
 LevelManager="*res://World_LevelLoader/LevelManager.gd"
+PlayerData="*res://PlayerData.cs"
+Init="*res://Init.cs"
 
 [display]
 
@@ -33,6 +35,13 @@ window/stretch/aspect="keep_width"
 [dotnet]
 
 project/assembly_name="Hell-s Dungeon"
+
+[global_group]
+
+UI_ROOT="Root node for most UI elements"
+PLAYER=""
+STASH="The player's stash"
+GAME_ROOT="Root node for most game elements"
 
 [input]
 
@@ -81,11 +90,22 @@ Interact={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":70,"key_label":0,"unicode":102,"location":0,"echo":false,"script":null)
 ]
 }
+Dash={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194325,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
+Back={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
 
 [layer_names]
 
 2d_physics/layer_1="Has the player and collisions"
 2d_physics/layer_2="Walls"
+2d_physics/layer_4="Projectiles"
 
 [rendering]
 
