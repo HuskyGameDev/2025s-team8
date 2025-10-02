@@ -14,7 +14,7 @@ public partial class NewGame : Control, ITransitionOnDeath
     const string MAIN_MENU_PATH = "res://UI/Scenes/MainMenu.tscn";
     const string LOAD_SCENE_PATH = "res://UI/Scenes/LoadScreen.tscn";
     const string PAUSE_MENU_PATH = "res://UI/Scenes/PauseMenu.tscn";
-    const string GAME_SCENE_PATH = "res://Scenes/TestingGround.tscn";
+    const string GAME_SCENE_PATH = "res://Scenes/TemporaryTestingScene/Tutorial.tscn";
 
     private Node UI_ROOT;
     private Node GAME_ROOT;
