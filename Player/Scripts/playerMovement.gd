@@ -13,12 +13,14 @@ var direction : Vector2 = Vector2.ZERO
 
 signal player_damaged(hurt_box: Hurtbox)
 var invincible : bool = false
+
 @onready var mainhitbox: Hitbox = $interactions/Hitbox
 @onready var mainhurtbox: Hurtbox = $interactions/Hurtbox
 
 signal DirectionChanged( _new_direction: Vector2)
 signal player_damage(hurt_box: Hurtbox)
 signal update_hp_progress()
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	state_machine.Initialize(self)
