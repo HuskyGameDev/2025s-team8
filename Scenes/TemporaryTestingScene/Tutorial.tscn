@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [gd_scene load_steps=10 format=4 uid="uid://bq6u5id5wmv8t"]
 
 [ext_resource type="Texture2D" uid="uid://bmt56ljcu5h03" path="res://Tile Maps/Sprites/Dungeon Tile Set.png" id="1_fvsde"]
@@ -5,6 +6,17 @@
 [ext_resource type="PackedScene" uid="uid://cq1dxd0m5csx1" path="res://Player/player.tscn" id="2_rbh2g"]
 [ext_resource type="PackedScene" uid="uid://dytx21xto4i4b" path="res://inventory/Chest.tscn" id="5_wfov5"]
 [ext_resource type="PackedScene" uid="uid://dbb2tnmyhd6xr" path="res://Enemies/SlimeEnemy/slimeEnemy.tscn" id="5_xehpi"]
+=======
+[gd_scene load_steps=12 format=4 uid="uid://cuh5kjuynwmrv"]
+
+[ext_resource type="PackedScene" uid="uid://c1mcpvksyv08s" path="res://UI/Scenes/TextBox.tscn" id="1_6f6b3"]
+[ext_resource type="Texture2D" uid="uid://bmt56ljcu5h03" path="res://Tile Maps/Sprites/Dungeon Tile Set.png" id="1_fvsde"]
+[ext_resource type="Script" path="res://Tile Maps/LevelTileMap.gd" id="2_kmihv"]
+[ext_resource type="PackedScene" uid="uid://cq1dxd0m5csx1" path="res://Player/player.tscn" id="2_rbh2g"]
+[ext_resource type="PackedScene" uid="uid://dytx21xto4i4b" path="res://Inventory/Chest.tscn" id="5_wfov5"]
+[ext_resource type="PackedScene" uid="uid://dbb2tnmyhd6xr" path="res://Enemies/SlimeEnemy/slimeEnemy.tscn" id="5_xehpi"]
+[ext_resource type="Script" path="res://Scenes/TemporaryTestingScene/ChangeScene.cs" id="7_ja1t0"]
+>>>>>>> dev
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rh7s3"]
 texture = ExtResource("1_fvsde")
@@ -172,6 +184,7 @@ size = Vector2(20, 48)
 
 [node name="Tutorial" type="Node2D"]
 
+<<<<<<< HEAD
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Control" parent="CanvasLayer"]
@@ -184,6 +197,19 @@ process_thread_group = 0
 physics_interpolation_mode = 0
 auto_translate_mode = 0
 editor_description = ""
+=======
+[node name="ChangeScene" type="Control" parent="." node_paths=PackedStringArray("area")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("7_ja1t0")
+area = NodePath("../Area2D")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" parent="CanvasLayer" instance=ExtResource("1_6f6b3")]
+>>>>>>> dev
 offset_left = 0.0
 offset_top = 0.0
 offset_right = 0.0
@@ -192,7 +218,10 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 texts = Array[String](["Hello, new adventurer! I hope you're ready to begin!", "To start, why don't you try using W A S D to move around?", "When you're ready, just walk ahead into the easiest obstacle course ever designed!", "If you want to move faster, try tapping Shift as you move.", "Now, let's move on to something very important: the inventory!", "Use E to open your inventory.", "The first slot is for your weapons, the second for your armor, and the third for anything else you may find useful on your travels.", "You can drag and drop any item between slots, along with getting a useful bit of information if you hover over each item.", "Hold on... Is that a bag in the corner?", "Go on over to it and use F to interact with it.", "Feel free to take anything you find during your exploration, I'm sure their original owner won't miss it.", "Be careful! I've heard that there are dangerous slimes ahead!", "Slay the foul beasts using left click and go about your adventure!", "...Or just run past them, but where's the fun in that!", "Reach the end and be brought to your first real dungeon!"])
 delay = 1
+<<<<<<< HEAD
 script = null
+=======
+>>>>>>> dev
 
 [node name="Player" parent="." instance=ExtResource("2_rbh2g")]
 top_level = true

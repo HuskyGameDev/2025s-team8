@@ -1,4 +1,4 @@
-class_name Stats
+class_name CustomHellStats
 extends Node
 
 #Temp script to ensure that the inventory items would correctly affect stats

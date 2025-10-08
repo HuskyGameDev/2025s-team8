@@ -74,7 +74,7 @@ public partial class NPRButton : Button {
         UpdateState();
     }
 
-    private void UpdateState() {
+    public void UpdateState() {
         if (this.Disabled == true) {
             if (disabledTex != null) {
                 npr.Texture = disabledTex;
