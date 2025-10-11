@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://cq1dxd0m5csx1"]
+[gd_scene load_steps=35 format=3 uid="uid://cq1dxd0m5csx1"]
 
 [ext_resource type="Script" path="res://Player/Scripts/playerMovement.gd" id="1_7jpn7"]
 [ext_resource type="Texture2D" uid="uid://cnjgjy3iynxlu" path="res://Player/Sprites/PlayerSprite02.png" id="2_ilxdi"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://cmmxmfbjl7cpk" path="res://Weapons/spear.tscn" id="13_pgrnk"]
 [ext_resource type="Script" path="res://Inventory/Scripts/stat_label.gd" id="14_2rqd7"]
 [ext_resource type="PackedScene" uid="uid://bhowjlq8pc5kp" path="res://Weapons/bow.tscn" id="14_hn6ef"]
+[ext_resource type="PackedScene" uid="uid://c1gtfhh62k44l" path="res://Weapons/wand.tscn" id="15_a8cvf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_edhvl"]
 radius = 18.8119
@@ -299,6 +300,7 @@ ghost_scene = ExtResource("6_xinf4")
 
 [node name="attack" type="Node" parent="StateMachine"]
 script = ExtResource("6_inhut")
+held_weaponId = 3
 
 [node name="stun" type="Node" parent="StateMachine"]
 script = ExtResource("8_dbfju")
@@ -328,6 +330,9 @@ position = Vector2(0, 20)
 
 [node name="Spear" parent="interactions/Weapons" instance=ExtResource("13_pgrnk")]
 position = Vector2(0, 30)
+
+[node name="Wand" parent="interactions/Weapons" instance=ExtResource("15_a8cvf")]
+position = Vector2(0, 20)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2.5, 2.5)
