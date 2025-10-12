@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://dbb2tnmyhd6xr"]
 
-[ext_resource type="Script" path="res://Enemies/SlimeEnemy/SlimeEnemy.gd" id="1_c6y2h"]
-[ext_resource type="Texture2D" uid="uid://cvhe4f33unrg6" path="res://GeneralSprites/slime-down.png" id="2_0cty0"]
+[ext_resource type="Script" path="res://SlimeEnemy/SlimeEnemy.gd" id="1_c6y2h"]
+[ext_resource type="Texture2D" uid="uid://cbumoflv25aob" path="res://GeneralSprites/sprite_sheet.png" id="2_emlwr"]
 [ext_resource type="Script" path="res://GeneralNodes/Hitbox.gd" id="3_uceoe"]
 [ext_resource type="Script" path="res://GeneralNodes/Hurtbox.gd" id="3_x4vyj"]
 
@@ -59,7 +59,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_aa2n2"]
-radius = 205.664
+radius = 102.176
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ljg62"]
 radius = 13.1529
@@ -68,25 +68,13 @@ radius = 13.1529
 radius = 18.0278
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gl3j0"]
-<<<<<<< HEAD:SlimeEnemy/slimeEnemy.tscn
 radius = 14.1421
-=======
-radius = 13.3796
->>>>>>> origin/origin/Derek:Enemies/SlimeEnemy/slimeEnemy.tscn
 
-[node name="SlimeEnemy" type="CharacterBody2D" node_paths=PackedStringArray("hurt_box")]
+[node name="ShrimpleSlime" type="CharacterBody2D"]
 position = Vector2(18, 11)
-<<<<<<< HEAD:SlimeEnemy/slimeEnemy.tscn
 collision_layer = 6
 collision_mask = 4
-=======
-scale = Vector2(0.9, 0.9)
-collision_layer = 4
-collision_mask = 7
->>>>>>> origin/origin/Derek:Enemies/SlimeEnemy/slimeEnemy.tscn
 script = ExtResource("1_c6y2h")
-hurt_box = NodePath("Hurtbox")
-enemy_name = "Slime"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -95,35 +83,28 @@ libraries = {
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(3, 3)
-texture = ExtResource("2_0cty0")
+texture = ExtResource("2_emlwr")
+hframes = 2
 
 [node name="detection_area" type="Area2D" parent="."]
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
 shape = SubResource("CircleShape2D_aa2n2")
-debug_color = Color(0.196078, 0.580392, 0.85098, 0.572549)
+debug_color = Color(0.642402, 0.523623, 0.00628106, 0.42)
 
 [node name="HitBox" type="Area2D" parent="."]
 collision_layer = 4
-<<<<<<< HEAD:SlimeEnemy/slimeEnemy.tscn
 collision_mask = 4
 monitoring = false
-=======
-collision_mask = 0
->>>>>>> origin/origin/Derek:Enemies/SlimeEnemy/slimeEnemy.tscn
 script = ExtResource("3_uceoe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 shape = SubResource("CircleShape2D_ljg62")
-debug_color = Color(0, 0.63109, 0.450654, 0.356863)
+debug_color = Color(0.299589, 0.495727, 1, 0.42)
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 0
-<<<<<<< HEAD:SlimeEnemy/slimeEnemy.tscn
-=======
-monitoring = false
->>>>>>> origin/origin/Derek:Enemies/SlimeEnemy/slimeEnemy.tscn
 script = ExtResource("3_x4vyj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
@@ -132,13 +113,6 @@ debug_color = Color(0.947354, 0.109111, 0.507512, 0.42)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_gl3j0")
-
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-path_desired_distance = 10.0
-path_max_distance = 1000.0
-avoidance_enabled = true
-avoidance_layers = 2
-avoidance_mask = 2
 
 [connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="detection_area" to="." method="_on_detection_area_body_exited"]

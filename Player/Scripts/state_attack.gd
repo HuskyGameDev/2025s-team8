@@ -4,45 +4,36 @@ class_name state_attack extends State
 #consider switching to time
 
 var attacking: bool = false
-var coolingDown: bool = false
 @onready var animation_player: AnimationPlayer = $"../../AnimationPlayer"
 
 @onready var idle: State = $"../Idle"
+
 @onready var walk: State = $"../Walk"
 
-@onready var weapons = $"../../interactions/Weapons".get_children()
+@onready var hitbox: Hitbox = $"../../interactions/Hitbox"
 
-
-@export var held_weaponId : int = 0
+@onready var hurtbox: Hurtbox = $"../../interactions/Hurtbox"
 
 func Enter() -> void:
-	if(coolingDown == true or attacking == true):
-		return
 	player.UpdateAnimation("attack")
+	animation_player.animation_finished.connect(EndAttack)
 	attacking = true
 	
-	var held_weapon = weapons[held_weaponId]
-	held_weapon.attack()
-	
-	await get_tree().create_timer(held_weapon.freeze_duration).timeout		
-	coolingDown = true;
-	EndAttack()
-	await get_tree().create_timer(held_weapon.cooldown).timeout # stops player from spamming weapon
-	coolingDown = false;
+	#this essentially delays the animation for turning on the hurt
+	await get_tree().create_timer(.075).timeout
+	hurtbox.monitoring = true
 	pass
 	
 func Exit() -> void:
 	animation_player.animation_finished.disconnect(EndAttack)
 	attacking = false
-<<<<<<< HEAD
 	
 	hurtbox.monitoring = false
-=======
->>>>>>> origin/origin/Derek
 	pass
 	
 func Process(_delta : float) -> State:
 	player.velocity = Vector2.ZERO
+	
 	
 	if attacking == false:
 		if player.direction == Vector2.ZERO:
@@ -58,7 +49,9 @@ func Physics(_delta: float) -> State:
 func HandleInput(_event: InputEvent) -> State:
 	return null
 	
-func EndAttack() -> void:
+	#
+func EndAttack(_newAnimName : String) -> void:
 	attacking = false
+	hurtbox.monitoring = false;
 
 	
