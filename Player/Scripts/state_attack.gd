@@ -20,6 +20,10 @@ func Enter() -> void:
 						# weapons will be connected to corresponding inventory items in the future
 	pass
 	
+	
+func init() ->void:
+	pass
+	
 func Exit() -> void:
 	animation_player.animation_finished.disconnect(EndAttack)
 	attacking = false

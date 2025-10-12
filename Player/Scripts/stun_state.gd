@@ -1,7 +1,7 @@
 class_name state_stun extends State
 
 
-@export var knockback_speed: float = 200.0
+@export var knockback_speed: float = 20.0
 @export var decelerate_speed: float = 10.0
 @export var invulnerable_duration: float = 1.0
 
@@ -25,8 +25,8 @@ func Enter() -> void:
 	player.SetDirection()
 	
 	#Invincible state
-	player.MakeInvincible(invulnerable_duration)
-	player.effect_player.play("damaged")
+	player.MakeInvulnerable(invulnerable_duration)
+	#player.effect_player.play("damaged")
 	
 	pass
 	
