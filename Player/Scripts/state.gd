@@ -3,7 +3,10 @@ class_name State extends Node
 #stores a reference to the player
 static var player: Player
 static var state_machine: PlayerStateMachine
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/origin/Derek
 func _ready():
 	pass
 	

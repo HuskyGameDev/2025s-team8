@@ -6,8 +6,14 @@ signal received_damage(damage: int) #any time damage is recieved
 
 #@export var health: Health
 
+<<<<<<< HEAD
 func _init() -> void:
 	pass
+=======
+#func _init() -> void:
+#	collision_layer = 0
+#	collision_mask = 3
+>>>>>>> origin/origin/Derek
 	
 	
 # .
@@ -17,7 +23,12 @@ func _ready() -> void:
 # .
 func _on_area_entered(a : Area2D) -> void:
 	if a is Hitbox:
+<<<<<<< HEAD
 		a.TakeDamage(self)
 
 		#health.health -= hitbox.damage
+=======
+		a.TakeDamage(damage)
+		print("Did " + str(damage) + " to " + a.name)
+>>>>>>> origin/origin/Derek
 		

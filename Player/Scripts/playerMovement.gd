@@ -1,6 +1,8 @@
 class_name Player extends CharacterBody2D
 #note this is a script that will eventually get replaced by the state machine. The state machine
 #will store the previous statement and remember it to make transitions in between actions smoother
+@export var hp: int = 20
+@export var max_hp: int = 20
 
 var cardinal_direction : Vector2 = Vector2.DOWN #part of sprite movement
 var direction : Vector2 = Vector2.ZERO
@@ -9,6 +11,7 @@ var direction : Vector2 = Vector2.ZERO
 @onready var sprite : Sprite2D = $Sprite2D
 @onready var state_machine : PlayerStateMachine = $StateMachine
 
+<<<<<<< HEAD
 #health here
 signal player_damaged(hurt_box: Hurtbox)
 signal update_hp_progress()
@@ -23,9 +26,18 @@ var max_hp: int = 10
 @onready var mainhitbox: Hitbox = $interactions/Hitbox
 @onready var mainhurtbox: Hurtbox = $interactions/Hurtbox
 
+=======
+signal player_damaged(hurt_box: Hurtbox)
+var invincible : bool = false
+
+#@onready var mainhitbox: Hitbox = $interactions/Hitbox
+#@onready var mainhurtbox: Hurtbox = $interactions/Hurtbox
+>>>>>>> origin/origin/Derek
 
 signal DirectionChanged( _new_direction: Vector2)
-	
+signal player_damage(hurt_box: Hurtbox)
+signal update_hp_progress()
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	state_machine.Initialize(self)
@@ -51,16 +63,21 @@ func update_hp(delta:int) -> void:
 	if hp > max_hp:
 		hp = max_hp
 		
+<<<<<<< HEAD
 	#update_hp_progress.emit()
 	
 	pass
 
+=======
+	#update_hp_progress.emit()	
+	pass
+>>>>>>> origin/origin/Derek
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	
-	direction.x = Input.get_action_strength("right") - Input.get_action_strength("left");
-	direction.y = Input.get_action_strength("down") - Input.get_action_strength("up");
+	direction.x = Input.get_action_strength("Right") - Input.get_action_strength("Left");
+	direction.y = Input.get_action_strength("Down") - Input.get_action_strength("Up");
 	direction = direction.normalized();
 	pass
 
@@ -108,6 +125,7 @@ func AnimDirection() -> String:
 		return "up"
 	else:
 		return "side"
+<<<<<<< HEAD
 		
 func _on_detection_area_body_entered(_body: Node2D) -> void:
 	
@@ -123,3 +141,15 @@ func MakeInvincible ( _duration : float = 1.0) -> void:
 	mainhitbox.monitorable = true
 	mainhitbox.monitoring = true
 	pass
+=======
+
+#func MakeInvincible ( _duration : float = 1.0) -> void:
+#	invincible = true
+#	mainhitbox.monitoring = false
+#	await get_tree().create_timer(_duration).timeout # wait 1 seconf before code continues
+	
+#	invincible = false
+#	mainhitbox.monitorable = true
+#	mainhitbox.monitoring = true
+#	pass
+>>>>>>> origin/origin/Derek
