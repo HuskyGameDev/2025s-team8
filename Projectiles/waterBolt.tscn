@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://tn11ebogbibp"]
+
+[ext_resource type="Script" path="res://Projectiles/projectile.gd" id="1_k6gug"]
+[ext_resource type="Texture2D" uid="uid://dmg871cdwx5kx" path="res://Projectiles/pixil-frame-0 (7).png" id="2_a8xow"]
+[ext_resource type="Script" path="res://GeneralNodes/Hurtbox.gd" id="3_h3luh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dcrj5"]
+radius = 2.06155
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ksn7f"]
+radius = 2.54951
+
+[node name="Projectile" type="Area2D"]
+scale = Vector2(2, 2)
+collision_layer = 11
+collision_mask = 3
+script = ExtResource("1_k6gug")
+damage = 1.0
+speed = 150.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_dcrj5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_a8xow")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 8
+script = ExtResource("3_h3luh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_ksn7f")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

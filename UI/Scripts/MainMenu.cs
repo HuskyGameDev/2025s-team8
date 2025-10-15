@@ -2,14 +2,14 @@ using Godot;
 using System;
 
 public partial class MainMenu : Control {
-    [Export]
-    Button continueButton;
-    [Export]
-    Button newgameButton;
-    [Export]
-    Button settingsButton;
-    [Export]
-    Button quitButton;
+	[Export]
+	Button continueButton;
+	[Export]
+	Button newgameButton;
+	[Export]
+	Button settingsButton;
+	[Export]
+	Button quitButton;
 
     const string TRANSITION_PATH = "res://UI/Scenes/Transition.tscn";
     const string SAVE_SELECT_PATH = "res://UI/Scenes/SaveSelect.tscn";
@@ -45,19 +45,19 @@ public partial class MainMenu : Control {
         UI_ROOT = this.GetTree().GetNodesInGroup("UI_ROOT")[0];
     }
 
-    private void ToSaveSelect() {
-        // Get copies of Transition and SaveSelect
-        PackedScene transitionScene = (PackedScene) ResourceLoader.LoadThreadedGet(TRANSITION_PATH);
+	private void ToSaveSelect() {
+		// Get copies of Transition and SaveSelect
+		PackedScene transitionScene = (PackedScene) ResourceLoader.LoadThreadedGet(TRANSITION_PATH);
 		Node tNode = transitionScene.Instantiate();
-        PackedScene savesScene = (PackedScene) ResourceLoader.LoadThreadedGet(SAVE_SELECT_PATH);
+		PackedScene savesScene = (PackedScene) ResourceLoader.LoadThreadedGet(SAVE_SELECT_PATH);
 		Node sNode = savesScene.Instantiate();
 
         // Add into scene (UI Root -> Transition -> SaveSelect)
         UI_ROOT.AddChild(tNode);
 
-        // Begin the transition
-        ((Transition)tNode).BeginTransition(sNode, this, Transition.Mode.topLeft);
-    }
+		// Begin the transition
+		((Transition)tNode).BeginTransition(sNode, this, Transition.Mode.topLeft);
+	}
 
     private void BeginNewGame() {
         // Get copies of Transition and NewGame
@@ -73,23 +73,23 @@ public partial class MainMenu : Control {
         ((Transition)tNode).BeginTransition(ngNode, this, Transition.Mode.topRight);
     }
 
-    private void ToSettings() {
-        // Get copies of Transition and Settings
-        PackedScene transitionScene = (PackedScene) ResourceLoader.LoadThreadedGet(TRANSITION_PATH);
+	private void ToSettings() {
+		// Get copies of Transition and Settings
+		PackedScene transitionScene = (PackedScene) ResourceLoader.LoadThreadedGet(TRANSITION_PATH);
 		Node tNode = transitionScene.Instantiate();
-        PackedScene settingsScene = (PackedScene) ResourceLoader.LoadThreadedGet(SETTINGS_SCENE_PATH);
+		PackedScene settingsScene = (PackedScene) ResourceLoader.LoadThreadedGet(SETTINGS_SCENE_PATH);
 		Node sNode = settingsScene.Instantiate();
 
-        ((SettingsMenu)sNode).ReturnTo("res://UI/Scenes/MainMenu.tscn");
+		((SettingsMenu)sNode).ReturnTo("res://UI/Scenes/MainMenu.tscn");
 
         // Add into scene (UI Root -> Transition -> Settings)
         UI_ROOT.AddChild(tNode);
 
-        // Begin the transition
-        ((Transition)tNode).BeginTransition(sNode, this, Transition.Mode.topRight);
-    }
+		// Begin the transition
+		((Transition)tNode).BeginTransition(sNode, this, Transition.Mode.topRight);
+	}
 
-    private void QuitGame() {
+	private void QuitGame() {
 		GetTree().Root.PropagateNotification((int)NotificationWMCloseRequest); // send notif that we are about to quit
 		GetTree().Quit();
 	}
