@@ -33,7 +33,7 @@ func Enter() -> void:
 	
 	#Invincible state
 	player.MakeInvulnerable(invulnerable_duration)
-	await get_tree().create_timer(1.0).timeout
+	#await get_tree().create_timer(1.0).timeout
 	#player.effect_player.play("damaged")
 	#animation_player.animation_finished.disconnect(animationFinished)
 	player.animation_player.animation_finished.disconnect(animationFinished)
