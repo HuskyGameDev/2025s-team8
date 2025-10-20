@@ -71,7 +71,7 @@ func SetDirection() -> bool:
 #function to change update the animation
 func UpdateAnimation(state: String) -> void: 
 	animation_player.play(state + "_" + AnimDirection())
-	#print(state + "_" + AnimDirection() )
+	print(state + "_" + AnimDirection() )
 	pass
 	
 #helper function for animation
@@ -101,7 +101,6 @@ func update_hp(delta: int) -> void:
 	hp = hp + delta
 	if(hp > max_hp):
 		hp = max_hp
-	
 	pass
 
 func MakeInvulnerable(_duration : float = 1.0) -> void:
@@ -110,19 +109,10 @@ func MakeInvulnerable(_duration : float = 1.0) -> void:
 	hurtbox.monitoring = false
 	
 	await get_tree().create_timer(_duration).timeout
+	#code is reaching this statement but its not updating the animation
+	print("stun state ends")
+	#invulnerable = false
+	hitbox.monitorable = true
+	hurtbox.monitoring = false
 	
-	invulnerable = false
-	hitbox.monitoring = true
-	hurtbox.monitoring = true
 	pass
-
-#func MakeInvincible ( _duration : float = 1.0) -> void:
-#	invincible = true
-#	mainhitbox.monitorable = false
-#	mainhitbox.monitoring = false
-#	await get_tree().create_timer(_duration).timeout # wait 1 seconf before code continues
-#	
-#	invincible = false
-#	mainhitbox.monitorable = true
-#	mainhitbox.monitoring = true
-#	pass
