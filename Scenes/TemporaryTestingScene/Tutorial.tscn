@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=4 uid="uid://cuh5kjuynwmrv"]
+[gd_scene load_steps=13 format=4 uid="uid://cuh5kjuynwmrv"]
 
 [ext_resource type="PackedScene" uid="uid://c1mcpvksyv08s" path="res://UI/Scenes/TextBox.tscn" id="1_6f6b3"]
 [ext_resource type="Texture2D" uid="uid://bmt56ljcu5h03" path="res://Tile Maps/Sprites/Dungeon Tile Set.png" id="1_fvsde"]
+[ext_resource type="Script" path="res://Scenes/TemporaryTestingScene/TutorialMusic.cs" id="1_xhr3t"]
 [ext_resource type="Script" path="res://Tile Maps/LevelTileMap.gd" id="2_kmihv"]
 [ext_resource type="PackedScene" uid="uid://cq1dxd0m5csx1" path="res://Player/player.tscn" id="2_rbh2g"]
-[ext_resource type="PackedScene" uid="uid://dytx21xto4i4b" path="res://Inventory/Chest.tscn" id="5_wfov5"]
+[ext_resource type="PackedScene" uid="uid://dytx21xto4i4b" path="res://inventory/Chest.tscn" id="5_wfov5"]
 [ext_resource type="PackedScene" uid="uid://dbb2tnmyhd6xr" path="res://Enemies/SlimeEnemy/slimeEnemy.tscn" id="5_xehpi"]
 [ext_resource type="Script" path="res://Scenes/TemporaryTestingScene/ChangeScene.cs" id="7_ja1t0"]
 
@@ -173,6 +174,7 @@ size = Vector2(105, 48)
 size = Vector2(20, 48)
 
 [node name="Tutorial" type="Node2D"]
+script = ExtResource("1_xhr3t")
 
 [node name="ChangeScene" type="Control" parent="." node_paths=PackedStringArray("area")]
 layout_mode = 3

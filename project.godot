@@ -22,6 +22,7 @@ Config="*res://Config.cs"
 LevelManager="*res://World_LevelLoader/LevelManager.gd"
 PlayerData="*res://PlayerData.cs"
 Init="*res://Init.cs"
+MusicManager="*res://UI/Scenes/MusicManager.tscn"
 
 [display]
 

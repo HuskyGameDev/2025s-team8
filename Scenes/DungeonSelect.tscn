@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://c0svsqcjg3vt6"]
+[gd_scene load_steps=3 format=3 uid="uid://c0svsqcjg3vt6"]
 
+[ext_resource type="Script" path="res://Scenes/DungeonSelect.cs" id="1_mpdef"]
 [ext_resource type="Theme" uid="uid://dyxfi3de2g1r" path="res://Scenes/DungeonSelect.tres" id="1_mwlte"]
 
 [node name="DungeonSelect" type="Node2D"]
+script = ExtResource("1_mpdef")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_right = 1920.0
