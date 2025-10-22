@@ -1,3 +1,134 @@
-[gd_scene format=3 uid="uid://d2d6p0vls2gv2"]
+[gd_scene load_steps=16 format=3 uid="uid://d2d6p0vls2gv2"]
 
-[node name="Knight" type="Node2D"]
+[ext_resource type="Script" path="res://Enemies/Knight/knight.gd" id="1_g5sjj"]
+[ext_resource type="Texture2D" uid="uid://d18fnjm1x701j" path="res://Enemies/Knight/KnightEnemy.png" id="2_xcqib"]
+[ext_resource type="Script" path="res://GeneralNodes/Hitbox.gd" id="3_kjanp"]
+[ext_resource type="Script" path="res://GeneralNodes/Hurtbox.gd" id="4_oi1ge"]
+[ext_resource type="Script" path="res://Enemies/Knight/knight_state_machine.gd" id="5_em2p4"]
+[ext_resource type="Script" path="res://Enemies/Knight/knight_idle.gd" id="6_yirld"]
+
+[sub_resource type="Animation" id="Animation_hbk7p"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_navsh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_6v3ol"]
+resource_name = "attack"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [6, 7, 8]
+}
+
+[sub_resource type="Animation" id="Animation_v83mw"]
+resource_name = "walk"
+length = 0.75
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.333333, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [3, 4, 5, 4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5ugmx"]
+_data = {
+"RESET": SubResource("Animation_navsh"),
+"attack": SubResource("Animation_6v3ol"),
+"idle": SubResource("Animation_hbk7p"),
+"walk": SubResource("Animation_v83mw")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r0hvm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4lwrq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wljdb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l5ayn"]
+
+[node name="Knight" type="CharacterBody2D"]
+script = ExtResource("1_g5sjj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_5ugmx")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_xcqib")
+hframes = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_r0hvm")
+debug_color = Color(0.300727, 0.495477, 1, 0.42)
+
+[node name="detectiion_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detectiion_area"]
+shape = SubResource("CircleShape2D_4lwrq")
+debug_color = Color(0.570753, 0.555781, 3.85046e-07, 0.42)
+
+[node name="hit_box" type="Area2D" parent="."]
+script = ExtResource("3_kjanp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hit_box"]
+shape = SubResource("CircleShape2D_wljdb")
+
+[node name="hurt_box" type="Area2D" parent="."]
+script = ExtResource("4_oi1ge")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurt_box"]
+shape = SubResource("CircleShape2D_l5ayn")
+debug_color = Color(0.964929, 9.62615e-08, 0.489791, 0.42)
+
+[node name="state_machine" type="Node" parent="."]
+script = ExtResource("5_em2p4")
+
+[node name="idle" type="Node" parent="state_machine"]
+script = ExtResource("6_yirld")
+
+[node name="walk" type="Node" parent="state_machine"]
+
+[node name="attack" type="Node" parent="state_machine"]
