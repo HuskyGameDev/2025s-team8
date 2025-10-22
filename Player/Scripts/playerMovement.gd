@@ -103,7 +103,7 @@ func update_hp(delta: int) -> void:
 		hp = max_hp
 	pass
 
-func MakeInvulnerable(_duration : float = 1.0) -> void:
+func MakeInvulnerable(_duration : float = 2.0) -> void:
 	invulnerable = true
 	hitbox.monitorable = false
 	hurtbox.monitoring = false
