@@ -13,6 +13,7 @@ var leap_timer: float = 0
 
 
 func _physics_process(delta: float):
+	
 	if player_found:
 		chase(player.position - position, delta)
 	else:
