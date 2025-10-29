@@ -31,7 +31,7 @@ func _ready():
 		map.append(row);
 	
 	
-	var startPos = Vector2(2,2)
+	var startPos = Vector2(16,150)
 	var endPos = Vector2(250,250)
 	
 	map[startPos.y][startPos.x] = 5
