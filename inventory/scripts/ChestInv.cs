@@ -1,15 +1,13 @@
 using Godot;
 using System;
 
-public partial class ChestInv : Control
+public partial class ChestInv : Area2D
 {
+    private Control invRoot;
+    private bool playerNearby = false;
 
-    private Item[] item_pool = {
-        Items.staff,
-        Items.sword,
-        Items.potion,
-        Items.coin
-    };
+    [Export]
+    private string lootTableName;
 
     // Mininum amount of items that should be in the chest
     private int min_items = 2;
@@ -18,52 +16,66 @@ public partial class ChestInv : Control
 
 
     // Called when the node enters the scene tree for the first time.
-    public override void _Ready() {
-        rand.Randomize(); // Create a different seed each run
-        this.Hide();
+    public override void _Ready()
+    {
+        // Get the player inventory location
+        invRoot = this.GetNode<Control>("./CanvasLayer/Chest");
+        if (invRoot == null)
+        {
+            GD.PrintErr("Cannot find chest inventory location? (Did the name change?)");
+            return;
+        }
+        invRoot.Hide();
 
-        // Create the amount of space in the chest
-        for (int i = 0; i < 24; i++) {
+        // Set the Area2D enter/exit triggers
+        this.BodyEntered += (body) =>
+        {
+            if (body.Name == "Player")
+            {
+                playerNearby = true;
+            }
+        };
+        this.BodyExited += (body) =>
+        {
+            if (body.Name == "Player")
+            {
+                playerNearby = false;
+            }
+            invRoot.Hide();
+        };
+        
+        // Set up the InventorySlots
+        for (int i = 0; i < 24; i++)
+        {
             InventorySlot s = new InventorySlot();
             s.Init(Item.Type.MAIN, new Vector2(64, 64));
-            this.AddChild(s);
+            invRoot.AddChild(s);
         }
 
-        int cur_items = 0;
-        int rand_val = 0;
-        bool added = false;
-
-        while (cur_items < min_items)
+        // Get loot from given loot table
+        if (lootTableName == null)
         {
-            for (int i = 0; i < item_pool.Length; i++)
+            GD.PrintErr("Chest has no loot table to generate from!");
+            return;
+        }
+        Item[] loot = LootGenerator.GenerateLoot(lootTableName);
+
+        // Add InventoryItems into the inventory
+        for (int i = 0; i < loot.Length; i++)
+        {
+            InventoryItem item = new InventoryItem();
+            item.Init(loot[i]);
+            invRoot.GetChild(i).AddChild(item);
+        }
+    }
+    
+    public override void _Input(InputEvent @event)
+    {
+        if (@event is InputEventKey && Input.IsActionJustPressed("Interact"))
+        {
+            if (playerNearby)
             {
-                InventoryItem item = new InventoryItem();
-                item.Init(item_pool[i]);
-
-                rand_val = rand.RandiRange(1, 100);
-
-                if (rand_val > 80 && item.data.GetRarity() == Item.Rarity.Legendary)
-                {
-                    added = true;
-                }
-                else if (rand_val > 60 && item.data.GetRarity() == Item.Rarity.Rare)
-                {
-                    added = true;
-                }
-                else if (rand_val > 40 && item.data.GetRarity() == Item.Rarity.Uncommon)
-                {
-                    added = true;
-                }
-                else if (rand_val > 20 && item.data.GetRarity() == Item.Rarity.Common)
-                {
-                    added = true;
-                }
-
-                if (added)
-                {
-                    this.GetChild(cur_items).AddChild(item);
-                    cur_items++;
-                }
+                invRoot.Visible = !invRoot.Visible;
             }
         }
     }

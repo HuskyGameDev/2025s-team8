@@ -18,7 +18,7 @@ public class Item
         type = t;
         rarity = r;
         description = desc;
-        this.tex = (Texture2D)GD.Load("res://Textures/Item/" + id + ".png");
+        this.tex = (Texture2D)GD.Load("res://Assets/Item/" + id + ".png");
         slotType = Item.Type.MAIN;
     }
 
@@ -75,7 +75,8 @@ public class Item
         MAIN,
         WEAPON,
         ARMOR,
-        RANDOM
+        RANDOM,
+        INVALID = -1
     }
 
     public enum Rarity
@@ -83,6 +84,7 @@ public class Item
         Common,
         Uncommon,
         Rare,
+        Epic,
         Legendary
     }
 }

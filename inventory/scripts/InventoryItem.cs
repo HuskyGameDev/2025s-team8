@@ -6,17 +6,18 @@ public partial class InventoryItem : TextureRect
     public Item data;
 
     public override void _Ready() {
-        if (data != null)
-        {
-            this.ExpandMode = (ExpandModeEnum)1; //EXPAND_IGNORE_SIZE
-            this.StretchMode = (StretchModeEnum)5; //STRETCH_KEEP_ASPECT_CENTERED
-            this.Texture = data.GetTex();
-            this.TooltipText = data.GetTooltip();
-        }
+        this.ExpandMode = (ExpandModeEnum)1; //EXPAND_IGNORE_SIZE
+        this.StretchMode = (StretchModeEnum)5; //STRETCH_KEEP_ASPECT_CENTERED
+        this.CustomMinimumSize = new Vector2(64, 64);
     }
 
     public void Init(Item d) {
         this.data = d;
+        if (data != null)
+        {
+            this.Texture = data.GetTex();
+            this.TooltipText = data.GetTooltip();
+        }
     }
 
     public override Variant _GetDragData(Vector2 atPosition) {

@@ -9,7 +9,7 @@ public partial class PlayerInv : Control
         Items.bow,
         Items.potion,
         Items.staff,
-        Items.sword
+        Items.wooden_sword
     };
 
     public override void _Ready()

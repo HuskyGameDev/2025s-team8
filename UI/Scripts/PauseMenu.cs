@@ -17,7 +17,7 @@ public partial class PauseMenu : Control, ITransitionOnDeath
 	private const string LOAD_SCREEN_PATH = "res://UI/Scenes/LoadScreen.tscn";
 	private Node UI_ROOT = null;
 
-	private bool ignoreNext = false;
+	private bool isDisabled = false;
 	private int onDeathMode = 0;
 
 	public override void _Ready()
@@ -47,11 +47,7 @@ public partial class PauseMenu : Control, ITransitionOnDeath
 	{
 		if (Input.IsActionJustPressed("Back"))
 		{
-			if (ignoreNext)
-			{
-				ignoreNext = false;
-				return;
-			}
+			if (isDisabled) return;
 			// not ignoring this "Back"
 			if (this.Visible)
 			{
@@ -67,9 +63,9 @@ public partial class PauseMenu : Control, ITransitionOnDeath
 		}
 	}
 
-	public void IgnoreNextOpen(bool doIgnore)
+	public void SetDisabled(bool b)
 	{
-		ignoreNext = doIgnore;
+		isDisabled = b;
 	}
 
 	private void ResumeGame()
@@ -162,19 +158,6 @@ public partial class PauseMenu : Control, ITransitionOnDeath
 		{
 			GD.PrintErr("NO SAVE FILE LOADED? SAVE DATA IS LOST!");
 		}
-
-		// // Get copies
-		// PackedScene transitionScene = (PackedScene)ResourceLoader.LoadThreadedGet(TRANSITION_PATH);
-		// Node tNode = transitionScene.Instantiate();
-		// PackedScene returnScene = (PackedScene)ResourceLoader.LoadThreadedGet(MAIN_MENU_SCENE_PATH);
-		// Node mNode = returnScene.Instantiate();
-
-		// // Add into scene
-		// UI_ROOT.AddChild(tNode);
-
-		// // Begin the transition
-		// ((Transition)tNode).DoUnpauseNext(true);
-		// ((Transition)tNode).BeginTransition(mNode, this, Transition.Mode.bottomLeft);
 
 		// New Experimental Means of Loading
         PackedScene transitionScene = (PackedScene)ResourceLoader.LoadThreadedGet(TRANSITION_PATH);

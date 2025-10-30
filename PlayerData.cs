@@ -5,6 +5,14 @@ public partial class PlayerData : Node
 {
     public SaveState save = null;
 
+    public override void _Ready()
+    {
+        if (!DirAccess.DirExistsAbsolute("user://saves"))
+        {
+            DirAccess.MakeDirAbsolute("user://saves");
+        }
+    }
+
     // Load(string s)
     //   load the save file "<s>.hdsave", and return all data
     public static SaveState Load(string s)

@@ -23,6 +23,13 @@ public partial class ChangeScene : Control, ITransitionOnDeath
 	public void SwitchScene()
 	{
 		Node UI_ROOT = this.GetTree().GetNodesInGroup("UI_ROOT")[0];
+		// Find and Destroy the pause menu, if it exists
+		Node pMenu = UI_ROOT.GetNode("./PauseMenu");
+		if (pMenu != null)
+        {
+			pMenu.QueueFree();
+        }
+
 		// New Experimental Means of Loading
 		PackedScene transitionScene = (PackedScene)ResourceLoader.LoadThreadedGet(TRANSITION_PATH);
 		Node tNode = transitionScene.Instantiate();
