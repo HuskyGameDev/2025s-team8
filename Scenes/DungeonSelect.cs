@@ -56,6 +56,8 @@ public partial class DungeonSelect : Node2D
 		}
 
 		UI_ROOT = this.GetTree().GetNodesInGroup("UI_ROOT")[0];
+		
+		MusicManager.Instance.PlayTrack("res://Player/Audio/Dungeon2_Temp.mp3");
 	}
 	
 	// Not adding path to tree, not going to the scene

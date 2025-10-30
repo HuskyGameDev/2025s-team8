@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=4 uid="uid://j2ey5y83jld0"]
+[gd_scene load_steps=10 format=4 uid="uid://j2ey5y83jld0"]
 
 [ext_resource type="PackedScene" uid="uid://cq1dxd0m5csx1" path="res://Player/player.tscn" id="1_6exw8"]
+[ext_resource type="Script" path="res://Scenes/TemporaryTestingScene/LevelMusic.cs" id="1_2075r"]
 [ext_resource type="PackedScene" uid="uid://ejm2wcvxoaoq" path="res://Tile Maps/base dungeon.tscn" id="2_cv62i"]
 [ext_resource type="PackedScene" uid="uid://dbb2tnmyhd6xr" path="res://Enemies/SlimeEnemy/slimeEnemy.tscn" id="3_gmyew"]
 [ext_resource type="PackedScene" uid="uid://dytx21xto4i4b" path="res://inventory/Chest.tscn" id="4_rkng0"]
@@ -14,6 +15,7 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Arr
 outlines = Array[PackedVector2Array]([PackedVector2Array(1161, -136, 407, 159, -44, 156, 47, -365, 115, -440, 617, -489, 1142, -488)])
 
 [node name="TestingGround" type="Node2D"]
+script = ExtResource("1_2075r")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 position = Vector2(95, -7)
