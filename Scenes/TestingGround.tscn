@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://j2ey5y83jld0"]
+[gd_scene load_steps=12 format=4 uid="uid://j2ey5y83jld0"]
 
 [ext_resource type="PackedScene" uid="uid://cq1dxd0m5csx1" path="res://Player/player.tscn" id="1_6exw8"]
 [ext_resource type="Script" path="res://Scenes/navigation_startup.gd" id="1_pcs3q"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dbb2tnmyhd6xr" path="res://Enemies/SlimeEnemy/slimeEnemy.tscn" id="3_gmyew"]
 [ext_resource type="PackedScene" uid="uid://dytx21xto4i4b" path="res://inventory/Chest.tscn" id="4_rkng0"]
 [ext_resource type="PackedScene" uid="uid://y0ycdmckwo7g" path="res://Enemies/ShooterSlime/shooterSlime.tscn" id="5_iy5na"]
+[ext_resource type="PackedScene" uid="uid://ced16vl80lecu" path="res://Collectables/important_item.tscn" id="5_tetkc"]
 [ext_resource type="PackedScene" uid="uid://i7gkdqqb0m1w" path="res://Enemies/Flame/flame_enemy.tscn" id="6_3jy8h"]
 [ext_resource type="PackedScene" uid="uid://qfo0d117ba54" path="res://Enemies/FourShooter/fourShooter.tscn" id="7_53p7s"]
 [ext_resource type="PackedScene" uid="uid://qywun8lwlffr" path="res://Scenes/map_gen_test.tscn" id="8_hq61x"]
@@ -28,6 +29,7 @@ tile_map_data = PackedByteArray("AAAAAAAAAAABAAUAAAABAAAAAAACAAUAAAACAAAAAAACAAU
 [node name="MapGenTest" parent="NavigationRegion2D" instance=ExtResource("8_hq61x")]
 position = Vector2(-95, 7)
 enemyPool = Array[PackedScene]([ExtResource("3_gmyew"), ExtResource("3_gmyew"), ExtResource("3_gmyew")])
+important_item_scene = ExtResource("5_tetkc")
 
 [node name="Player" parent="." instance=ExtResource("1_6exw8")]
 top_level = true

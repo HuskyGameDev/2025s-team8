@@ -10,9 +10,10 @@ var lastWanderDir: Vector2 = Vector2(1,1)
 
 @export var enemyPool : Array[PackedScene] = [];
 
+@export var important_item_scene : PackedScene;
+
 
 func _ready():
-	
 	# set up perlin noise thing
 	var noise = FastNoiseLite.new()
 	noise.noise_type = FastNoiseLite.TYPE_PERLIN
@@ -25,21 +26,20 @@ func _ready():
 		for x in range(length):
 			var noise_val = (noise.get_noise_2d(x,y) + 1) * 0.5 # gives a value 0-1
 			if(noise_val < 0.4):
-				row.append(0)
+				row.append(2)  # this used to append 0, but now it appends 2. 2 is cave air. Cave air might be replaced. 
 			else:	
 				row.append(1)
 		map.append(row);
-	
-	
+
 	var startPos = Vector2(16,150)
-	var endPos = Vector2(250,250)
-	
+	var endPos = Vector2(250,randi_range(100,200))
+
 	map[startPos.y][startPos.x] = 5
 	map[endPos.y][endPos.x] = 5
-	
+
 	var pointer = startPos
 	var approach_timer: int = 0
-	
+
 	while(pointer != endPos):
 		if(approach_timer > 0):
 			pointer += wander()
@@ -48,7 +48,7 @@ func _ready():
 			pointer += approach(pointer,endPos)
 			approach_timer = 9
 
-		
+
 		if(pointer != endPos):
 			if(pointer.y >= length):
 				pointer.y -= 1
@@ -66,31 +66,38 @@ func _ready():
 					
 			if(randi_range(0,1000) == -1): # not working currently
 				spawn_rand_enemy(Vector2(pointer.x,pointer.y))
+
 	
-	
-	cellular_automatize()
-	
-	
+
 	#print the matrix
 	#for y in range(length):
 	#	print(map[y])	
 	
-		
 	for y in range(length):
 		for x in range(length):
-			if(map[y][x] == 1):
-				tilemap.set_cell(Vector2i(x, y), 0, Vector2i(1, 6)) #wall
-			else:
-				tilemap.set_cell(Vector2i(x, y), 0, Vector2i(2, 2)) #floor
-		
+			cave_air_shift(Vector2(x,y))
+	
+	cellular_automatize()
+	
+	spawn_tiles();
+	
+	spawn_important_item(endPos);
+
 func try_carve(pos: Vector2):
 	if(pos.x >= length or pos.x < 0):
 		return
 	if(pos.y >= length or pos.y < 0):
 		return
 	map[pos.y][pos.x] = 0
-	
-	
+
+func spawn_tiles():
+	for y in range(length):
+		for x in range(length):
+			if(map[y][x] == 0):
+				tilemap.set_cell(Vector2i(x, y), 0, Vector2i(2, 2)) #floor
+			else:
+				tilemap.set_cell(Vector2i(x, y), 0, Vector2i(1, 6)) #wall
+
 func spawn_rand_enemy(pos: Vector2):
 	var enemy_scene = enemyPool[randi_range(0,enemyPool.size()-1)]
 	var new_enemy = enemy_scene.instantiate() as Enemy
@@ -101,13 +108,66 @@ func spawn_rand_enemy(pos: Vector2):
 		print("spawned enemy at pos", newPos)
 	else:
 		print("enemy was null")
+		
+func spawn_important_item(pos: Vector2):
+	var important_item = important_item_scene.instantiate() as Node2D
+	if(important_item != null):
+		add_child(important_item)
+		var newPos = pos * 16
+		important_item.global_position = newPos
+		
 
+# shifts a cave air tile to air if there's adjacent air, wall otherwise
+func cave_air_shift(pos: Vector2, power: int = 20):
+	var x = pos.x;
+	var y = pos.y;
+
+	if(power <= 0):
+		return
+	if(x >= length-1 or x <= 0):
+		return
+	if(y >= length-1 or y <= 0):
+		return
+	if(map[y][x] != 2):
+		return
 	
+	if(map[y-1][x] == 0):
+		map[y][x] = 0
+		cave_air_shift(Vector2(x,y+1), power-1);
+		cave_air_shift(Vector2(x-1,y), power-1);
+		cave_air_shift(Vector2(x+1,y), power-1);
+		return;
+		
+	if(map[y+1][x] == 0):
+		map[y][x] = 0
+		cave_air_shift(Vector2(x,y-1), power-1);
+		cave_air_shift(Vector2(x-1,y), power-1);
+		cave_air_shift(Vector2(x+1,y), power-1);
+		return;
+
+	if(map[y][x+1] == 0):
+		map[y][x] = 0
+		cave_air_shift(Vector2(x,y+1), power-1);
+		cave_air_shift(Vector2(x-1,y), power-1);
+		cave_air_shift(Vector2(x,y-1), power-1);
+		return;
+
+	if(map[y][x-1] == 0):
+		map[y][x] = 0
+		cave_air_shift(Vector2(x,y+1), power-1);
+		cave_air_shift(Vector2(x,y-1), power-1);
+		cave_air_shift(Vector2(x+1,y), power-1);
+		return;
+		
+	map[y][x] = 1; # no adjacent air, so it becomes wall
+		
+
+
 func approach(pos: Vector2, endPos: Vector2):
 	var dif = endPos-pos;
 	dif = Vector2(clamp(dif.x, -1,1), clamp(dif.y, -1,1));
 	return dif
-	
+
 func wander():
 	var dir;
 	if(randi_range(0,1) == 0): # chance to have momentum
@@ -125,12 +185,16 @@ func cellular_automatize():
 			
 			
 func try_cell_smooth(pos: Vector2):
-	if(pos.x >= length-1 or pos.x <= 0):
-		return
-	if(pos.y >= length-1 or pos.y <= 0):
-		return
 	var x = pos.x;
 	var y = pos.y;
+	
+	if(x >= length-1 or x <= 0):
+		map[y][x] = 1
+		return
+	if(y >= length-1 or y <= 0):
+		map[y][x] = 1
+		return
+	
 	var currentVal = map[y][x];
 	var unequalCount = 0;
 	

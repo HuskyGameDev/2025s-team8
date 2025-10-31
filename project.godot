@@ -19,7 +19,7 @@ config/icon="res://Player/Sprites/icon.svg"
 
 Player_Stats="*res://Inventory/Scripts/Stats.gd"
 Config="*res://Config.cs"
-LevelManager="*res://World_LevelLoader/LevelManager.gd"
+LevelManager="*res://Classes/Items/LevelManager.gd"
 PlayerData="*res://PlayerData.cs"
 Init="*res://Init.cs"
 
