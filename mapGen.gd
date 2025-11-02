@@ -3,7 +3,7 @@ extends Node2D
 
 
 var map = [];
-var length: int = 300;
+var length: int = 350;
 @onready var tilemap = $"../Dungeon01"
 
 var lastWanderDir: Vector2 = Vector2(1,1)
@@ -11,6 +11,8 @@ var lastWanderDir: Vector2 = Vector2(1,1)
 @export var enemyPool : Array[PackedScene] = [];
 
 @export var important_item_scene : PackedScene;
+
+@export var player : Node2D;
 
 
 func _ready():
@@ -31,8 +33,8 @@ func _ready():
 				row.append(1)
 		map.append(row);
 
-	var startPos = Vector2(16,150)
-	var endPos = Vector2(250,randi_range(100,200))
+	var startPos = Vector2(64,150)
+	var endPos = Vector2(300, randi_range(100,250))
 
 	map[startPos.y][startPos.x] = 5
 	map[endPos.y][endPos.x] = 5
@@ -79,6 +81,8 @@ func _ready():
 	
 	cellular_automatize()
 	
+	player.global_position = startPos * 16;
+	
 	spawn_tiles();
 	
 	spawn_important_item(endPos);
@@ -96,8 +100,61 @@ func spawn_tiles():
 			if(map[y][x] == 0):
 				tilemap.set_cell(Vector2i(x, y), 0, Vector2i(2, 2)) #floor
 			else:
-				tilemap.set_cell(Vector2i(x, y), 0, Vector2i(1, 6)) #wall
+				var tileTypeVal : int = 0;
+				if(floor_here(Vector2(x+1,y))):
+					tileTypeVal += 1;
+				if(floor_here(Vector2(x-1,y))):
+					tileTypeVal += 2;
+				if(floor_here(Vector2(x,y+1))):
+					tileTypeVal += 4;
+				if(floor_here(Vector2(x,y-1))):
+					tileTypeVal += 8;
+				
+				# this code is kinda bulky, but idk how else to do this
+				match tileTypeVal:
+					0:
+						tilemap.set_cell(Vector2i(x, y), 0, Vector2i(1, 6)) # blank wall
+					1:
+						tilemap.set_cell(Vector2i(x, y), 0, Vector2i(2, 6)) #wall
+					2:
+						tilemap.set_cell(Vector2i(x, y), 0, Vector2i(0, 6)) #wall
+					3:
+						tilemap.set_cell(Vector2i(x, y), 0, Vector2i(4, 2)) #wall
+					4:
+						tilemap.set_cell(Vector2i(x, y), 0, Vector2i(1, 7)) #wall
+					5:
+						tilemap.set_cell(Vector2i(x, y), 0, Vector2i(2, 7)) #wall
+					6:
+						tilemap.set_cell(Vector2i(x, y), 0, Vector2i(0, 7)) #wall
+					7:
+						tilemap.set_cell(Vector2i(x, y), 0, Vector2i(4, 6)) # down end
+					8:
+						tilemap.set_cell(Vector2i(x, y), 0, Vector2i(1, 5)) #wall
+					9:
+						tilemap.set_cell(Vector2i(x, y), 0, Vector2i(2, 5)) #wall
+					10:
+						tilemap.set_cell(Vector2i(x, y), 0, Vector2i(0, 5)) #wall
+					11:
+						tilemap.set_cell(Vector2i(x, y), 0, Vector2i(4, 1)) # up end
+					12:
+						tilemap.set_cell(Vector2i(x, y), 0, Vector2i(6, 4)) #wall
+					13:
+						tilemap.set_cell(Vector2i(x, y), 0, Vector2i(7, 4)) # right end
+					14:
+						tilemap.set_cell(Vector2i(x, y), 0, Vector2i(2, 4)) # left end
+					15:
+						tilemap.set_cell(Vector2i(x, y), 0, Vector2i(4, 4)) # walls
 
+func floor_here(pos: Vector2) -> bool:
+	if(pos.x >= length or pos.x < 0):
+		return false;
+	if(pos.y >= length or pos.y < 0):
+		return false;
+	if(map[pos.y][pos.x] == 0):
+		return true
+	return false
+		
+		
 func spawn_rand_enemy(pos: Vector2):
 	var enemy_scene = enemyPool[randi_range(0,enemyPool.size()-1)]
 	var new_enemy = enemy_scene.instantiate() as Enemy
