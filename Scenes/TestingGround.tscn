@@ -1,21 +1,17 @@
-[gd_scene load_steps=15 format=3 uid="uid://j2ey5y83jld0"]
+[gd_scene load_steps=11 format=3 uid="uid://j2ey5y83jld0"]
 
 [ext_resource type="PackedScene" uid="uid://cq1dxd0m5csx1" path="res://Player/player.tscn" id="1_6exw8"]
 [ext_resource type="Script" path="res://Scenes/navigation_startup.gd" id="1_pcs3q"]
 [ext_resource type="PackedScene" uid="uid://ejm2wcvxoaoq" path="res://Tile Maps/base dungeon.tscn" id="2_cv62i"]
 [ext_resource type="PackedScene" uid="uid://dbb2tnmyhd6xr" path="res://Enemies/SlimeEnemy/slimeEnemy.tscn" id="3_gmyew"]
 [ext_resource type="Texture2D" uid="uid://cmpvasgwq8j4q" path="res://HellsDungeonTiles5.png" id="3_mr4op"]
-[ext_resource type="PackedScene" uid="uid://dytx21xto4i4b" path="res://inventory/Chest.tscn" id="4_rkng0"]
-[ext_resource type="PackedScene" uid="uid://y0ycdmckwo7g" path="res://Enemies/ShooterSlime/shooterSlime.tscn" id="5_iy5na"]
 [ext_resource type="PackedScene" uid="uid://ced16vl80lecu" path="res://Collectables/important_item.tscn" id="5_tetkc"]
-[ext_resource type="PackedScene" uid="uid://i7gkdqqb0m1w" path="res://Enemies/Flame/flame_enemy.tscn" id="6_3jy8h"]
-[ext_resource type="PackedScene" uid="uid://qfo0d117ba54" path="res://Enemies/FourShooter/fourShooter.tscn" id="7_53p7s"]
 [ext_resource type="PackedScene" uid="uid://qywun8lwlffr" path="res://Scenes/map_gen_test.tscn" id="8_hq61x"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_su7ix"]
-vertices = PackedVector2Array(7870.44, 4896.96, -852.039, 4861.04, -878.953, -1076.25, 8836.28, -1325.69)
+vertices = PackedVector2Array(10972, 6751.07, -1039.79, 6846.91, -879.188, -1076.04, 10972, -1132.95)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(7879, 4907, -862, 4871, -889, -1086, 8848, -1336)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(10982, 6761, -1050, 6857, -889, -1086, 10982, -1143)])
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cor15"]
 texture = ExtResource("3_mr4op")
@@ -89,10 +85,10 @@ script = ExtResource("1_pcs3q")
 
 [node name="Dungeon01" parent="NavigationRegion2D" instance=ExtResource("2_cv62i")]
 position = Vector2(0, 0)
-tile_map_data = PackedByteArray(0, 0, 101, 0, 225, 255, 0, 0, 2, 0, 6, 0, 0, 0, 101, 0, 226, 255, 0, 0, 2, 0, 6, 0, 0, 0, 102, 0, 226, 255, 0, 0, 2, 0, 6, 0, 0, 0, 102, 0, 227, 255, 0, 0, 2, 0, 6, 0, 0, 0, 102, 0, 228, 255, 0, 0, 2, 0, 6, 0, 0, 0)
+tile_map_data = PackedByteArray()
 tile_set = SubResource("TileSet_x7ub2")
 
-[node name="MapGenTest" parent="NavigationRegion2D" node_paths=PackedStringArray("player") instance=ExtResource("8_hq61x")]
+[node name="Level 1 Map" parent="NavigationRegion2D" node_paths=PackedStringArray("player") instance=ExtResource("8_hq61x")]
 position = Vector2(-95, 7)
 enemyPool = Array[PackedScene]([ExtResource("3_gmyew"), ExtResource("3_gmyew"), ExtResource("3_gmyew")])
 important_item_scene = ExtResource("5_tetkc")
@@ -103,38 +99,4 @@ top_level = true
 position = Vector2(256, 2400)
 
 [node name="ShrimpleSlime" parent="." instance=ExtResource("3_gmyew")]
-position = Vector2(1152, -189)
-
-[node name="ShrimpleSlime2" parent="." instance=ExtResource("3_gmyew")]
-position = Vector2(143, 49)
-
-[node name="ShrimpleSlime3" parent="." instance=ExtResource("3_gmyew")]
-position = Vector2(408, -335)
-
-[node name="ShrimpleSlime4" parent="." instance=ExtResource("3_gmyew")]
-position = Vector2(865, -429)
-
-[node name="ShrimpleSlime5" parent="." instance=ExtResource("3_gmyew")]
-position = Vector2(225, -266)
-
-[node name="ShrimpleSlime6" parent="." instance=ExtResource("3_gmyew")]
-position = Vector2(865, -188)
-
-[node name="Chest" parent="." instance=ExtResource("4_rkng0")]
-visibility_layer = 3
-position = Vector2(-792, -512)
-
-[node name="ShooterSlime" parent="." instance=ExtResource("5_iy5na")]
-position = Vector2(308, -277)
-
-[node name="ShooterSlime2" parent="." instance=ExtResource("5_iy5na")]
-position = Vector2(1010, -387)
-
-[node name="ShooterSlime3" parent="." instance=ExtResource("5_iy5na")]
-position = Vector2(1075, -295)
-
-[node name="FlameEnemy" parent="." instance=ExtResource("6_3jy8h")]
-position = Vector2(962, -294)
-
-[node name="FourShooter" parent="." instance=ExtResource("7_53p7s")]
-position = Vector2(432, 3)
+position = Vector2(1143, 2417)

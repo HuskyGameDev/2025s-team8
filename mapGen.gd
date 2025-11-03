@@ -1,4 +1,4 @@
-extends Node2D
+class_name MapGenerator extends Node2D
 
 
 
@@ -14,7 +14,16 @@ var lastWanderDir: Vector2 = Vector2(1,1)
 
 @export var player : Node2D;
 
+var currentEnemies : Array[Enemy] = [];
+var timer = 1;
 
+func _physics_process(delta: float):
+	if timer <= 0:
+		spawn_enemy_near_player();
+		timer = 1
+	else:
+		timer -= delta;
+		
 func _ready():
 	# set up perlin noise thing
 	var noise = FastNoiseLite.new()
@@ -65,11 +74,6 @@ func _ready():
 			for y in range(5):
 				for x in range(5):
 					try_carve(pointer + Vector2(x-3,y-3))
-					
-			if(randi_range(0,1000) == -1): # not working currently
-				spawn_rand_enemy(Vector2(pointer.x,pointer.y))
-
-	
 
 	#print the matrix
 	#for y in range(length):
@@ -86,6 +90,15 @@ func _ready():
 	spawn_tiles();
 	
 	spawn_important_item(endPos);
+	
+	spawn_enemy_near_player();
+	spawn_enemy_near_player();
+	spawn_enemy_near_player();
+	spawn_enemy_near_player();
+	spawn_enemy_near_player();
+	spawn_enemy_near_player();
+	spawn_enemy_near_player();
+	spawn_enemy_near_player();
 
 func try_carve(pos: Vector2):
 	if(pos.x >= length or pos.x < 0):
@@ -153,8 +166,28 @@ func floor_here(pos: Vector2) -> bool:
 	if(map[pos.y][pos.x] == 0):
 		return true
 	return false
+
+
+func nearby_enemies() -> int:
+	var count = 0;	
+	for e in currentEnemies:
+		if(!e): continue;
+		if e.position.distance_to(player.position) < 5000:
+			count += 1;		
+	return count;
+	
+func spawn_enemy_near_player():
+	if(nearby_enemies() < 50):
+		pass
+		var rand_pos = player.position + Vector2(randi_range(-1000,1000), randi_range(-1000,1000));
+		var map_rand_pos = rand_pos / 16;
 		
-		
+		if(floor_here(map_rand_pos)):
+			#spawn_rand_enemy(map_rand_pos);
+			pass
+	return
+	
+	
 func spawn_rand_enemy(pos: Vector2):
 	var enemy_scene = enemyPool[randi_range(0,enemyPool.size()-1)]
 	var new_enemy = enemy_scene.instantiate() as Enemy
@@ -162,6 +195,7 @@ func spawn_rand_enemy(pos: Vector2):
 		add_child(new_enemy)
 		var newPos = pos * 16
 		new_enemy.global_position = newPos
+		currentEnemies.append(new_enemy);
 		print("spawned enemy at pos", newPos)
 	else:
 		print("enemy was null")
@@ -219,7 +253,6 @@ func cave_air_shift(pos: Vector2, power: int = 20):
 	map[y][x] = 1; # no adjacent air, so it becomes wall
 		
 
-
 func approach(pos: Vector2, endPos: Vector2):
 	var dif = endPos-pos;
 	dif = Vector2(clamp(dif.x, -1,1), clamp(dif.y, -1,1));
@@ -265,8 +298,3 @@ func try_cell_smooth(pos: Vector2):
 			map[y][x] = 1
 		else:
 			map[y][x] = 0
-	
-			
-
-	
-	
