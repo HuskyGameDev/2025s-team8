@@ -1,7 +1,7 @@
 [gd_scene load_steps=34 format=3 uid="uid://cq1dxd0m5csx1"]
 
 [ext_resource type="Script" path="res://Player/Scripts/playerMovement.gd" id="1_7jpn7"]
-[ext_resource type="Texture2D" uid="uid://cnjgjy3iynxlu" path="res://Player/Sprites/PlayerSprite02.png" id="2_ilxdi"]
+[ext_resource type="Texture2D" uid="uid://blgmipewh5kxv" path="res://Player/Sprites/replaced_player.png" id="2_2jtld"]
 [ext_resource type="Script" path="res://Player/Scripts/PlayerStateMachine.gd" id="3_nsaxw"]
 [ext_resource type="Script" path="res://Player/Scripts/state_idle.gd" id="4_ml0m6"]
 [ext_resource type="Script" path="res://Player/Scripts/state_walk.gd" id="5_1mifc"]
@@ -272,7 +272,7 @@ one_way_collision_margin = 10.0
 texture_filter = 1
 position = Vector2(0, -16)
 scale = Vector2(1.17038, 1.34815)
-texture = ExtResource("2_ilxdi")
+texture = ExtResource("2_2jtld")
 hframes = 16
 vframes = 3
 
