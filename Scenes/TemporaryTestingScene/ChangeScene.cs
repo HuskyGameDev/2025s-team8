@@ -7,21 +7,28 @@ public partial class ChangeScene : Control, ITransitionOnDeath
 	private Area2D area;
     private Node tutRoot;
 
-	const string TRANSITION_PATH = "res://UI/Scenes/Transition.tscn";
-	const string LOAD_SCENE_PATH = "res://UI/Scenes/LoadScreen.tscn";
-	const string PAUSE_MENU_PATH = "res://UI/Scenes/PauseMenu.tscn";
-	const string GAME_SCENE_PATH = "res://Scenes/TestingGround.tscn";
+	private const string TRANSITION_PATH = "res://UI/Scenes/Transition.tscn";
+	private const string LOAD_SCENE_PATH = "res://UI/Scenes/LoadScreen.tscn";
+	private const string PAUSE_MENU_PATH = "res://UI/Scenes/PauseMenu.tscn";
+	[Export]
+	private string GAME_SCENE_PATH = "res://Scenes/TestingGround.tscn";
 
-    public override void _Ready()
-    {
-        ResourceLoader.LoadThreadedRequest(TRANSITION_PATH);
-        ResourceLoader.LoadThreadedRequest(LOAD_SCENE_PATH);
-
-        area.AreaEntered += (area) => SwitchScene();
-        tutRoot = this.GetParent();
-	}
-	public void SwitchScene()
+	public override void _Ready()
 	{
+		ResourceLoader.LoadThreadedRequest(TRANSITION_PATH);
+		ResourceLoader.LoadThreadedRequest(LOAD_SCENE_PATH);
+
+		area.BodyEntered += (body) => SwitchScene(body);
+		tutRoot = this.GetParent();
+	}
+	public void ChangeTo(string s)
+    {
+		GAME_SCENE_PATH = s;
+    }
+	public void SwitchScene(Node body)
+	{
+		if (body.Name != "Player") return;
+
 		Node UI_ROOT = this.GetTree().GetNodesInGroup("UI_ROOT")[0];
 		// Find and Destroy the pause menu, if it exists
 		Node pMenu = UI_ROOT.GetNode("./PauseMenu");
