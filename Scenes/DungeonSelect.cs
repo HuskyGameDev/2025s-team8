@@ -1,7 +1,9 @@
 using Godot;
 using System;
 
-public partial class DungeonSelect : Node2D
+// NEED TO PERFORM THOROUGH TESTING OF THIS TO ENSURE IT COMPLETEY WORKS
+// ALSO DONT FORGET CHANGES TO NewGame.cs WHICH SHOULD NOT BE PUSHED WITH THIS
+public partial class DungeonSelect : Node2D, ITransitionOnDeath
 {
 	[Export]
 	Button HomeButton;
@@ -12,20 +14,19 @@ public partial class DungeonSelect : Node2D
 	[Export]
 	Button Dung3Button;
 	
-	// These are currently copied from MainMenu.cs, needs to be changed
-	// Additional things will be copied over within the functions
-	// NOTE FOR SELF: Button actions can be seen in MainMenu.cs, look there to see how buttons operate
 	const string TRANSITION_PATH = "res://UI/Scenes/Transition.tscn";
-	const string SAVE_SELECT_PATH = "res://UI/Scenes/SaveSelect.tscn";
-	const string SETTINGS_SCENE_PATH = "res://UI/Scenes/SettingsMenu.tscn";
-	const string NEW_GAME_PATH = "res://UI/Scenes/NewGame.tscn";
-	
+	const string LOAD_SCENE_PATH = "res://UI/Scenes/LoadScreen.tscn";
+	const string PAUSE_MENU_PATH = "res://UI/Scenes/PauseMenu.tscn";
 	const string DUNGEON1 = "res://Scenes/TemporaryTestingScene/Tutorial.tscn";
 	const string DUNGEON2 = "res://Scenes/TestingGround.tscn";
-	const string DUNGEON3 = ""; // Will become path for the 3rd dungeon
-	const string HOME = "res://Scenes/TemporaryTestingScene/Tutorial.tscn";
+	const string DUNGEON3 = ""; // Will become path for the 3rd dungeon, can set
+	const string HOME = "res://UI/Scenes/MainMenu.tscn";
 
 	private Node UI_ROOT;
+	private Node GAME_ROOT;
+	private int onDeathMode = 0;
+	// 0 to start as no dungeon selected, value set by corresponding button press
+	private int DungNum = 0;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -42,26 +43,25 @@ public partial class DungeonSelect : Node2D
 		if (Dung1Button != null)
 		{
 			ResourceLoader.LoadThreadedRequest(DUNGEON1);
-			//newgameButton.Pressed += BeginNewGame;
+			Dung1Button.Pressed += ToDungeon1;
 		}
 		if (Dung2Button != null)
 		{
 			ResourceLoader.LoadThreadedRequest(DUNGEON2);
-			//settingsButton.Pressed += ToSettings;
+			Dung2Button.Pressed += ToDungeon2;
 		}
 		if (Dung3Button != null)
 		{
 			ResourceLoader.LoadThreadedRequest(DUNGEON3);
-			//settingsButton.Pressed += ToSettings;
+			Dung3Button.Pressed += ToDungeon3;
 		}
 
 		UI_ROOT = this.GetTree().GetNodesInGroup("UI_ROOT")[0];
+		GAME_ROOT = this.GetTree().GetNodesInGroup("GAME_ROOT")[0];
 		
 		MusicManager.Instance.PlayTrack("res://Player/Audio/Dungeon2_Temp.mp3");
 	}
 	
-	// Not adding path to tree, not going to the scene
-	// Technically no UI Root, this may be issue
 	private void ToMainMenu() {
 		// Get copies of Transition and SaveSelect
 		PackedScene transitionScene = (PackedScene) ResourceLoader.LoadThreadedGet(TRANSITION_PATH);
@@ -75,6 +75,74 @@ public partial class DungeonSelect : Node2D
 		// Begin the transition
 		((Transition)tNode).BeginTransition(sNode, this, Transition.Mode.topLeft);
 		GD.Print("main menu part ending");
+	}
+	
+	private void ToDungeon1() {
+		// Get copies of Transition and SaveSelect
+		PackedScene transitionScene = (PackedScene)ResourceLoader.LoadThreadedGet(TRANSITION_PATH);
+		Node tNode = transitionScene.Instantiate();
+		PackedScene loadScene = (PackedScene)ResourceLoader.LoadThreadedGet(LOAD_SCENE_PATH);
+		Node lNode = loadScene.Instantiate();
+
+		// Add into scene (UI Root -> Transition -> LoadScreen)
+		UI_ROOT.AddChild(tNode);
+		DungNum = 1;
+		onDeathMode = 1;
+		
+		// Begin the transition
+		((Transition)tNode).BeginTransition(lNode, this, Transition.Mode.topRight);
+	}
+	
+	private void ToDungeon2() {
+		// Get copies of Transition and SaveSelect
+		PackedScene transitionScene = (PackedScene)ResourceLoader.LoadThreadedGet(TRANSITION_PATH);
+		Node tNode = transitionScene.Instantiate();
+		PackedScene loadScene = (PackedScene)ResourceLoader.LoadThreadedGet(LOAD_SCENE_PATH);
+		Node lNode = loadScene.Instantiate();
+
+		// Add into scene (UI Root -> Transition -> LoadScreen)
+		UI_ROOT.AddChild(tNode);
+		DungNum = 2;
+		onDeathMode = 1;
+		
+		// Begin the transition
+		((Transition)tNode).BeginTransition(lNode, this, Transition.Mode.topRight);
+	}
+	
+	private void ToDungeon3() {
+		// Get copies of Transition and SaveSelect
+		PackedScene transitionScene = (PackedScene)ResourceLoader.LoadThreadedGet(TRANSITION_PATH);
+		Node tNode = transitionScene.Instantiate();
+		PackedScene loadScene = (PackedScene)ResourceLoader.LoadThreadedGet(LOAD_SCENE_PATH);
+		Node lNode = loadScene.Instantiate();
+
+		// Add into scene (UI Root -> Transition -> LoadScreen)
+		UI_ROOT.AddChild(tNode);
+		DungNum = 3;
+		onDeathMode = 1;
+		
+		// Begin the transition
+		((Transition)tNode).BeginTransition(lNode, this, Transition.Mode.topRight);
+	}
+	
+	public void OnDeath(Node other)
+	{
+		if (onDeathMode == 1)
+		{
+			LoadScreen.LoadData[] data = new LoadScreen.LoadData[2]{
+				new LoadScreen.LoadData(PAUSE_MENU_PATH, LoadScreen.Type.UI, false),
+				new LoadScreen.LoadData(DUNGEON1, LoadScreen.Type.GAME)
+			};
+			
+			if(DungNum == 1){
+				data[1] = new LoadScreen.LoadData(DUNGEON1, LoadScreen.Type.GAME);
+			} else if(DungNum == 2){
+				data[1] = new LoadScreen.LoadData(DUNGEON2, LoadScreen.Type.GAME);
+			} else if(DungNum == 3){
+				data[1] = new LoadScreen.LoadData(DUNGEON3, LoadScreen.Type.GAME);
+			}
+			((LoadScreen)other).Init(data, LoadScreen.Mode.LOAD);
+		}
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
