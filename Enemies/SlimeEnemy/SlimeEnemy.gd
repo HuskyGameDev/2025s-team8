@@ -12,10 +12,13 @@ var leap_timer: float = 0
 @export var hurt_box: Hurtbox
 
 
+
+
 func _physics_process(delta: float):
 	
 	if player_found:
 		chase(player.position - position, delta)
+		pass
 	else:
 		wander(delta)
 		
@@ -45,14 +48,14 @@ func chase(dif, delta) -> void:
 		leap_force = clampf(5 * (1 - leap_timer), 0, 4) # stop and then speed up, but stay at 4
 		position += Vector2(randf_range(-1,1),randf_range(-1,1)) # shake
 		hurt_box.monitoring = true
-		
+
 		if(leap_timer <= 0): # stop leaping
 			leap_timer = 3 + (randf() * 2) # wait 3 to 5 seconds
 			leap_force = 1
 			hurt_box.monitoring = false
-	
+
 	if(distance > 50 or leap_force > 1):
-		#velocity = dif.normalized * move_speed * leap_force
+		velocity = dif.normalized() * move_speed * leap_force
 		nav.target_position = player.position
 		if(nav.is_navigation_finished() == false):
 			var navDir = (nav.get_next_path_position() - position).normalized()

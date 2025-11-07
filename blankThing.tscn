@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3wh5nh72wu6q"]
+
+[ext_resource type="Texture2D" uid="uid://c2gx0yxsey18w" path="res://Enemies/ShooterSlime/slimeShooter-down.png" id="1_n02xk"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_n02xk")

@@ -1,7 +1,5 @@
 class_name MapGenerator extends Node2D
 
-
-
 var map = [];
 var length: int = 350;
 @onready var tilemap = $"../Dungeon01"
@@ -11,6 +9,7 @@ var lastWanderDir: Vector2 = Vector2(1,1)
 @export var enemyPool : Array[PackedScene] = [];
 
 @export var important_item_scene : PackedScene;
+@export var portal_scene : PackedScene; #Not used yet, but will be spawned upon important item collection
 
 @export var player : Node2D;
 
@@ -18,12 +17,14 @@ var currentEnemies : Array[Enemy] = [];
 var timer = 1;
 
 func _physics_process(delta: float):
+	
 	if timer <= 0:
+		spawn_enemy_near_player();
 		spawn_enemy_near_player();
 		timer = 1
 	else:
 		timer -= delta;
-		
+
 func _ready():
 	# set up perlin noise thing
 	var noise = FastNoiseLite.new()
@@ -90,15 +91,6 @@ func _ready():
 	spawn_tiles();
 	
 	spawn_important_item(endPos);
-	
-	spawn_enemy_near_player();
-	spawn_enemy_near_player();
-	spawn_enemy_near_player();
-	spawn_enemy_near_player();
-	spawn_enemy_near_player();
-	spawn_enemy_near_player();
-	spawn_enemy_near_player();
-	spawn_enemy_near_player();
 
 func try_carve(pos: Vector2):
 	if(pos.x >= length or pos.x < 0):
@@ -122,7 +114,7 @@ func spawn_tiles():
 					tileTypeVal += 4;
 				if(floor_here(Vector2(x,y-1))):
 					tileTypeVal += 8;
-				
+
 				# this code is kinda bulky, but idk how else to do this
 				match tileTypeVal:
 					0:
@@ -183,30 +175,32 @@ func spawn_enemy_near_player():
 		var map_rand_pos = rand_pos / 16;
 		
 		if(floor_here(map_rand_pos)):
-			#spawn_rand_enemy(map_rand_pos);
+			spawn_rand_enemy(map_rand_pos);
 			pass
 	return
-	
-	
+
 func spawn_rand_enemy(pos: Vector2):
 	var enemy_scene = enemyPool[randi_range(0,enemyPool.size()-1)]
-	var new_enemy = enemy_scene.instantiate() as Enemy
+	var new_enemy = enemy_scene.instantiate() as Node2D
 	if(new_enemy != null):
-		add_child(new_enemy)
+		get_parent().get_parent().add_child(new_enemy)
 		var newPos = pos * 16
-		new_enemy.global_position = newPos
-		currentEnemies.append(new_enemy);
+		#new_enemy.global_position = newPos
+		new_enemy.global_position = Vector2(-50,-50)
 		print("spawned enemy at pos", newPos)
+		await get_tree().create_timer(0.5).timeout
+		#new_enemy.global_position = Vector2(2800, 150 * 16)
+		new_enemy.global_position = newPos
+		#currentEnemies.append(new_enemy);
 	else:
 		print("enemy was null")
-		
+
 func spawn_important_item(pos: Vector2):
 	var important_item = important_item_scene.instantiate() as Node2D
 	if(important_item != null):
 		add_child(important_item)
 		var newPos = pos * 16
 		important_item.global_position = newPos
-		
 
 # shifts a cave air tile to air if there's adjacent air, wall otherwise
 func cave_air_shift(pos: Vector2, power: int = 20):
@@ -221,14 +215,14 @@ func cave_air_shift(pos: Vector2, power: int = 20):
 		return
 	if(map[y][x] != 2):
 		return
-	
+
 	if(map[y-1][x] == 0):
 		map[y][x] = 0
 		cave_air_shift(Vector2(x,y+1), power-1);
 		cave_air_shift(Vector2(x-1,y), power-1);
 		cave_air_shift(Vector2(x+1,y), power-1);
 		return;
-		
+
 	if(map[y+1][x] == 0):
 		map[y][x] = 0
 		cave_air_shift(Vector2(x,y-1), power-1);
@@ -279,10 +273,10 @@ func try_cell_smooth(pos: Vector2):
 	var y = pos.y;
 	
 	if(x >= length-1 or x <= 0):
-		map[y][x] = 1
+		#map[y][x] = 1
 		return
 	if(y >= length-1 or y <= 0):
-		map[y][x] = 1
+		#map[y][x] = 1
 		return
 	
 	var currentVal = map[y][x];

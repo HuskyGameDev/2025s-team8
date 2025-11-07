@@ -10,8 +10,8 @@ class_name Enemy extends CharacterBody2D
 @export var enemy_name : String
 
 
-func _ready():
-	$HitBox.Damaged.connect( TakeDamage )
+#func _ready():
+	#$HitBox.Damaged.connect( TakeDamage )
 	
 		
 		
