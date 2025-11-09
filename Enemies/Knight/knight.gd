@@ -4,12 +4,20 @@ var move_speed : float = 20
 var wander_dir_timer : float = 0
 var randAngle = randf() * TAU
 var leap_timer: float = 0
+
+var player_ref : Player
+
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
 @onready var sprite : Sprite2D = $Sprite2D
+@onready var state_machine: knight_state_machine = $state_machine
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
+
 
 @export var hurt_box: Hurtbox
 
+func _readY():
+	state_machine.initialize(self)
+	#reference to the player loaded in may be needed, omitted for now as tracking exists
 
 func _physics_process(delta: float):
 	

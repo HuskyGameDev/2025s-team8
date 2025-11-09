@@ -2,7 +2,10 @@ class_name knight_state extends Node
 
 #stores a reference to the player
 static var knight: Knight
-static var state_machine: knight_state_machine
+static var state_machine: knight_state_machine #dont delete not a redundant var
+
+func init() -> void:
+	pass
 
 func _ready():
 	pass
@@ -13,12 +16,10 @@ func Enter() -> void:
 func Exit() -> void:
 	pass
 	
-func Process(_delta : float) -> State:
+func Process(_delta : float) -> knight_state:
 	return null
 	
-func Physics(_delta: float) -> State:
+func Physics(_delta: float) -> knight_state:
 	return null
 	
-func HandleInput(_event: InputEvent) -> State:
-	return null
 	
