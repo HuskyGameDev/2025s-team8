@@ -19,7 +19,7 @@ func Exit() -> void:
 func Process(_delta : float) -> knight_state:
 	return null
 	
-func Physics(_delta: float) -> knight_state:
+func physics(_delta: float) -> knight_state:
 	return null
 	
 	

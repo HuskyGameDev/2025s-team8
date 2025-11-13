@@ -10,7 +10,7 @@ func _ready():
 	process_mode = Node.PROCESS_MODE_DISABLED
 	pass
 	
-func _process(delta:float):
+func process(delta:float):
 	change_state(curr_state.process(delta))
 	pass
 	
@@ -27,7 +27,7 @@ func initialize(_enemy:Enemy) -> void:
 			states.append(c)
 	
 	for s in states:
-		s.enemy = _enemy
+		s.knight = _enemy
 		s.state_machine = self
 		s.init()
 		

@@ -5,4 +5,10 @@
 [node name="Knightstestingscene" type="Node2D"]
 
 [node name="Knight" parent="." instance=ExtResource("1_laqsc")]
-position = Vector2(184, 94)
+position = Vector2(778, 1377)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(777, 1361)
+zoom = Vector2(2, 2)
+limit_left = -10000
+limit_top = 1000
