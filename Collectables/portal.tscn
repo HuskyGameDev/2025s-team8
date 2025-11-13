@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://cxltridnnkm67"]
+
+[ext_resource type="Script" path="res://GeneralNodes/sceneChange.gd" id="1_tiujj"]
+[ext_resource type="PackedScene" uid="uid://bbvrtictd0f85" path="res://level2.tscn" id="2_4bj6s"]
+[ext_resource type="Texture2D" uid="uid://bdnxbfj7e6336" path="res://Collectables/pixil-frame-0 (14).png" id="2_k5aan"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_krvro"]
+radius = 16.0
+
+[node name="Portal" type="Area2D"]
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_tiujj")
+newScene = ExtResource("2_4bj6s")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_k5aan")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_krvro")

@@ -1,14 +1,15 @@
-[gd_scene load_steps=13 format=3 uid="uid://bbvrtictd0f85"]
+[gd_scene load_steps=14 format=3 uid="uid://j2ey5y83jld0"]
 
-[ext_resource type="Script" path="res://Scenes/navigation_startup.gd" id="1_q54sy"]
-[ext_resource type="PackedScene" uid="uid://ejm2wcvxoaoq" path="res://Tile Maps/base dungeon.tscn" id="2_bocoi"]
-[ext_resource type="Texture2D" uid="uid://cmpvasgwq8j4q" path="res://HellsDungeonTiles5.png" id="3_fea3n"]
-[ext_resource type="PackedScene" uid="uid://qywun8lwlffr" path="res://Scenes/map_gen_test.tscn" id="4_hdfe2"]
-[ext_resource type="PackedScene" uid="uid://dbb2tnmyhd6xr" path="res://Enemies/SlimeEnemy/slimeEnemy.tscn" id="5_x4ox1"]
-[ext_resource type="PackedScene" uid="uid://ced16vl80lecu" path="res://Collectables/important_item.tscn" id="6_2lv26"]
-[ext_resource type="PackedScene" uid="uid://cq1dxd0m5csx1" path="res://Player/player.tscn" id="7_pjtac"]
-[ext_resource type="PackedScene" uid="uid://cxltridnnkm67" path="res://Collectables/portal.tscn" id="7_wn6di"]
-[ext_resource type="PackedScene" uid="uid://j2ey5y83jld0" path="res://Scenes/TestingGround.tscn" id="8_frrko"]
+[ext_resource type="PackedScene" uid="uid://cq1dxd0m5csx1" path="res://Player/player.tscn" id="1_6exw8"]
+[ext_resource type="Script" path="res://Scenes/navigation_startup.gd" id="1_pcs3q"]
+[ext_resource type="PackedScene" uid="uid://ejm2wcvxoaoq" path="res://Tile Maps/base dungeon.tscn" id="2_cv62i"]
+[ext_resource type="Texture2D" uid="uid://cmpvasgwq8j4q" path="res://HellsDungeonTiles5.png" id="3_mr4op"]
+[ext_resource type="PackedScene" uid="uid://y0ycdmckwo7g" path="res://Enemies/ShooterSlime/shooterSlime.tscn" id="5_ksckt"]
+[ext_resource type="PackedScene" uid="uid://ced16vl80lecu" path="res://Collectables/important_item.tscn" id="5_tetkc"]
+[ext_resource type="PackedScene" uid="uid://qfo0d117ba54" path="res://Enemies/FourShooter/fourShooter.tscn" id="7_egxi7"]
+[ext_resource type="PackedScene" uid="uid://qywun8lwlffr" path="res://Scenes/map_gen_test.tscn" id="8_hq61x"]
+[ext_resource type="PackedScene" uid="uid://dbb2tnmyhd6xr" path="res://Enemies/SlimeEnemy/slimeEnemy.tscn" id="8_pm3uc"]
+[ext_resource type="PackedScene" uid="uid://cxltridnnkm67" path="res://Collectables/portal.tscn" id="9_e01hh"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_su7ix"]
 vertices = PackedVector2Array(4861.08, -1315.11, 4911.91, 4327.21, -2103.2, 4479.78, -2220.79, -1399.87)
@@ -16,7 +17,7 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(4922, 4337, -2113, 4490, -2231, -1410, 4871, -1325)])
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cor15"]
-texture = ExtResource("3_fea3n")
+texture = ExtResource("3_mr4op")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -73,37 +74,33 @@ texture = ExtResource("3_fea3n")
 1:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 2:7/0 = 0
 2:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:5/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_x7ub2"]
 physics_layer_0/collision_layer = 2
-physics_layer_0/collision_mask = 255
+physics_layer_0/collision_mask = 15
 sources/0 = SubResource("TileSetAtlasSource_cor15")
 
 [node name="TestingGround" type="Node2D"]
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_su7ix")
-script = ExtResource("1_q54sy")
+script = ExtResource("1_pcs3q")
 
-[node name="Dungeon01" parent="NavigationRegion2D" instance=ExtResource("2_bocoi")]
-modulate = Color(0.368359, 0.688692, 0.815054, 1)
+[node name="Dungeon01" parent="NavigationRegion2D" instance=ExtResource("2_cv62i")]
 position = Vector2(0, 0)
 tile_map_data = PackedByteArray()
 tile_set = SubResource("TileSet_x7ub2")
 
-[node name="Level 1 Map" parent="NavigationRegion2D" node_paths=PackedStringArray("player") instance=ExtResource("4_hdfe2")]
+[node name="Level 1 Map" parent="NavigationRegion2D" node_paths=PackedStringArray("player") instance=ExtResource("8_hq61x")]
 position = Vector2(-95, 7)
-enemyPool = Array[PackedScene]([ExtResource("5_x4ox1"), ExtResource("5_x4ox1"), ExtResource("5_x4ox1")])
-important_item_scene = ExtResource("6_2lv26")
-portal_scene = ExtResource("7_wn6di")
+enemyPool = Array[PackedScene]([ExtResource("5_ksckt"), ExtResource("8_pm3uc"), ExtResource("7_egxi7")])
+important_item_scene = ExtResource("5_tetkc")
+portal_scene = ExtResource("9_e01hh")
+cave_threshold = null
+frequency = null
 player = NodePath("../../Player")
-cave_threshold = 0.5
-frequency = 0.06
-nextLevel = ExtResource("8_frrko")
 
-[node name="Player" parent="." instance=ExtResource("7_pjtac")]
+[node name="Player" parent="." instance=ExtResource("1_6exw8")]
 top_level = true
 position = Vector2(256, 2400)
-
-[node name="ShrimpleSlime" parent="." instance=ExtResource("5_x4ox1")]
-position = Vector2(1143, 2417)

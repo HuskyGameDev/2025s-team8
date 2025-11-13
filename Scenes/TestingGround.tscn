@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://j2ey5y83jld0"]
+[gd_scene load_steps=15 format=3 uid="uid://j2ey5y83jld0"]
 
 [ext_resource type="PackedScene" uid="uid://cq1dxd0m5csx1" path="res://Player/player.tscn" id="1_6exw8"]
 [ext_resource type="Script" path="res://Scenes/navigation_startup.gd" id="1_pcs3q"]
@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://qfo0d117ba54" path="res://Enemies/FourShooter/fourShooter.tscn" id="7_egxi7"]
 [ext_resource type="PackedScene" uid="uid://qywun8lwlffr" path="res://Scenes/map_gen_test.tscn" id="8_hq61x"]
 [ext_resource type="PackedScene" uid="uid://dbb2tnmyhd6xr" path="res://Enemies/SlimeEnemy/slimeEnemy.tscn" id="8_pm3uc"]
+[ext_resource type="PackedScene" uid="uid://cxltridnnkm67" path="res://Collectables/portal.tscn" id="9_e01hh"]
+[ext_resource type="PackedScene" uid="uid://bbvrtictd0f85" path="res://level2.tscn" id="10_ph6sk"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_su7ix"]
 vertices = PackedVector2Array(4861.08, -1315.11, 4911.91, 4327.21, -2103.2, 4479.78, -2220.79, -1399.87)
@@ -95,7 +97,9 @@ tile_set = SubResource("TileSet_x7ub2")
 position = Vector2(-95, 7)
 enemyPool = Array[PackedScene]([ExtResource("5_ksckt"), ExtResource("8_pm3uc"), ExtResource("7_egxi7")])
 important_item_scene = ExtResource("5_tetkc")
+portal_scene = ExtResource("9_e01hh")
 player = NodePath("../../Player")
+nextLevel = ExtResource("10_ph6sk")
 
 [node name="Player" parent="." instance=ExtResource("1_6exw8")]
 top_level = true
