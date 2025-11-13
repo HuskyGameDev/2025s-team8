@@ -18,14 +18,25 @@ var timer = 1;
 
 func _physics_process(delta: float):
 	
+	for e in currentEnemies:
+		if(e.dead):
+			e.global_position = player.global_position + Vector2(0,-900)
 	if timer <= 0:
 		spawn_enemy_near_player();
 		spawn_enemy_near_player();
-		timer = 1
+		timer = 0.5
 	else:
 		timer -= delta;
 
 func _ready():
+	
+	await get_tree().create_timer(0.1).timeout
+	# get enemies spawned before map to prevent lag
+	initialize_enemies()
+	
+	await get_tree().create_timer(0.1).timeout
+	
+	
 	# set up perlin noise thing
 	var noise = FastNoiseLite.new()
 	noise.noise_type = FastNoiseLite.TYPE_PERLIN
@@ -151,6 +162,7 @@ func spawn_tiles():
 						tilemap.set_cell(Vector2i(x, y), 0, Vector2i(4, 4)) # walls
 
 func floor_here(pos: Vector2) -> bool:
+	
 	if(pos.x >= length or pos.x < 0):
 		return false;
 	if(pos.y >= length or pos.y < 0):
@@ -159,41 +171,52 @@ func floor_here(pos: Vector2) -> bool:
 		return true
 	return false
 
-
 func nearby_enemies() -> int:
 	var count = 0;	
 	for e in currentEnemies:
 		if(!e): continue;
-		if e.position.distance_to(player.position) < 5000:
+		if e.global_position.distance_to(player.global_position) < 800:
 			count += 1;		
 	return count;
 	
+	
+func initialize_enemies():
+	for i in range(enemyPool.size()):
+		for k in range(5): # a maximum of 5 of each enemy can be on the screen
+			spawn_enemy(i, Vector2(200,200), true)
+	
 func spawn_enemy_near_player():
 	if(nearby_enemies() < 50):
-		pass
-		var rand_pos = player.position + Vector2(randi_range(-1000,1000), randi_range(-1000,1000));
-		var map_rand_pos = rand_pos / 16;
+		var rand_pos = (player.global_position as Vector2i) + Vector2i(randi_range(-1000,1000), randi_range(-1000,1000));
+		var map_rand_pos = Vector2i(rand_pos.x / 16, rand_pos.y / 16);
 		
 		if(floor_here(map_rand_pos)):
-			spawn_rand_enemy(map_rand_pos);
-			pass
+			print("num of currentEnemies: ", currentEnemies.size())
+			for e in currentEnemies: # find the first faraway enemy and brings it here
+				if(!e):
+					print("e null")
+					continue;
+				if e.global_position.distance_to(player.global_position) > 800:
+					e.global_position = map_rand_pos * 16
+					#e.global_position = player.global_position
+					e.Revive()
+					print("revived enemy near player")
+					return
 	return
-
-func spawn_rand_enemy(pos: Vector2):
-	var enemy_scene = enemyPool[randi_range(0,enemyPool.size()-1)]
-	var new_enemy = enemy_scene.instantiate() as Node2D
+		
+func spawn_enemy(index: int, pos: Vector2, isDead: bool):
+	var enemy_scene = enemyPool[index];
+	var new_enemy = enemy_scene.instantiate() as Enemy
 	if(new_enemy != null):
-		get_parent().get_parent().add_child(new_enemy)
+		get_parent().get_parent().add_child(new_enemy) # adds the enemy under the root node
 		var newPos = pos * 16
-		#new_enemy.global_position = newPos
-		new_enemy.global_position = Vector2(-50,-50)
-		print("spawned enemy at pos", newPos)
-		await get_tree().create_timer(0.5).timeout
-		#new_enemy.global_position = Vector2(2800, 150 * 16)
 		new_enemy.global_position = newPos
-		#currentEnemies.append(new_enemy);
-	else:
-		print("enemy was null")
+		new_enemy.dead = isDead;
+		if(!new_enemy.get_parent()):
+			print("NULL PARENT ", new_enemy.get_parent()) # this is always printing for some reason
+			return;
+		#print("spawned enemy at pos", newPos)
+		currentEnemies.append(new_enemy);
 
 func spawn_important_item(pos: Vector2):
 	var important_item = important_item_scene.instantiate() as Node2D

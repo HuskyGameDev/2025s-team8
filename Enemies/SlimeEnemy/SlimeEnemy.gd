@@ -6,7 +6,6 @@ var wander_dir_timer : float = 0
 var randAngle = randf() * TAU
 var leap_timer: float = 0
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
-@onready var sprite : Sprite2D = $Sprite2D
 @onready var nav: NavigationAgent2D = $NavigationAgent2D
 
 @export var hurt_box: Hurtbox
@@ -15,7 +14,7 @@ var leap_timer: float = 0
 
 
 func _physics_process(delta: float):
-	
+	if dead: return;
 	if player_found:
 		chase(player.position - position, delta)
 		pass

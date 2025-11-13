@@ -1,12 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://j2ey5y83jld0"]
+[gd_scene load_steps=13 format=3 uid="uid://j2ey5y83jld0"]
 
 [ext_resource type="PackedScene" uid="uid://cq1dxd0m5csx1" path="res://Player/player.tscn" id="1_6exw8"]
 [ext_resource type="Script" path="res://Scenes/navigation_startup.gd" id="1_pcs3q"]
 [ext_resource type="PackedScene" uid="uid://ejm2wcvxoaoq" path="res://Tile Maps/base dungeon.tscn" id="2_cv62i"]
 [ext_resource type="Texture2D" uid="uid://cmpvasgwq8j4q" path="res://HellsDungeonTiles5.png" id="3_mr4op"]
+[ext_resource type="PackedScene" uid="uid://y0ycdmckwo7g" path="res://Enemies/ShooterSlime/shooterSlime.tscn" id="5_ksckt"]
 [ext_resource type="PackedScene" uid="uid://ced16vl80lecu" path="res://Collectables/important_item.tscn" id="5_tetkc"]
-[ext_resource type="PackedScene" uid="uid://dcaia43kc8nyw" path="res://blankEnemy.tscn" id="6_uk3p7"]
+[ext_resource type="PackedScene" uid="uid://qfo0d117ba54" path="res://Enemies/FourShooter/fourShooter.tscn" id="7_egxi7"]
 [ext_resource type="PackedScene" uid="uid://qywun8lwlffr" path="res://Scenes/map_gen_test.tscn" id="8_hq61x"]
+[ext_resource type="PackedScene" uid="uid://dbb2tnmyhd6xr" path="res://Enemies/SlimeEnemy/slimeEnemy.tscn" id="8_pm3uc"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_su7ix"]
 vertices = PackedVector2Array(4861.08, -1315.11, 4911.91, 4327.21, -2103.2, 4479.78, -2220.79, -1399.87)
@@ -91,7 +93,7 @@ tile_set = SubResource("TileSet_x7ub2")
 
 [node name="Level 1 Map" parent="NavigationRegion2D" node_paths=PackedStringArray("player") instance=ExtResource("8_hq61x")]
 position = Vector2(-95, 7)
-enemyPool = Array[PackedScene]([ExtResource("6_uk3p7")])
+enemyPool = Array[PackedScene]([ExtResource("5_ksckt"), ExtResource("8_pm3uc"), ExtResource("7_egxi7")])
 important_item_scene = ExtResource("5_tetkc")
 player = NodePath("../../Player")
 
