@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://c0svsqcjg3vt6"]
 
 [ext_resource type="Script" path="res://Scenes/DungeonSelect.cs" id="1_mpdef"]
-[ext_resource type="Theme" uid="uid://dyxfi3de2g1r" path="res://Scenes/DungeonSelect.tres" id="1_mwlte"]
+[ext_resource type="Texture2D" uid="uid://bxi4x77jcf24y" path="res://GeneralSprites/mapSmall.png" id="2_4kp0q"]
 [ext_resource type="PackedScene" uid="uid://4xppvq5lmyab" path="res://UI/Prefabs/NPRButton.tscn" id="3_kqhp5"]
 
 [node name="DungeonSelect" type="Node2D" node_paths=PackedStringArray("HomeButton", "Dung1Button", "Dung2Button", "Dung3Button") groups=["UI_ROOT"]]
@@ -14,68 +14,36 @@ Dung3Button = NodePath("Dung3")
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_right = 1920.0
 offset_bottom = 1080.0
-
-[node name="d1" type="Button" parent="."]
-offset_left = 331.0
-offset_top = 449.0
-offset_right = 506.0
-offset_bottom = 502.0
-theme = ExtResource("1_mwlte")
-text = "Dungeon 1"
-
-[node name="d2" type="Button" parent="."]
-offset_left = 976.0
-offset_top = 239.0
-offset_right = 1151.0
-offset_bottom = 292.0
-theme = ExtResource("1_mwlte")
-text = "Dungeon 2"
-
-[node name="d3" type="Button" parent="."]
-offset_left = 1504.0
-offset_top = 536.0
-offset_right = 1679.0
-offset_bottom = 589.0
-theme = ExtResource("1_mwlte")
-text = "Dungeon 3"
-
-[node name="home" type="Button" parent="."]
-offset_left = 126.0
-offset_top = 866.0
-offset_right = 301.0
-offset_bottom = 919.0
-theme = ExtResource("1_mwlte")
-text = "Home
-"
+texture = ExtResource("2_4kp0q")
 
 [node name="Home" parent="." instance=ExtResource("3_kqhp5")]
-offset_left = 128.0
-offset_top = 808.0
-offset_right = 628.0
-offset_bottom = 933.0
+offset_left = 48.0
+offset_top = 1008.0
+offset_right = 548.0
+offset_bottom = 1133.0
 scale = Vector2(0.4, 0.4)
 text = "Home"
 
 [node name="Dung1" parent="." instance=ExtResource("3_kqhp5")]
-offset_left = 312.0
-offset_top = 392.0
-offset_right = 812.0
-offset_bottom = 517.0
+offset_left = 208.0
+offset_top = 152.0
+offset_right = 708.0
+offset_bottom = 277.0
 scale = Vector2(0.4, 0.4)
 text = "Dungeon 1"
 
 [node name="Dung2" parent="." instance=ExtResource("3_kqhp5")]
-offset_left = 976.0
-offset_top = 168.0
-offset_right = 1476.0
-offset_bottom = 293.0
+offset_left = 1048.0
+offset_top = 144.0
+offset_right = 1548.0
+offset_bottom = 269.0
 scale = Vector2(0.4, 0.4)
 text = "Dungeon 2"
 
 [node name="Dung3" parent="." instance=ExtResource("3_kqhp5")]
-offset_left = 1496.0
-offset_top = 488.0
-offset_right = 1996.0
-offset_bottom = 613.0
+offset_left = 1552.0
+offset_top = 712.0
+offset_right = 2052.0
+offset_bottom = 837.0
 scale = Vector2(0.4, 0.4)
 text = "Dungeon 3"

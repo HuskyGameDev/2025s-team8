@@ -1,8 +1,7 @@
 using Godot;
 using System;
 
-// NEED TO PERFORM THOROUGH TESTING OF THIS TO ENSURE IT COMPLETEY WORKS
-// ALSO DONT FORGET CHANGES TO NewGame.cs WHICH SHOULD NOT BE PUSHED WITH THIS
+// Should be fully working
 public partial class DungeonSelect : Node2D, ITransitionOnDeath
 {
 	[Export]
@@ -14,12 +13,13 @@ public partial class DungeonSelect : Node2D, ITransitionOnDeath
 	[Export]
 	Button Dung3Button;
 	
+	// Direct paths to scenes, dungeon paths will be changed as they are added
 	const string TRANSITION_PATH = "res://UI/Scenes/Transition.tscn";
 	const string LOAD_SCENE_PATH = "res://UI/Scenes/LoadScreen.tscn";
 	const string PAUSE_MENU_PATH = "res://UI/Scenes/PauseMenu.tscn";
 	const string DUNGEON1 = "res://Scenes/TemporaryTestingScene/Tutorial.tscn";
 	const string DUNGEON2 = "res://Scenes/TestingGround.tscn";
-	const string DUNGEON3 = ""; // Will become path for the 3rd dungeon, can set
+	const string DUNGEON3 = "res://Scenes/TestingGround.tscn"; 
 	const string HOME = "res://UI/Scenes/MainMenu.tscn";
 
 	private Node UI_ROOT;
@@ -36,7 +36,6 @@ public partial class DungeonSelect : Node2D, ITransitionOnDeath
 		// += relate to functions, they are the name of functions
 		if (HomeButton != null)
 		{
-			GD.Print("Home button not null");
 			ResourceLoader.LoadThreadedRequest(HOME);
 			HomeButton.Pressed += ToMainMenu;
 		}
@@ -63,28 +62,29 @@ public partial class DungeonSelect : Node2D, ITransitionOnDeath
 	}
 	
 	private void ToMainMenu() {
-		// Get copies of Transition and SaveSelect
+		// Get copies of Transition and MainMenu
 		PackedScene transitionScene = (PackedScene) ResourceLoader.LoadThreadedGet(TRANSITION_PATH);
 		Node tNode = transitionScene.Instantiate();
 		PackedScene savesScene = (PackedScene) ResourceLoader.LoadThreadedGet(HOME);
 		Node sNode = savesScene.Instantiate();
 
-		// Add into scene (UI Root -> Transition -> SaveSelect)
+		// Add into scene (UI Root -> Transition -> MainMenu)
+		UI_ROOT.GetNode("PauseMenu").QueueFree();
 		UI_ROOT.AddChild(tNode);
 
 		// Begin the transition
 		((Transition)tNode).BeginTransition(sNode, this, Transition.Mode.topLeft);
-		GD.Print("main menu part ending");
 	}
 	
 	private void ToDungeon1() {
-		// Get copies of Transition and SaveSelect
+		// Get copies of Transition and first dungeon
 		PackedScene transitionScene = (PackedScene)ResourceLoader.LoadThreadedGet(TRANSITION_PATH);
 		Node tNode = transitionScene.Instantiate();
 		PackedScene loadScene = (PackedScene)ResourceLoader.LoadThreadedGet(LOAD_SCENE_PATH);
 		Node lNode = loadScene.Instantiate();
 
-		// Add into scene (UI Root -> Transition -> LoadScreen)
+		// Remove old pause menu to prevent doubling and transition to dungeon
+		UI_ROOT.GetNode("PauseMenu").QueueFree();
 		UI_ROOT.AddChild(tNode);
 		DungNum = 1;
 		onDeathMode = 1;
@@ -94,13 +94,14 @@ public partial class DungeonSelect : Node2D, ITransitionOnDeath
 	}
 	
 	private void ToDungeon2() {
-		// Get copies of Transition and SaveSelect
+		// Get copies of Transition and second dungeon
 		PackedScene transitionScene = (PackedScene)ResourceLoader.LoadThreadedGet(TRANSITION_PATH);
 		Node tNode = transitionScene.Instantiate();
 		PackedScene loadScene = (PackedScene)ResourceLoader.LoadThreadedGet(LOAD_SCENE_PATH);
 		Node lNode = loadScene.Instantiate();
 
-		// Add into scene (UI Root -> Transition -> LoadScreen)
+		// Remove old pause menu to prevent doubling and transition to dungeon
+		UI_ROOT.GetNode("PauseMenu").QueueFree();
 		UI_ROOT.AddChild(tNode);
 		DungNum = 2;
 		onDeathMode = 1;
@@ -110,13 +111,14 @@ public partial class DungeonSelect : Node2D, ITransitionOnDeath
 	}
 	
 	private void ToDungeon3() {
-		// Get copies of Transition and SaveSelect
+		// Get copies of Transition and third dungeon
 		PackedScene transitionScene = (PackedScene)ResourceLoader.LoadThreadedGet(TRANSITION_PATH);
 		Node tNode = transitionScene.Instantiate();
 		PackedScene loadScene = (PackedScene)ResourceLoader.LoadThreadedGet(LOAD_SCENE_PATH);
 		Node lNode = loadScene.Instantiate();
 
-		// Add into scene (UI Root -> Transition -> LoadScreen)
+		// Remove old pause menu to prevent doubling and transition to dungeon
+		UI_ROOT.GetNode("PauseMenu").QueueFree();
 		UI_ROOT.AddChild(tNode);
 		DungNum = 3;
 		onDeathMode = 1;
@@ -143,10 +145,5 @@ public partial class DungeonSelect : Node2D, ITransitionOnDeath
 			}
 			((LoadScreen)other).Init(data, LoadScreen.Mode.LOAD);
 		}
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
 	}
 }
