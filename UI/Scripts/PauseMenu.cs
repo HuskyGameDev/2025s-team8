@@ -16,6 +16,7 @@ public partial class PauseMenu : Control, ITransitionOnDeath
 	private const string MAIN_MENU_SCENE_PATH = "res://UI/Scenes/MainMenu.tscn";
 	private const string LOAD_SCREEN_PATH = "res://UI/Scenes/LoadScreen.tscn";
 	private Node UI_ROOT = null;
+    private SFXManager menuSfx;
 
 	private bool isDisabled = false;
 	private int onDeathMode = 0;
@@ -41,6 +42,7 @@ public partial class PauseMenu : Control, ITransitionOnDeath
 		ResourceLoader.LoadThreadedRequest(TRANSITION_PATH);
 
 		UI_ROOT = this.GetTree().GetNodesInGroup("UI_ROOT")[0];
+        menuSfx = UI_ROOT.GetNode<SFXManager>("./MENU_ASP");
 	}
 
 	public override void _Input(InputEvent @event)
@@ -70,12 +72,18 @@ public partial class PauseMenu : Control, ITransitionOnDeath
 
 	private void ResumeGame()
 	{
+        // Play Sound
+        menuSfx.Play(Sounds.UI_Click);
+
 		this.Hide();
 		this.GetTree().Paused = false;
 	}
 
 	private void GoToOptions()
 	{
+        // Play Sound
+        menuSfx.Play(Sounds.UI_Click);
+
 		// Get copies
 		PackedScene transitionScene = (PackedScene)ResourceLoader.LoadThreadedGet(TRANSITION_PATH);
 		Node tNode = transitionScene.Instantiate();
@@ -95,6 +103,9 @@ public partial class PauseMenu : Control, ITransitionOnDeath
 
 	private void GoToMainMenu()
 	{
+        // Play Sound
+        menuSfx.Play(Sounds.UI_Back);
+
 		Node root = this.GetTree().GetRoot();
 
 		// Save Game

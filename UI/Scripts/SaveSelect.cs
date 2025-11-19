@@ -19,6 +19,7 @@ public partial class SaveSelect : Control, ITransitionOnDeath
     const string GAME_SCENE_PATH = "res://Scenes/TestingGround.tscn";
 
     private Node UI_ROOT;
+    private SFXManager menuSfx;
 
     private const string SAVEWIDGET_PATH = "res://UI/Prefabs/SaveWidget.tscn";
     private ButtonGroup widgetGroup;
@@ -47,6 +48,8 @@ public partial class SaveSelect : Control, ITransitionOnDeath
         }
 
         UI_ROOT = this.GetTree().GetNodesInGroup("UI_ROOT")[0];
+        menuSfx = UI_ROOT.GetNode<SFXManager>("./MENU_ASP");
+
         widgetGroup = new ButtonGroup();
 
         widgetGroup.Pressed += (b) => { EnableSaveButtons((SaveWidget)b); };
@@ -101,6 +104,9 @@ public partial class SaveSelect : Control, ITransitionOnDeath
 
     private void Continue()
     {
+        // Play Sound
+        menuSfx.Play(Sounds.UI_Click);
+
         PlayerData pd = this.GetTree().GetRoot().GetNode<PlayerData>("./PlayerData");
         Node GAME_ROOT = this.GetTree().GetNodesInGroup("GAME_ROOT")[0];
 
@@ -125,9 +131,14 @@ public partial class SaveSelect : Control, ITransitionOnDeath
 
     private void Erase()
     {
+        // Play Sound
+        menuSfx.Play(Sounds.UI_Click);
+
         // Get the selected save file
         SaveWidget widget = (SaveWidget)widgetGroup.GetPressedButton();
         string saveName = (string)widget.GetMeta("saveName");
+
+        // Delete the selected save file (there is no confirm!!!!!)
         PlayerData.Delete(saveName);
         widget.QueueFree();
         this.DisableSaveButtons();
@@ -135,6 +146,9 @@ public partial class SaveSelect : Control, ITransitionOnDeath
 
     private void GoBack()
     {
+        // Play Sound
+        menuSfx.Play(Sounds.UI_Back);
+
         // Get copies of Transition and SaveSelect
         PackedScene transitionScene = (PackedScene)ResourceLoader.LoadThreadedGet(TRANSITION_PATH);
         Node tNode = transitionScene.Instantiate();

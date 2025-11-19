@@ -3,13 +3,13 @@ using System;
 
 public partial class MainMenu : Control {
 	[Export]
-	Button continueButton;
+	private Button continueButton;
 	[Export]
-	Button newgameButton;
+	private Button newgameButton;
 	[Export]
-	Button settingsButton;
+	private Button settingsButton;
 	[Export]
-	Button quitButton;
+	private Button quitButton;
 
     const string TRANSITION_PATH = "res://UI/Scenes/Transition.tscn";
     const string SAVE_SELECT_PATH = "res://UI/Scenes/SaveSelect.tscn";
@@ -17,6 +17,7 @@ public partial class MainMenu : Control {
     const string NEW_GAME_PATH = "res://UI/Scenes/NewGame.tscn";
 
     private Node UI_ROOT;
+    private SFXManager menuSfx;
 
     public override void _Ready()
     {
@@ -43,9 +44,12 @@ public partial class MainMenu : Control {
         }
 
         UI_ROOT = this.GetTree().GetNodesInGroup("UI_ROOT")[0];
+        menuSfx = UI_ROOT.GetNode<SFXManager>("./MENU_ASP");
     }
 
 	private void ToSaveSelect() {
+        // Play Sound
+        menuSfx.Play(Sounds.UI_Click);
 		// Get copies of Transition and SaveSelect
 		PackedScene transitionScene = (PackedScene) ResourceLoader.LoadThreadedGet(TRANSITION_PATH);
 		Node tNode = transitionScene.Instantiate();
@@ -60,6 +64,8 @@ public partial class MainMenu : Control {
 	}
 
     private void BeginNewGame() {
+        // Play Sound
+        menuSfx.Play(Sounds.UI_Click);
         // Get copies of Transition and NewGame
         PackedScene transitionScene = (PackedScene) ResourceLoader.LoadThreadedGet(TRANSITION_PATH);
 		Node tNode = transitionScene.Instantiate();
@@ -74,6 +80,8 @@ public partial class MainMenu : Control {
     }
 
 	private void ToSettings() {
+        // Play Sound
+        menuSfx.Play(Sounds.UI_Click);
 		// Get copies of Transition and Settings
 		PackedScene transitionScene = (PackedScene) ResourceLoader.LoadThreadedGet(TRANSITION_PATH);
 		Node tNode = transitionScene.Instantiate();
@@ -90,6 +98,10 @@ public partial class MainMenu : Control {
 	}
 
 	private void QuitGame() {
+        // Play Sound
+        menuSfx.Play(Sounds.UI_Back);
+
+        // Send Quit Notif and Close
 		GetTree().Root.PropagateNotification((int)NotificationWMCloseRequest); // send notif that we are about to quit
 		GetTree().Quit();
 	}

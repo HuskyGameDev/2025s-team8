@@ -20,6 +20,8 @@ public partial class SettingsMenu : Control {
     private TabContainer tc;
 
     private Node UI_ROOT;
+    private SFXManager menuSfx;
+    
     private string TRANSITION_PATH = "res://UI/Scenes/Transition.tscn";
     private string returnPath = "";
 
@@ -48,6 +50,8 @@ public partial class SettingsMenu : Control {
 
         tc = this.GetNode<TabContainer>("./TabContainer");
         UI_ROOT = this.GetTree().GetNodesInGroup("UI_ROOT")[0];
+        menuSfx = UI_ROOT.GetNode<SFXManager>("./MENU_ASP");
+
         ResourceLoader.LoadThreadedRequest(TRANSITION_PATH);
     }
 
