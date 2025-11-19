@@ -13,6 +13,7 @@ var shoot_timer: float = shoot_delay
 
 
 func _physics_process(delta: float):
+	if dead: return;
 	if player_found:
 		chase(player.position - position)
 		try_shoot(delta)

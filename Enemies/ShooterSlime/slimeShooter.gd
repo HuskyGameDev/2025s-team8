@@ -13,6 +13,7 @@ var shoot_timer: float = shoot_delay
 
 
 func _physics_process(delta: float):
+	if dead: return;
 	if player_found:
 		chase(player.position - position)
 		try_shoot(delta)
@@ -48,6 +49,9 @@ func try_shoot(delta: float):
 	if(shoot_timer <= 0):
 		shoot_timer = shoot_delay
 		shoot()
+	elif(shoot_timer < 0.5):
+		position += Vector2(randf_range(-1,1),randf_range(-1,1)) # shake
+		shoot_timer -= delta
 	else:
 		shoot_timer -= delta
 		

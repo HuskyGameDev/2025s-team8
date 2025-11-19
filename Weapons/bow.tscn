@@ -8,6 +8,7 @@
 scale = Vector2(5, 5)
 script = ExtResource("1_85rmc")
 projectile_scene = ExtResource("2_cejqp")
+cooldown = 0.5
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false

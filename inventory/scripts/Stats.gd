@@ -1,4 +1,3 @@
-#class_name Stats
 extends Node
 
 #Temp script to ensure that the inventory items would correctly affect stats
