@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://brdg68op0trsg"]
+
+[ext_resource type="Script" path="res://inventory/scripts/item_data.gd" id="1_ptyss"]
+[ext_resource type="Texture2D" uid="uid://b8si3jwohyhae" path="res://inventory/temp art/512/armor.png" id="2_a4ryd"]
+
+[resource]
+script = ExtResource("1_ptyss")
+type = 0
+name = "Armor"
+damage = 0
+defense = 10
+rarity = 0
+slot_type = 3
+description = "A base set of armor. It isn't much but it will get the job done!"
+texture = ExtResource("2_a4ryd")

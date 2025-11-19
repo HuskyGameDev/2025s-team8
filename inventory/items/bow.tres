@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://ctpiali07vo38"]
+
+[ext_resource type="Script" path="res://inventory/scripts/item_data.gd" id="1_ycosp"]
+[ext_resource type="Texture2D" uid="uid://bjbg6lnlvtxmv" path="res://inventory/temp art/512/bow.png" id="2_k41ur"]
+
+[resource]
+script = ExtResource("1_ycosp")
+type = 1
+name = "Bow"
+damage = 8
+defense = 0
+rarity = 1
+slot_type = 3
+description = "A basic bow. It looks fairly weathered."
+texture = ExtResource("2_k41ur")
