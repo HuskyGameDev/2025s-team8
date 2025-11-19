@@ -1,6 +1,8 @@
 class_name Player extends CharacterBody2D
 #note this is a script that will eventually get replaced by the state machine. The state machine
 #will store the previous statement and remember it to make transitions in between actions smoother
+@export var hp: int = 20
+@export var max_hp: int = 20
 
 var cardinal_direction : Vector2 = Vector2.DOWN #part of sprite movement
 var direction : Vector2 = Vector2.ZERO
@@ -8,6 +10,12 @@ var direction : Vector2 = Vector2.ZERO
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
 @onready var sprite : Sprite2D = $Sprite2D
 @onready var state_machine : PlayerStateMachine = $StateMachine
+
+signal player_damaged(hurt_box: Hurtbox)
+var invincible : bool = false
+
+#@onready var mainhitbox: Hitbox = $interactions/Hitbox
+#@onready var mainhurtbox: Hurtbox = $interactions/Hurtbox
 
 signal DirectionChanged( _new_direction: Vector2)
 
@@ -21,6 +29,8 @@ var max_hp : int = 10
 @onready var hurtbox: Hurtbox = $interactions/Weapons/Sword/Hurtbox
 
 
+signal player_damage(hurt_box: Hurtbox)
+signal update_hp_progress()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -29,6 +39,26 @@ func _ready() -> void:
 	update_hp(10)
 	pass # Replace with function body.
 
+func TakeDamage(hurt_box: Hurtbox) -> void:
+	if invincible == true:
+		return
+	update_hp(-hurt_box.damage)
+	update_hp_progress.emit()
+	#queue_free()
+	
+	if hp > 0:
+		player_damaged.emit(hurt_box)
+	else:
+		queue_free()
+	pass
+	
+func update_hp(delta:int) -> void:
+	hp = hp + delta
+	if hp > max_hp:
+		hp = max_hp
+		
+	#update_hp_progress.emit()	
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
