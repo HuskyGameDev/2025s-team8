@@ -19,7 +19,6 @@ public partial class SettingsMenu : Control {
 
     private TabContainer tc;
 
-    private Node UI_ROOT;
     private string TRANSITION_PATH = "res://UI/Scenes/Transition.tscn";
     private string returnPath = "";
 
@@ -47,7 +46,6 @@ public partial class SettingsMenu : Control {
         }
 
         tc = this.GetNode<TabContainer>("./TabContainer");
-        UI_ROOT = this.GetTree().GetNodesInGroup("UI_ROOT")[0];
         ResourceLoader.LoadThreadedRequest(TRANSITION_PATH);
     }
 
@@ -72,7 +70,8 @@ public partial class SettingsMenu : Control {
 		Node rNode = returnScene.Instantiate();
 
         // Add into scene
-        UI_ROOT.AddChild(tNode);
+        Node root = this.GetTree().GetRoot();
+        root.AddChild(tNode);
 
         // Begin the transition
         ((Transition)tNode).BeginTransition(rNode, this, Transition.Mode.bottomLeft);

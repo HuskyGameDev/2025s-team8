@@ -1,7 +1,7 @@
 [gd_scene load_steps=34 format=3 uid="uid://cq1dxd0m5csx1"]
 
 [ext_resource type="Script" path="res://Player/Scripts/playerMovement.gd" id="1_7jpn7"]
-[ext_resource type="Texture2D" uid="uid://cnjgjy3iynxlu" path="res://Player/Sprites/PlayerSprite02.png" id="2_ilxdi"]
+[ext_resource type="Texture2D" uid="uid://blgmipewh5kxv" path="res://Player/Sprites/replaced_player.png" id="2_2jtld"]
 [ext_resource type="Script" path="res://Player/Scripts/PlayerStateMachine.gd" id="3_nsaxw"]
 [ext_resource type="Script" path="res://Player/Scripts/state_idle.gd" id="4_ml0m6"]
 [ext_resource type="Script" path="res://Player/Scripts/state_walk.gd" id="5_1mifc"]
@@ -11,11 +11,11 @@
 [ext_resource type="Script" path="res://Player/Scripts/stun_state.gd" id="8_dbfju"]
 [ext_resource type="PackedScene" uid="uid://dh1y5183jb8ng" path="res://GeneralNodes/hurtbox.tscn" id="8_xntua"]
 [ext_resource type="Script" path="res://GeneralNodes/Hitbox.gd" id="11_gcxqq"]
-[ext_resource type="Script" path="res://Inventory/Scripts/InventorySlot.cs" id="12_my8ii"]
-[ext_resource type="Script" path="res://Inventory/Scripts/PlayerInv.cs" id="13_0h7oe"]
+[ext_resource type="Script" path="res://inventory/scripts/inventory_slot.gd" id="12_4o1o5"]
 [ext_resource type="PackedScene" uid="uid://mfw6jtfn4mfu" path="res://Weapons/sword.tscn" id="13_46be7"]
+[ext_resource type="Script" path="res://inventory/scripts/player_inv.gd" id="13_p2coq"]
 [ext_resource type="PackedScene" uid="uid://cmmxmfbjl7cpk" path="res://Weapons/spear.tscn" id="13_pgrnk"]
-[ext_resource type="Script" path="res://Inventory/Scripts/stat_label.gd" id="14_2rqd7"]
+[ext_resource type="Script" path="res://inventory/scripts/stat_label.gd" id="14_2rqd7"]
 [ext_resource type="PackedScene" uid="uid://bhowjlq8pc5kp" path="res://Weapons/bow.tscn" id="14_hn6ef"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_edhvl"]
@@ -118,7 +118,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.06, 0.12),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [27, 28, 29]
+"values": [24, 25, 26]
 }
 
 [sub_resource type="Animation" id="Animation_edf5d"]
@@ -135,13 +135,12 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.06, 0.12),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [24, 25, 26]
+"values": [27, 28, 29]
 }
 
-[sub_resource type="Animation" id="Animation_ontxl"]
+[sub_resource type="Animation" id="Animation_nykgf"]
 resource_name = "stun_down"
-length = 0.3
-loop_mode = 2
+length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -155,10 +154,9 @@ tracks/0/keys = {
 "values": [30]
 }
 
-[sub_resource type="Animation" id="Animation_xqwj7"]
+[sub_resource type="Animation" id="Animation_erufm"]
 resource_name = "stun_side"
-length = 0.3
-loop_mode = 2
+length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -172,10 +170,9 @@ tracks/0/keys = {
 "values": [32]
 }
 
-[sub_resource type="Animation" id="Animation_yqkep"]
+[sub_resource type="Animation" id="Animation_r3k7u"]
 resource_name = "stun_up"
-length = 0.3
-loop_mode = 2
+length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -249,9 +246,9 @@ _data = {
 "attack_down": SubResource("Animation_gob7d"),
 "attack_side": SubResource("Animation_20gpb"),
 "attack_up": SubResource("Animation_edf5d"),
-"stun_down": SubResource("Animation_ontxl"),
-"stun_side": SubResource("Animation_xqwj7"),
-"stun_up": SubResource("Animation_yqkep"),
+"stun_down": SubResource("Animation_nykgf"),
+"stun_side": SubResource("Animation_erufm"),
+"stun_up": SubResource("Animation_r3k7u"),
 "walk_down": SubResource("Animation_s6f20"),
 "walk_side": SubResource("Animation_xydnq"),
 "walk_up": SubResource("Animation_xbpmk")
@@ -260,7 +257,7 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_501hd"]
 radius = 24.0832
 
-[node name="Player" type="CharacterBody2D" groups=["PLAYER"]]
+[node name="Player" type="CharacterBody2D"]
 position = Vector2(1, -1)
 scale = Vector2(0.75, 0.75)
 collision_mask = 3
@@ -273,9 +270,9 @@ one_way_collision_margin = 10.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(5.72205e-06, -25)
-scale = Vector2(1.00742, 1.13379)
-texture = ExtResource("2_ilxdi")
+position = Vector2(0, -16)
+scale = Vector2(1.17038, 1.34815)
+texture = ExtResource("2_2jtld")
 hframes = 16
 vframes = 3
 
@@ -308,12 +305,14 @@ position = Vector2(0, -19)
 script = ExtResource("8_4i6ld")
 
 [node name="Hitbox" parent="interactions" instance=ExtResource("8_xntua")]
+visible = false
 collision_layer = 3
 collision_mask = 524
 monitorable = true
 script = ExtResource("11_gcxqq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="interactions/Hitbox"]
+visible = false
 shape = SubResource("CircleShape2D_501hd")
 debug_color = Color(0.308247, 0.493797, 1, 0.42)
 
@@ -330,6 +329,7 @@ position = Vector2(0, 20)
 position = Vector2(0, 30)
 
 [node name="Camera2D" type="Camera2D" parent="."]
+visible = false
 zoom = Vector2(2.5, 2.5)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -343,34 +343,33 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="RandomSlot" type="PanelContainer" parent="CanvasLayer/Control"]
+[node name="InventorySlot2" type="PanelContainer" parent="CanvasLayer/Control"]
 visible = false
 layout_mode = 0
 offset_left = 360.0
 offset_top = 216.0
 offset_right = 424.0
 offset_bottom = 280.0
-script = ExtResource("12_my8ii")
-type = 3
+script = ExtResource("12_4o1o5")
+type = 2
 
-[node name="ArmorSlot" type="PanelContainer" parent="CanvasLayer/Control"]
+[node name="InventorySlot3" type="PanelContainer" parent="CanvasLayer/Control"]
 visible = false
 layout_mode = 0
 offset_left = 240.0
 offset_top = 216.0
 offset_right = 304.0
 offset_bottom = 280.0
-script = ExtResource("12_my8ii")
-type = 2
+script = ExtResource("12_4o1o5")
 
-[node name="WeaponSlot" type="PanelContainer" parent="CanvasLayer/Control"]
+[node name="InventorySlot" type="PanelContainer" parent="CanvasLayer/Control"]
 visible = false
 layout_mode = 0
 offset_left = 120.0
 offset_top = 216.0
 offset_right = 184.0
 offset_bottom = 280.0
-script = ExtResource("12_my8ii")
+script = ExtResource("12_4o1o5")
 type = 1
 
 [node name="Player_inv" type="GridContainer" parent="CanvasLayer/Control"]
@@ -384,7 +383,7 @@ offset_bottom = 816.0
 theme_override_constants/h_separation = 16
 theme_override_constants/v_separation = 16
 columns = 6
-script = ExtResource("13_0h7oe")
+script = ExtResource("13_p2coq")
 
 [node name="Stats" type="Label" parent="CanvasLayer/Control"]
 visible = false

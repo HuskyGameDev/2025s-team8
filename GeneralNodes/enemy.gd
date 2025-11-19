@@ -14,11 +14,11 @@ func _ready():
 	$HitBox.Damaged.connect( TakeDamage )
 	
 		
-		
-func TakeDamage(_damage:int) -> void:
-	hp = hp - _damage#underscore means optional
+#bryson note this does not have signals for getting damaged state
+func TakeDamage(hurt_box: Hurtbox) -> void:
+	hp = hp - hurt_box.damage#underscore means optional
 	flash_red()
-	print(enemy_name + " took " + str(_damage) + " damage.")
+	print(enemy_name + " took " + str(hurt_box) + " damage.")
 	if hp <= 0:
 		queue_free()
 		

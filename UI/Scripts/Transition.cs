@@ -13,7 +13,7 @@ public partial class Transition : Control {
 	private int toScrollOffset = -4080; // for toScroll only; fromScroll starts at x0
     private int fromScrollOffset = -1080;
 	private bool isScrolling = false;
-	private bool unpauseNext = false;
+
 	private int scrollDist = 3000; // 1920 (width) + 1080 (height for 45deg diag)
 	private double curScrollDist = 0;
 
@@ -31,22 +31,12 @@ public partial class Transition : Control {
 		curScrollDist += (delta / SCROLL_TIME) * scrollDist;
 		if (Math.Abs(curScrollDist) >= Math.Abs(scrollDist)) { // If Done
 			isScrolling = false;
-			if (unpauseNext)
-			{
-				this.GetTree().Paused = false;
-			}
-			// see if the old thing has a transition death trigger
-			if (fromOffset.GetChild(0) is ITransitionOnDeath)
-			{
-				((ITransitionOnDeath)fromOffset.GetChild(0)).OnDeath(toOffset.GetChild(0));
-			}
-
 			// Move the child of toOffset (the new thing) to the parent of this node...
 			SetActive(toOffset.GetChild(0), true); // no need to reactivate fromOffset child, it is being deleted
             toOffset.GetChild(0).Reparent(this.GetParent());
 
             // ...so that it survives the deletion of this Transition instance
-			this.QueueFree();
+            this.QueueFree();
 		}
 		UpdatePositions();
 	}
@@ -77,14 +67,7 @@ public partial class Transition : Control {
 		isScrolling = true;
 	}
 
-	// Tells the transition if it should unpause at the end of the transition
-	public void DoUnpauseNext(bool b)
-	{
-		unpauseNext = b;
-	}
-
-	private void UpdatePositions()
-	{
+	private void UpdatePositions() {
 		toRect.Position = new Vector2((float)(curScrollDist + toScrollOffset), 0);
 		toOffset.Position = toRect.Position * -1; // Keep this node at a relative 0,0
 		fromRect.Position = new Vector2((float)(curScrollDist + fromScrollOffset), 0);

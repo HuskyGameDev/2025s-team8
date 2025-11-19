@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cq1dxd0m5csx1" path="res://Player/player.tscn" id="1_6exw8"]
 [ext_resource type="PackedScene" uid="uid://ejm2wcvxoaoq" path="res://Tile Maps/base dungeon.tscn" id="2_cv62i"]
 [ext_resource type="PackedScene" uid="uid://dbb2tnmyhd6xr" path="res://Enemies/SlimeEnemy/slimeEnemy.tscn" id="3_gmyew"]
-[ext_resource type="PackedScene" uid="uid://dytx21xto4i4b" path="res://Inventory/Chest.tscn" id="4_rkng0"]
+[ext_resource type="PackedScene" uid="uid://dytx21xto4i4b" path="res://inventory/Chest.tscn" id="4_rkng0"]
 [ext_resource type="PackedScene" uid="uid://y0ycdmckwo7g" path="res://Enemies/ShooterSlime/shooterSlime.tscn" id="5_iy5na"]
 [ext_resource type="PackedScene" uid="uid://i7gkdqqb0m1w" path="res://Enemies/Flame/flame_enemy.tscn" id="6_3jy8h"]
 [ext_resource type="PackedScene" uid="uid://qfo0d117ba54" path="res://Enemies/FourShooter/fourShooter.tscn" id="7_53p7s"]
