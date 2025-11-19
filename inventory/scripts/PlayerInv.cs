@@ -39,7 +39,7 @@ public partial class PlayerInv : Control
             wpnSlot.SetItem(wpnItem);
         Item wpnItem2 = Items.GetItem(pd.save.weapon2Id);
         if (wpnItem2 != null)
-            wpnSlot2.SetItem(wpnItem);
+            wpnSlot2.SetItem(wpnItem2);
         Item armItem = Items.GetItem(pd.save.armorId);
         if (armItem != null)
             armSlot.SetItem(armItem);
@@ -48,7 +48,7 @@ public partial class PlayerInv : Control
             rndSlot.SetItem(rndItem);
         Item rndItem2 = Items.GetItem(pd.save.consumable2Id);
         if (rndItem2 != null)
-            rndSlot2.SetItem(rndItem);
+            rndSlot2.SetItem(rndItem2);
 
         // Load the inventory from player data
         for (int i = 0; i < inv.Length; i++)

@@ -38,7 +38,6 @@ public partial class PlayerData : Node
         sv.stash = f.GetCsvLine();
         f.Close();
 
-        GD.Print(sv.inv);
         return sv;
     }
 

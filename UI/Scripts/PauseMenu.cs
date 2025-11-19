@@ -121,10 +121,10 @@ public partial class PauseMenu : Control, ITransitionOnDeath
 				Node invRoot = player.GetNode("./CanvasLayer/Control");
 
 				InventorySlot wpn = invRoot.GetNode<InventorySlot>("./WeaponSlot");
-				InventorySlot wpn2 = invRoot.GetNode<InventorySlot>("./WeaponSlot");
+				InventorySlot wpn2 = invRoot.GetNode<InventorySlot>("./WeaponSlot2");
 				InventorySlot arm = invRoot.GetNode<InventorySlot>("./ArmorSlot");
 				InventorySlot rnd = invRoot.GetNode<InventorySlot>("./RandomSlot");
-				InventorySlot rnd2 = invRoot.GetNode<InventorySlot>("./RandomSlot");
+				InventorySlot rnd2 = invRoot.GetNode<InventorySlot>("./RandomSlot2");
 				Array<Node> inv = invRoot.GetNode("./Player_inv").GetChildren(); // should all be InventorySlots, but cannot implicit cast godot arrays like that
 
 

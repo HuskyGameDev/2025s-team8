@@ -39,7 +39,7 @@ public partial class NewGame : Control, ITransitionOnDeath
         }
 
         UI_ROOT = this.GetTree().GetNodesInGroup("UI_ROOT")[0];
-        menuSfx = UI_ROOT.GetNode<SFXManager>("./ASP");
+        menuSfx = UI_ROOT.GetNode<SFXManager>("./MENU_ASP");
         GAME_ROOT = this.GetTree().GetNodesInGroup("GAME_ROOT")[0];
     }
 

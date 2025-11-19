@@ -354,6 +354,7 @@ script = ExtResource("12_my8ii")
 type = 1
 
 [node name="WeaponSlot2" type="TextureRect" parent="CanvasLayer/Control"]
+layout_mode = 0
 offset_left = 120.0
 offset_top = 216.0
 offset_right = 184.0
@@ -380,6 +381,7 @@ script = ExtResource("12_my8ii")
 type = 3
 
 [node name="RandomSlot2" type="TextureRect" parent="CanvasLayer/Control"]
+layout_mode = 0
 offset_left = 480.0
 offset_top = 216.0
 offset_right = 544.0
