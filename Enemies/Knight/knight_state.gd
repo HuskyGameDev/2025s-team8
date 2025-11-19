@@ -1,8 +1,8 @@
-class_name State extends Node
+class_name knight_state extends Node
 
 #stores a reference to the player
-static var player: Player
-static var state_machine: PlayerStateMachine
+static var knight: Knight
+static var state_machine: knight_state_machine
 
 func _ready():
 	pass
