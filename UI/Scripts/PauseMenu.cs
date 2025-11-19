@@ -110,14 +110,20 @@ public partial class PauseMenu : Control, ITransitionOnDeath
 				Node invRoot = player.GetNode("./CanvasLayer/Control");
 
 				InventorySlot wpn = invRoot.GetNode<InventorySlot>("./WeaponSlot");
+				InventorySlot wpn2 = invRoot.GetNode<InventorySlot>("./WeaponSlot");
 				InventorySlot arm = invRoot.GetNode<InventorySlot>("./ArmorSlot");
 				InventorySlot rnd = invRoot.GetNode<InventorySlot>("./RandomSlot");
+				InventorySlot rnd2 = invRoot.GetNode<InventorySlot>("./RandomSlot");
 				Array<Node> inv = invRoot.GetNode("./Player_inv").GetChildren(); // should all be InventorySlots, but cannot implicit cast godot arrays like that
 
 
 				if (wpn.GetChildCount() > 0)
 				{
 					pd.save.weaponId = ((InventoryItem)wpn.GetChild(0)).data.GetId();
+				}
+				if (wpn2.GetChildCount() > 0)
+				{
+					pd.save.weapon2Id = ((InventoryItem)wpn2.GetChild(0)).data.GetId();
 				}
 				if (arm.GetChildCount() > 0)
 				{
@@ -126,6 +132,10 @@ public partial class PauseMenu : Control, ITransitionOnDeath
 				if (rnd.GetChildCount() > 0)
 				{
 					pd.save.consumableId = ((InventoryItem)rnd.GetChild(0)).data.GetId();
+				}
+				if (rnd2.GetChildCount() > 0)
+				{
+					pd.save.consumable2Id = ((InventoryItem)rnd2.GetChild(0)).data.GetId();
 				}
 
 				pd.save.inv = new string[inv.Count];

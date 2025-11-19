@@ -32,7 +32,6 @@ disabled = true
 text = "Continue"
 
 [node name="delete" parent="Control" instance=ExtResource("1_6461k")]
-visible = false
 layout_mode = 0
 anchors_preset = 0
 anchor_right = 0.0

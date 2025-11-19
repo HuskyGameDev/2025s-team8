@@ -4,7 +4,7 @@ using System;
 public partial class InventorySlot : TextureRect
 {
 	[Export]
-	public Item.Type type = Item.Type.INVALID;
+	private Item.Type type = Item.Type.INVALID;
 
     public override void _Ready()
 	{
@@ -56,7 +56,7 @@ public partial class InventorySlot : TextureRect
 		InventorySlot otherSlot = (InventorySlot)otherItem.GetParent();
 		Node playerStats = this.GetTree().GetRoot().GetNode("./Player_Stats");
 
-		// If slot already has an item
+		// If we already have an item
 		if (this.GetChildCount() > 0)
 		{
 			InventoryItem ourItem = (InventoryItem)this.GetChild(0);
@@ -69,25 +69,26 @@ public partial class InventorySlot : TextureRect
 
 			// This is fine, as there should only be 1 of each slot type other than main
 			// The only feasible change to this would be RANDOm for things like potions
+			// maybe its fine?
 
-			// If swapping with currently equipped item, reduce by item's stats
-			if (ourItem.data.GetSlotType() != Item.Type.MAIN)
+			// Is this an equipment slot?
+			// (Remove our stats from our slot?)
+			if (this.type != Item.Type.MAIN)
 			{
 				if (ourItem.data.GetItemType() == Item.Type.WEAPON)
 					playerStats.Set("dam", (int)playerStats.Get("dam") - ((WeaponItem)ourItem.data).GetDamage());
 				if (ourItem.data.GetItemType() == Item.Type.ARMOR)
 					playerStats.Set("def", (int)playerStats.Get("def") - ((ArmorItem)ourItem.data).GetDefense());
-				ourItem.data.SetSlotType(Item.Type.MAIN);
 			}
 
-			// If swapping with currently unequipped item, increase by data's stats
-			if (otherItem.data.GetSlotType() != Item.Type.MAIN)
+			// Is the other item in an equipment slot?
+			// (Add our stats to the other slot?)
+			if (otherSlot.GetSlotType() != Item.Type.MAIN)
 			{
 				if (ourItem.data.GetItemType() == Item.Type.WEAPON)
 					playerStats.Set("dam", (int)playerStats.Get("dam") + ((WeaponItem)ourItem.data).GetDamage());
 				if (ourItem.data.GetItemType() == Item.Type.ARMOR)
 					playerStats.Set("def", (int)playerStats.Get("def") + ((ArmorItem)ourItem.data).GetDefense());
-				ourItem.data.SetSlotType(Item.Type.MAIN);
 			}
 
 			// Put our item in the other item's place
@@ -95,25 +96,26 @@ public partial class InventorySlot : TextureRect
 			ourItem.Position = new Vector2(0, 0);
 		}
 
-		// If equpping other item, increase by other item's stats
-		else if (type != Item.Type.MAIN)
+		// Is this an equipment slot?
+		// (Add the other stats to our slot?)
+		if (this.type != Item.Type.MAIN)
 		{
 			if (otherItem.data.GetItemType() == Item.Type.WEAPON)
 				playerStats.Set("dam", (int)playerStats.Get("dam") + ((WeaponItem)otherItem.data).GetDamage());
 			if (otherItem.data.GetItemType() == Item.Type.ARMOR)
 				playerStats.Set("def", (int)playerStats.Get("def") + ((ArmorItem)otherItem.data).GetDefense());
-			otherItem.data.SetSlotType(otherItem.data.GetItemType());
 		}
 
-		// If unequpping other item, reduce by other item's stats
-		else if (otherItem.data.GetSlotType() != Item.Type.MAIN)
+		// If the other item in an equipment slot?
+		// (Remove the other stats from the other slot?)
+		if (otherSlot.GetSlotType() != Item.Type.MAIN)
 		{
 			if (otherItem.data.GetItemType() == Item.Type.WEAPON)
 				playerStats.Set("dam", (int)playerStats.Get("dam") - ((WeaponItem)otherItem.data).GetDamage());
 			if (otherItem.data.GetItemType() == Item.Type.ARMOR)
 				playerStats.Set("def", (int)playerStats.Get("def") - ((ArmorItem)otherItem.data).GetDefense());
-			otherItem.data.SetSlotType(Item.Type.MAIN);
 		}
+
 		GD.Print($"Damage: {playerStats.Get("dam")}\nDefense: {playerStats.Get("def")}\n");
 
 		// put the other item here
@@ -124,12 +126,67 @@ public partial class InventorySlot : TextureRect
 		otherSlot.UpdateImage();
 	}
 
-    public override void _Input(InputEvent @event)
+	// Sets this slot using an item directly, instead of swapping
+	// with another InventorySlot
+	public void SetItem(Item newItem)
+	{
+		if (this.type == Item.Type.INVALID)
+		{
+			GD.Print("InventorySlot has no type!");
+			return; // do not allow
+		}
+		if (newItem.GetItemType() != Item.Type.MAIN && this.type != newItem.GetItemType())
+		{
+			GD.Print("Item cannot go in this slot!");
+			return; // do not allow
+		}
+
+		Node playerStats = this.GetTree().GetRoot().GetNode("./Player_Stats");
+
+		// If slot already has an item
+		if (this.GetChildCount() > 0)
+		{
+			InventoryItem ourItem = (InventoryItem)this.GetChild(0);
+
+			// Is this an equipment slot? (need to adjust stats?)
+			if (this.type != Item.Type.MAIN)
+			{
+				// decrease the player's stats by the item being replaced
+				if (ourItem.data.GetItemType() == Item.Type.WEAPON)
+					playerStats.Set("dam", (int)playerStats.Get("dam") - ((WeaponItem)ourItem.data).GetDamage());
+				if (ourItem.data.GetItemType() == Item.Type.ARMOR)
+					playerStats.Set("def", (int)playerStats.Get("def") - ((ArmorItem)ourItem.data).GetDefense());
+			}
+
+			// Destroy the current item
+			ourItem.QueueFree();
+		}
+
+
+		// Is this an equipment slot? (need to adjust stats?)
+		if (this.type != Item.Type.MAIN)
+		{
+			if (newItem.GetItemType() == Item.Type.WEAPON)
+				playerStats.Set("dam", (int)playerStats.Get("dam") + ((WeaponItem)newItem).GetDamage());
+			if (newItem.GetItemType() == Item.Type.ARMOR)
+				playerStats.Set("def", (int)playerStats.Get("def") + ((ArmorItem)newItem).GetDefense());
+		}
+		GD.Print($"Damage: {playerStats.Get("dam")}\nDefense: {playerStats.Get("def")}\n");
+
+
+		// Add the new item to this Slot
+		InventoryItem invItem = new InventoryItem();
+		invItem.Init(newItem);
+		this.AddChild(invItem);
+		invItem.Position = new Vector2(0, 0);
+
+		// Make sure both we have the correct bkg
+		UpdateImage();
+	}
+	
+	public Item.Type GetSlotType()
     {
-        if (@event is InputEventKey && Input.IsActionJustReleased("Inventory") && type != Item.Type.MAIN)
-        {
-            this.Visible = !this.Visible;
-        }
+		return type;
     }
     
     private void UpdateImage()

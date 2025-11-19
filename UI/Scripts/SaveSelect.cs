@@ -49,7 +49,7 @@ public partial class SaveSelect : Control, ITransitionOnDeath
         UI_ROOT = this.GetTree().GetNodesInGroup("UI_ROOT")[0];
         widgetGroup = new ButtonGroup();
 
-        widgetGroup.Pressed += (b) => { EnableSaveButtons(); };
+        widgetGroup.Pressed += (b) => { EnableSaveButtons((SaveWidget)b); };
 
         if (widgetLoc == null)
         {
@@ -65,7 +65,6 @@ public partial class SaveSelect : Control, ITransitionOnDeath
         {
             if (s.EndsWith(".hdsave"))
             {
-                GD.Print(s);
                 BuildWidget(s, widgetGroup);
             }
 
@@ -80,19 +79,25 @@ public partial class SaveSelect : Control, ITransitionOnDeath
 
         // Build the save widget
         string name = s.Substring(0, s.Length - 7); // remove the ".hdsave" part, as it is not part
-        GD.Print(name);
         PlayerData.SaveState sv = PlayerData.Load(name);
 
         PackedScene widgetScene = (PackedScene)ResourceLoader.LoadThreadedGet(SAVEWIDGET_PATH);
         SaveWidget widget = (SaveWidget)widgetScene.Instantiate();
         widget.SetButtonGroup(bg);
-        widget.SetPlayerName(sv.playerName);
-        widget.SetSaveName(sv.saveName);
+        if (sv != null)
+        { // Valid File
+            widget.validSave = true;
+            widget.SetPlayerName(sv.playerName);
+            widget.SetSaveName(sv.saveName);
+        } else
+        { // Invalid File
+            widget.SetPlayerName("Broken Save File!");
+            widget.SetSaveName(":(");
+        }
 
         // Add it to the save browser
         widgetLoc.AddChild(widget);
     }
-
 
     private void Continue()
     {
@@ -100,7 +105,6 @@ public partial class SaveSelect : Control, ITransitionOnDeath
         Node GAME_ROOT = this.GetTree().GetNodesInGroup("GAME_ROOT")[0];
 
         // Get the save file for the selected save file
-        BaseButton bb = widgetGroup.GetPressedButton();
         SaveWidget widget = (SaveWidget)widgetGroup.GetPressedButton();
         string saveName = (string)widget.GetMeta("saveName");
         pd.save = PlayerData.Load(saveName);
@@ -117,66 +121,16 @@ public partial class SaveSelect : Control, ITransitionOnDeath
 
         // Begin the transition
         ((Transition)tNode).BeginTransition(lNode, this, Transition.Mode.topRight);
-
-        // // Inject the save data (since nothing truly "uses" SaveState in any game scene yet)
-        // // NYI
-        // this.QueueFree();
-        // return;
-        // // NYI
-
-        // Array<Node> ns = this.GetTree().GetNodesInGroup("PLAYER");
-        // if (ns.Count == 1) // if it is greater than 1, then somthing is up
-        // {
-        //     Node player = ns[0];
-        //     Node invRoot = player.GetNode("./CanvasLayer/Control");
-
-        //     InventorySlot wpn = invRoot.GetNode<InventorySlot>("./WeaponSlot");
-        //     InventorySlot arm = invRoot.GetNode<InventorySlot>("./ArmorSlot");
-        //     InventorySlot rnd = invRoot.GetNode<InventorySlot>("./RandomSlot");
-        //     Array<Node> inv = invRoot.GetNode("./Player_inv").GetChildren(); // should all be InventorySlots, but cannot implicit cast godot arrays like that
-
-        //     if (pd.save.weaponId != null && pd.save.weaponId != "")
-        //     {
-        //         InventoryItem wpnItem = new InventoryItem();
-        //         wpnItem.Init(Items.items.Get(pd.save.weaponId));
-        //         wpn.AddChild(wpnItem);
-        //     }
-        //     if (pd.save.armorId != null && pd.save.armorId != "")
-        //     {
-        //         InventoryItem armItem = new InventoryItem();
-        //         armItem.Init(Items.items.Get(pd.save.armorId));
-        //         arm.AddChild(armItem);
-        //     }
-        //     if (pd.save.consumableId != null && pd.save.consumableId != "")
-        //     {
-        //         InventoryItem rndItem = new InventoryItem();
-        //         rndItem.Init(Items.items.Get(pd.save.consumableId));
-        //         rnd.AddChild(rndItem);
-        //     }
-
-        //     for (int i = 0; i < pd.save.inv.Count; i++)
-        //     {
-        //         // NYI, as this will conflict with TestingGround's automatic item gen
-        //         if (pd.save.inv[i] != null && pd.save.inv[i] != "")
-        //         {
-
-        //         }
-        //     }
-
-        //     ns = this.GetTree().GetNodesInGroup("STASH");
-        //     if (ns.Count == 1)
-        //     {
-        //         Node stash = ns[0];
-        //         // NYI!!!!
-        //         // We do not have a stash system yet lmao
-        //     }
-
-        // }
     }
 
     private void Erase()
     {
-        // NYI
+        // Get the selected save file
+        SaveWidget widget = (SaveWidget)widgetGroup.GetPressedButton();
+        string saveName = (string)widget.GetMeta("saveName");
+        PlayerData.Delete(saveName);
+        widget.QueueFree();
+        this.DisableSaveButtons();
     }
 
     private void GoBack()
@@ -194,16 +148,30 @@ public partial class SaveSelect : Control, ITransitionOnDeath
         ((Transition)tNode).BeginTransition(mNode, this, Transition.Mode.bottomRight);
     }
 
-    private void EnableSaveButtons()
+    private void EnableSaveButtons(SaveWidget sw)
     {
         if (contButton != null)
         {
-            contButton.Disabled = false;
+            contButton.Disabled = !sw.validSave;
             ((NPRButton)contButton).UpdateState();
         }
         if (eraseButton != null)
         {
             eraseButton.Disabled = false;
+            ((NPRButton)eraseButton).UpdateState();
+        }
+    }
+
+    private void DisableSaveButtons()
+    {
+        if (contButton != null)
+        {
+            contButton.Disabled = true;
+            ((NPRButton)contButton).UpdateState();
+        }
+        if (eraseButton != null)
+        {
+            eraseButton.Disabled = true;
             ((NPRButton)eraseButton).UpdateState();
         }
     }
