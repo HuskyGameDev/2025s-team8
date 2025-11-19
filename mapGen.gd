@@ -13,16 +13,8 @@ var lastWanderDir: Vector2 = Vector2(1,1)
 
 @export var player : Node2D;
 
-@export var cave_threshold: float = 0.4;
-@export var frequency: float = 0.04;
-
-@export var nextLevel: PackedScene;
-
 var currentEnemies : Array[Enemy] = [];
 var timer = 1;
-
-var startPos: Vector2;
-
 
 func _physics_process(delta: float):
 	
@@ -49,20 +41,20 @@ func _ready():
 	var noise = FastNoiseLite.new()
 	noise.noise_type = FastNoiseLite.TYPE_PERLIN
 	noise.seed = randi()
-	noise.frequency = frequency
+	noise.frequency = 0.04
 
 	# slap a bunch of ones and zeroes into the area based on noise
 	for y in range(length):
 		var row = []
 		for x in range(length):
 			var noise_val = (noise.get_noise_2d(x,y) + 1) * 0.5 # gives a value 0-1
-			if(noise_val < cave_threshold):
+			if(noise_val < 0.4):
 				row.append(2)  # this used to append 0, but now it appends 2. 2 is cave air. Cave air might be replaced. 
 			else:	
 				row.append(1)
 		map.append(row);
 
-	startPos = Vector2(64,150)
+	var startPos = Vector2(64,150)
 	var endPos = Vector2(300, randi_range(100,250))
 
 	map[startPos.y][startPos.x] = 5
@@ -232,14 +224,6 @@ func spawn_important_item(pos: Vector2):
 		add_child(important_item)
 		var newPos = pos * 16
 		important_item.global_position = newPos
-		important_item.map_gen = self;
-		
-func create_exit():
-	var portal = portal_scene.instantiate() as Node2D;
-	if(portal != null):
-		add_child(portal)
-		portal.global_position = startPos * 16
-		portal.newScene = nextLevel;
 
 # shifts a cave air tile to air if there's adjacent air, wall otherwise
 func cave_air_shift(pos: Vector2, power: int = 20):

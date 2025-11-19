@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bbvrtictd0f85"]
+[gd_scene load_steps=11 format=3 uid="uid://bbvrtictd0f85"]
 
 [ext_resource type="Script" path="res://Scenes/navigation_startup.gd" id="1_q54sy"]
 [ext_resource type="PackedScene" uid="uid://ejm2wcvxoaoq" path="res://Tile Maps/base dungeon.tscn" id="2_bocoi"]
@@ -7,8 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://dbb2tnmyhd6xr" path="res://Enemies/SlimeEnemy/slimeEnemy.tscn" id="5_x4ox1"]
 [ext_resource type="PackedScene" uid="uid://ced16vl80lecu" path="res://Collectables/important_item.tscn" id="6_2lv26"]
 [ext_resource type="PackedScene" uid="uid://cq1dxd0m5csx1" path="res://Player/player.tscn" id="7_pjtac"]
-[ext_resource type="PackedScene" uid="uid://cxltridnnkm67" path="res://Collectables/portal.tscn" id="7_wn6di"]
-[ext_resource type="PackedScene" uid="uid://j2ey5y83jld0" path="res://Scenes/TestingGround.tscn" id="8_frrko"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_su7ix"]
 vertices = PackedVector2Array(4861.08, -1315.11, 4911.91, 4327.21, -2103.2, 4479.78, -2220.79, -1399.87)
@@ -86,7 +84,6 @@ navigation_polygon = SubResource("NavigationPolygon_su7ix")
 script = ExtResource("1_q54sy")
 
 [node name="Dungeon01" parent="NavigationRegion2D" instance=ExtResource("2_bocoi")]
-modulate = Color(0.368359, 0.688692, 0.815054, 1)
 position = Vector2(0, 0)
 tile_map_data = PackedByteArray()
 tile_set = SubResource("TileSet_x7ub2")
@@ -95,11 +92,7 @@ tile_set = SubResource("TileSet_x7ub2")
 position = Vector2(-95, 7)
 enemyPool = Array[PackedScene]([ExtResource("5_x4ox1"), ExtResource("5_x4ox1"), ExtResource("5_x4ox1")])
 important_item_scene = ExtResource("6_2lv26")
-portal_scene = ExtResource("7_wn6di")
 player = NodePath("../../Player")
-cave_threshold = 0.5
-frequency = 0.06
-nextLevel = ExtResource("8_frrko")
 
 [node name="Player" parent="." instance=ExtResource("7_pjtac")]
 top_level = true
