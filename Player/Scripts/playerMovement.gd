@@ -21,10 +21,10 @@ signal DirectionChanged( _new_direction: Vector2)
 
 #stuff related to stun state
 
-#signal player_damaged(hurt_box: Hurtbox)
+signal player_damaged(hurt_box: Hurtbox)
 var invulnerable : bool = false
-#var hp : int = 10
-#var max_hp : int = 10
+var hp : int = 10
+var max_hp : int = 10
 @onready var hitbox: Hitbox = $interactions/Hitbox
 @onready var hurtbox: Hurtbox = $interactions/Weapons/Sword/Hurtbox
 
@@ -127,11 +127,11 @@ func take_damage(hurt_box: Hurtbox) -> void:
 		
 	pass
 	
-#func update_hp(delta: int) -> void:
-#	hp = hp + delta
-#	if(hp > max_hp):
-#		hp = max_hp
-#	pass
+func update_hp(delta: int) -> void:
+	hp = hp + delta
+	if(hp > max_hp):
+		hp = max_hp
+	pass
 
 func MakeInvulnerable(_duration : float = 2.0) -> void:
 	invulnerable = true
