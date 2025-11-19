@@ -1,7 +1,7 @@
 [gd_scene load_steps=35 format=3 uid="uid://cq1dxd0m5csx1"]
 
 [ext_resource type="Script" path="res://Player/Scripts/playerMovement.gd" id="1_7jpn7"]
-[ext_resource type="Texture2D" uid="uid://blgmipewh5kxv" path="res://Player/Sprites/replaced_player.png" id="2_2jtld"]
+[ext_resource type="Texture2D" uid="uid://cnjgjy3iynxlu" path="res://Player/Sprites/PlayerSprite02.png" id="2_ilxdi"]
 [ext_resource type="Script" path="res://Player/Scripts/PlayerStateMachine.gd" id="3_nsaxw"]
 [ext_resource type="Script" path="res://Player/Scripts/state_idle.gd" id="4_ml0m6"]
 [ext_resource type="Script" path="res://Player/Scripts/state_walk.gd" id="5_1mifc"]
@@ -119,7 +119,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.06, 0.12),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [24, 25, 26]
+"values": [27, 28, 29]
 }
 
 [sub_resource type="Animation" id="Animation_edf5d"]
@@ -136,55 +136,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.06, 0.12),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [27, 28, 29]
-}
-
-[sub_resource type="Animation" id="Animation_nykgf"]
-resource_name = "stun_down"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [30]
-}
-
-[sub_resource type="Animation" id="Animation_erufm"]
-resource_name = "stun_side"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [32]
-}
-
-[sub_resource type="Animation" id="Animation_r3k7u"]
-resource_name = "stun_up"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [31]
+"values": [24, 25, 26]
 }
 
 [sub_resource type="Animation" id="Animation_ontxl"]
@@ -322,9 +274,9 @@ one_way_collision_margin = 10.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(0, -16)
-scale = Vector2(1.17038, 1.34815)
-texture = ExtResource("2_2jtld")
+position = Vector2(5.72205e-06, -25)
+scale = Vector2(1.00742, 1.13379)
+texture = ExtResource("2_ilxdi")
 hframes = 16
 vframes = 3
 
@@ -358,14 +310,12 @@ position = Vector2(0, -19)
 script = ExtResource("8_4i6ld")
 
 [node name="Hitbox" parent="interactions" instance=ExtResource("8_xntua")]
-visible = false
 collision_layer = 3
 collision_mask = 524
 monitorable = true
 script = ExtResource("11_gcxqq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="interactions/Hitbox"]
-visible = false
 shape = SubResource("CircleShape2D_501hd")
 debug_color = Color(0.308247, 0.493797, 1, 0.42)
 
@@ -385,7 +335,6 @@ position = Vector2(0, 30)
 position = Vector2(0, 20)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-visible = false
 zoom = Vector2(2.5, 2.5)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

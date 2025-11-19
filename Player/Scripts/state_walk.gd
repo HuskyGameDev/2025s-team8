@@ -15,9 +15,7 @@ func Enter() -> void:
 	
 func Exit() -> void:
 	pass
-	
-func init() ->void:
-	pass
+
 
 func Process(_delta : float) -> State:
 	if player.direction == Vector2.ZERO:
@@ -28,11 +26,9 @@ func Process(_delta : float) -> State:
 	if player.SetDirection():
 		player.UpdateAnimation("walk")
 		
-	#when merging into main add in inuvulnerbility stuff on the dash and increase cooldown
 	if Input.is_action_just_pressed("Dash") and can_dash:
 		can_dash = false
 		dash_mult = 5
-		player.invulnerable = true
 		var ghost = ghost_scene.instantiate()
 		get_parent().add_child(ghost)
 		ghost.global_position = player.global_position
@@ -41,7 +37,6 @@ func Process(_delta : float) -> State:
 		await get_tree().create_timer(0.1).timeout
 		ghost.queue_free()
 		await get_tree().create_timer(0.1).timeout
-		player.invulnerable = false
 		can_dash = true
 		
 		

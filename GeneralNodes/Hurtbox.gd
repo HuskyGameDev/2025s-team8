@@ -19,6 +19,6 @@ func _ready() -> void:
 # .
 func _on_area_entered(a : Area2D) -> void:
 	if a is Hitbox:
-		a.TakeDamage(self)
+		a.TakeDamage(damage)
 		print("Did " + str(damage) + " to " + a.name)
 		

@@ -10,9 +10,6 @@ func Enter() -> void:
 func Exit() -> void:
 	pass
 	
-func init() ->void:
-	pass
-	
 func Process(_delta : float) -> State:
 	if player.direction != Vector2.ZERO:
 		return walk

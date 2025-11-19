@@ -18,25 +18,12 @@ var invincible : bool = false
 #@onready var mainhurtbox: Hurtbox = $interactions/Hurtbox
 
 signal DirectionChanged( _new_direction: Vector2)
-
-#stuff related to stun state
-
-signal player_damaged(hurt_box: Hurtbox)
-var invulnerable : bool = false
-var hp : int = 10
-var max_hp : int = 10
-@onready var hitbox: Hitbox = $interactions/Hitbox
-@onready var hurtbox: Hurtbox = $interactions/Weapons/Sword/Hurtbox
-
-
 signal player_damage(hurt_box: Hurtbox)
 signal update_hp_progress()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	state_machine.Initialize(self)
-	hitbox.Damaged.connect(take_damage)
-	update_hp(10)
 	pass # Replace with function body.
 
 func TakeDamage(hurt_box: Hurtbox) -> void:
@@ -101,7 +88,7 @@ func SetDirection() -> bool:
 #function to change update the animation
 func UpdateAnimation(state: String) -> void: 
 	animation_player.play(state + "_" + AnimDirection())
-	print(state + "_" + AnimDirection() )
+	#print(state + "_" + AnimDirection() )
 	pass
 	
 #helper function for animation
@@ -113,36 +100,12 @@ func AnimDirection() -> String:
 	else:
 		return "side"
 
-#after the build test this code resembles code closer to tutorial video
-func take_damage(hurt_box: Hurtbox) -> void:
-	if invulnerable == true:
-		return
-	update_hp(-hurt_box.damage)
-	if(hp > 0):
-		player_damaged.emit(hurt_box)
-	else:
-		player_damaged.emit(hurt_box)
-		update_hp(10);
-		print("player has died")
-		
-	pass
+#func MakeInvincible ( _duration : float = 1.0) -> void:
+#	invincible = true
+#	mainhitbox.monitoring = false
+#	await get_tree().create_timer(_duration).timeout # wait 1 seconf before code continues
 	
-func update_hp(delta: int) -> void:
-	hp = hp + delta
-	if(hp > max_hp):
-		hp = max_hp
-	pass
-
-func MakeInvulnerable(_duration : float = 2.0) -> void:
-	invulnerable = true
-	hitbox.monitorable = false
-	hurtbox.monitoring = false
-	
-	await get_tree().create_timer(_duration).timeout
-	#code is reaching this statement but its not updating the animation
-	print("stun state ends")
-	#invulnerable = false
-	hitbox.monitorable = true
-	hurtbox.monitoring = false
-	
-	pass
+#	invincible = false
+#	mainhitbox.monitorable = true
+#	mainhitbox.monitoring = true
+#	pass
