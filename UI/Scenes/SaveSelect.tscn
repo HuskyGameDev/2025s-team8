@@ -1,83 +1,75 @@
-[gd_scene load_steps=4 format=3 uid="uid://bgog024wtpoul"]
+[gd_scene load_steps=3 format=3 uid="uid://bgog024wtpoul"]
 
-[ext_resource type="PackedScene" uid="uid://4xppvq5lmyab" path="res://UI/Prefabs/NPRButton.tscn" id="1_6461k"]
+[ext_resource type="PackedScene" uid="uid://4xppvq5lmyab" path="res://UI/Scenes/NPRButton.tscn" id="1_6461k"]
 [ext_resource type="Script" path="res://UI/Scripts/SaveSelect.cs" id="1_alex8"]
-[ext_resource type="Theme" uid="uid://ca5qslylmgj8h" path="res://UI/UIMainSmall.tres" id="3_x7d2b"]
 
-[node name="SaveSelect" type="Control" node_paths=PackedStringArray("contButton", "eraseButton", "backButton", "widgetLoc")]
+[node name="SaveSelect" type="Control" node_paths=PackedStringArray("contButton", "eraseButton", "backButton")]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_alex8")
-contButton = NodePath("Control/continue")
-eraseButton = NodePath("Control/delete")
-backButton = NodePath("Control/back")
-widgetLoc = NodePath("Panel/ScrollContainer/VBoxContainer")
+contButton = NodePath("Control/Button")
+eraseButton = NodePath("Control/Button2")
+backButton = NodePath("Control/Button3")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1240.0
+offset_top = 353.0
+offset_right = 1426.0
+offset_bottom = 410.0
+
+[node name="Button2" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1243.0
+offset_top = 475.0
+offset_right = 1429.0
+offset_bottom = 532.0
+
+[node name="Button3" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1240.0
+offset_top = 592.0
+offset_right = 1426.0
+offset_bottom = 649.0
 
 [node name="Control" type="Control" parent="."]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="continue" parent="Control" instance=ExtResource("1_6461k")]
+[node name="Button" parent="Control" instance=ExtResource("1_6461k")]
 layout_mode = 0
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 50.0
+offset_left = 558.0
 offset_top = 285.0
-offset_right = 350.0
+offset_right = 1058.0
 offset_bottom = 409.0
-theme = ExtResource("3_x7d2b")
-disabled = true
 text = "Continue"
 
-[node name="delete" parent="Control" instance=ExtResource("1_6461k")]
-visible = false
+[node name="Button2" parent="Control" instance=ExtResource("1_6461k")]
 layout_mode = 0
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 50.0
+offset_left = 559.0
 offset_top = 509.0
-offset_right = 350.0
+offset_right = 1059.0
 offset_bottom = 633.0
-theme = ExtResource("3_x7d2b")
-disabled = true
 text = "Erase"
 
-[node name="back" parent="Control" instance=ExtResource("1_6461k")]
+[node name="Button3" parent="Control" instance=ExtResource("1_6461k")]
 layout_mode = 0
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 50.0
+offset_left = 553.0
 offset_top = 726.0
-offset_right = 350.0
+offset_right = 1053.0
 offset_bottom = 850.0
-theme = ExtResource("3_x7d2b")
 text = "Back"
-
-[node name="Panel" type="Panel" parent="."]
-layout_mode = 0
-offset_left = 400.0
-offset_top = 50.0
-offset_right = 1870.0
-offset_bottom = 1030.0
-
-[node name="ScrollContainer" type="ScrollContainer" parent="Panel"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.017
-anchor_top = 0.026
-anchor_right = 0.983
-anchor_bottom = 0.974
-offset_left = 0.00999832
-offset_top = -0.480001
-offset_right = -0.0100098
-offset_bottom = 0.47998
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/ScrollContainer"]
-custom_minimum_size = Vector2(1420, 930)
-layout_mode = 2

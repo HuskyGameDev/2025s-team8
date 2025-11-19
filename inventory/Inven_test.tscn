@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://h65kwo5pyyxy"]
 
-[ext_resource type="Script" path="res://Inventory/Scripts/InventorySlot.cs" id="1_20mjj"]
-[ext_resource type="Script" path="res://Inventory/Scripts/PlayerInv.cs" id="2_bk5mr"]
-[ext_resource type="Script" path="res://Inventory/Scripts/ChestInv.cs" id="3_q6nyo"]
-[ext_resource type="Script" path="res://Inventory/Scripts/stat_label.gd" id="4_g61wg"]
+[ext_resource type="Script" path="res://inventory/scripts/inventory_slot.gd" id="1_c6kff"]
+[ext_resource type="Script" path="res://inventory/scripts/player_inv.gd" id="2_hcslw"]
+[ext_resource type="Script" path="res://inventory/scripts/chest_inv.gd" id="3_yb10t"]
+[ext_resource type="Script" path="res://inventory/scripts/stat_label.gd" id="4_g61wg"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -19,8 +19,7 @@ offset_left = 192.0
 offset_top = 80.0
 offset_right = 240.0
 offset_bottom = 128.0
-script = ExtResource("1_20mjj")
-type = 2
+script = ExtResource("1_c6kff")
 
 [node name="Weapon" type="PanelContainer" parent="."]
 layout_mode = 0
@@ -28,7 +27,7 @@ offset_left = 192.0
 offset_top = 16.0
 offset_right = 240.0
 offset_bottom = 64.0
-script = ExtResource("1_20mjj")
+script = ExtResource("1_c6kff")
 type = 1
 
 [node name="Rand" type="PanelContainer" parent="."]
@@ -37,8 +36,8 @@ offset_left = 192.0
 offset_top = 144.0
 offset_right = 240.0
 offset_bottom = 192.0
-script = ExtResource("1_20mjj")
-type = 3
+script = ExtResource("1_c6kff")
+type = 2
 
 [node name="Player_inv" type="GridContainer" parent="."]
 custom_minimum_size = Vector2(10, 10)
@@ -50,7 +49,7 @@ offset_bottom = 640.0
 theme_override_constants/h_separation = 16
 theme_override_constants/v_separation = 16
 columns = 6
-script = ExtResource("2_bk5mr")
+script = ExtResource("2_hcslw")
 
 [node name="Chest1" type="GridContainer" parent="."]
 custom_minimum_size = Vector2(10, 10)
@@ -62,7 +61,7 @@ offset_bottom = 664.0
 theme_override_constants/h_separation = 16
 theme_override_constants/v_separation = 16
 columns = 6
-script = ExtResource("3_q6nyo")
+script = ExtResource("3_yb10t")
 
 [node name="Chest2" type="GridContainer" parent="."]
 custom_minimum_size = Vector2(10, 10)
@@ -74,7 +73,7 @@ offset_bottom = 320.0
 theme_override_constants/h_separation = 16
 theme_override_constants/v_separation = 16
 columns = 6
-script = ExtResource("3_q6nyo")
+script = ExtResource("3_yb10t")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
