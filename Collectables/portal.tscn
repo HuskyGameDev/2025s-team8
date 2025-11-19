@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dnq8qedmgb4d8"]
+
+[ext_resource type="Script" path="res://GeneralNodes/sceneChange.gd" id="1_f6qwf"]
+[ext_resource type="Texture2D" uid="uid://cvcwuv35lq6ro" path="res://pixil-frame-0 (15).png" id="2_w3bqc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hanl0"]
+radius = 16.5076
+
+[node name="Area2D" type="Area2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_f6qwf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_hanl0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_w3bqc")
