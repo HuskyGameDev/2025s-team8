@@ -22,9 +22,9 @@ public partial class ChangeScene : Control, ITransitionOnDeath
 		tutRoot = this.GetParent();
 	}
 	public void ChangeTo(string s)
-    {
+	{
 		GAME_SCENE_PATH = s;
-    }
+	}
 	public void SwitchScene(Node body)
 	{
 		if (body.Name != "Player") return;
@@ -33,9 +33,9 @@ public partial class ChangeScene : Control, ITransitionOnDeath
 		// Find and Destroy the pause menu, if it exists
 		Node pMenu = UI_ROOT.GetNode("./PauseMenu");
 		if (pMenu != null)
-        {
+		{
 			pMenu.QueueFree();
-        }
+		}
 
 		// New Experimental Means of Loading
 		PackedScene transitionScene = (PackedScene)ResourceLoader.LoadThreadedGet(TRANSITION_PATH);

@@ -1,12 +1,15 @@
-[gd_scene load_steps=11 format=3 uid="uid://dlo65lr2s6xs7"]
+[gd_scene load_steps=14 format=3 uid="uid://dmj1mv2vxd3jr"]
 
-[ext_resource type="Script" path="res://Scenes/navigation_startup.gd" id="1_w1mtq"]
-[ext_resource type="PackedScene" uid="uid://ejm2wcvxoaoq" path="res://Tile Maps/base dungeon.tscn" id="2_i4nr6"]
-[ext_resource type="Texture2D" uid="uid://cmpvasgwq8j4q" path="res://HellsDungeonTiles5.png" id="3_kctdy"]
-[ext_resource type="PackedScene" uid="uid://qywun8lwlffr" path="res://Scenes/map_gen_test.tscn" id="4_4tep1"]
-[ext_resource type="PackedScene" uid="uid://dbb2tnmyhd6xr" path="res://Enemies/SlimeEnemy/slimeEnemy.tscn" id="5_dxev7"]
-[ext_resource type="PackedScene" uid="uid://ced16vl80lecu" path="res://Collectables/important_item.tscn" id="6_6ma6l"]
-[ext_resource type="PackedScene" uid="uid://cq1dxd0m5csx1" path="res://Player/player.tscn" id="7_1kuxd"]
+[ext_resource type="Script" path="res://Scenes/TemporaryTestingScene/ChangeScene.cs" id="1_8g4hy"]
+[ext_resource type="Script" path="res://Scenes/navigation_startup.gd" id="1_wupyy"]
+[ext_resource type="PackedScene" uid="uid://ejm2wcvxoaoq" path="res://Tile Maps/base dungeon.tscn" id="2_28tke"]
+[ext_resource type="Texture2D" uid="uid://cmpvasgwq8j4q" path="res://HellsDungeonTiles5.png" id="3_3wu0b"]
+[ext_resource type="PackedScene" uid="uid://qywun8lwlffr" path="res://Scenes/map_gen_test.tscn" id="4_0ofay"]
+[ext_resource type="PackedScene" uid="uid://dbb2tnmyhd6xr" path="res://Enemies/SlimeEnemy/slimeEnemy.tscn" id="5_p844r"]
+[ext_resource type="PackedScene" uid="uid://ced16vl80lecu" path="res://Collectables/important_item.tscn" id="6_cr2o3"]
+[ext_resource type="PackedScene" uid="uid://i7gkdqqb0m1w" path="res://Enemies/Flame/flame_enemy.tscn" id="6_qg5g6"]
+[ext_resource type="PackedScene" uid="uid://cq1dxd0m5csx1" path="res://Player/player.tscn" id="7_7llam"]
+[ext_resource type="PackedScene" uid="uid://dnq8qedmgb4d8" path="res://Collectables/portal.tscn" id="10_cv6q6"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_su7ix"]
 vertices = PackedVector2Array(4861.08, -1315.11, 4911.91, 4327.21, -2103.2, 4479.78, -2220.79, -1399.87)
@@ -14,7 +17,7 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(4922, 4337, -2113, 4490, -2231, -1410, 4871, -1325)])
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cor15"]
-texture = ExtResource("3_kctdy")
+texture = ExtResource("3_3wu0b")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -77,26 +80,40 @@ physics_layer_0/collision_layer = 2
 physics_layer_0/collision_mask = 255
 sources/0 = SubResource("TileSetAtlasSource_cor15")
 
-[node name="TestingGround" type="Node2D"]
+[node name="Level3" type="Node2D"]
+
+[node name="ChangeScene" type="Control" parent="." node_paths=PackedStringArray("area")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_8g4hy")
+area = NodePath("../Portal")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_su7ix")
-script = ExtResource("1_w1mtq")
+script = ExtResource("1_wupyy")
 
-[node name="Dungeon01" parent="NavigationRegion2D" instance=ExtResource("2_i4nr6")]
+[node name="Dungeon01" parent="NavigationRegion2D" instance=ExtResource("2_28tke")]
 modulate = Color(0.7503, 0.262805, 0.238173, 1)
 position = Vector2(0, 0)
 tile_map_data = PackedByteArray()
 tile_set = SubResource("TileSet_x7ub2")
 
-[node name="Level 1 Map" parent="NavigationRegion2D" node_paths=PackedStringArray("player") instance=ExtResource("4_4tep1")]
+[node name="Level 1 Map" parent="NavigationRegion2D" node_paths=PackedStringArray("player") instance=ExtResource("4_0ofay")]
 position = Vector2(-95, 7)
-enemyPool = Array[PackedScene]([ExtResource("5_dxev7"), ExtResource("5_dxev7"), ExtResource("5_dxev7")])
-important_item_scene = ExtResource("6_6ma6l")
+enemyPool = Array[PackedScene]([ExtResource("5_p844r"), ExtResource("6_qg5g6"), ExtResource("6_qg5g6")])
+important_item_scene = ExtResource("6_cr2o3")
 player = NodePath("../../Player")
 cave_threshold = 0.35
 frequency = 0.07
 
-[node name="Player" parent="." instance=ExtResource("7_1kuxd")]
+[node name="Player" parent="." instance=ExtResource("7_7llam")]
 top_level = true
 position = Vector2(256, 2400)
+
+[node name="Portal" parent="." instance=ExtResource("10_cv6q6")]
+visible = false
+position = Vector2(256, 2400)
+monitoring = false
+monitorable = false

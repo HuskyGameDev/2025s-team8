@@ -10,6 +10,7 @@ var lastWanderDir: Vector2 = Vector2(1,1)
 
 @export var important_item_scene : PackedScene;
 @export var portal_scene : PackedScene; #Not used yet, but will be spawned upon important item collection
+@export var hidden_portal : Area2D; # this will get enabled to get to the next level, replaces portal_scene approach
 
 @export var player : Node2D;
 
@@ -235,11 +236,10 @@ func spawn_important_item(pos: Vector2):
 		important_item.map_gen = self;
 		
 func create_exit():
-	var portal = portal_scene.instantiate() as Node2D;
-	if(portal != null):
-		add_child(portal)
-		portal.global_position = startPos * 16
-		portal.newScene = nextLevel;
+	if(hidden_portal != null):
+		hidden_portal.visible = true;
+		hidden_portal.monitoring = true;
+		hidden_portal.monitorable = true;
 
 # shifts a cave air tile to air if there's adjacent air, wall otherwise
 func cave_air_shift(pos: Vector2, power: int = 20):

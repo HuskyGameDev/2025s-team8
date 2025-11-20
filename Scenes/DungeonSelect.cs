@@ -17,9 +17,9 @@ public partial class DungeonSelect : Node2D, ITransitionOnDeath
 	const string TRANSITION_PATH = "res://UI/Scenes/Transition.tscn";
 	const string LOAD_SCENE_PATH = "res://UI/Scenes/LoadScreen.tscn";
 	const string PAUSE_MENU_PATH = "res://UI/Scenes/PauseMenu.tscn";
-	const string DUNGEON1 = "res://Scenes/TemporaryTestingScene/Tutorial.tscn";
-	const string DUNGEON2 = "res://Scenes/TestingGround.tscn";
-	const string DUNGEON3 = "res://Scenes/TestingGround.tscn"; 
+	const string DUNGEON1 = "res://Scenes/TestingGround.tscn";
+	const string DUNGEON2 = "res://Scenes/level3.tscn";
+	const string DUNGEON3 = "res://Scenes/level2.tscn"; 
 	const string HOME = "res://UI/Scenes/MainMenu.tscn";
 
 	private Node UI_ROOT;

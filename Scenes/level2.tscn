@@ -1,14 +1,17 @@
-[gd_scene load_steps=13 format=3 uid="uid://bbvrtictd0f85"]
+[gd_scene load_steps=16 format=3 uid="uid://cople53exsrq5"]
 
+[ext_resource type="Script" path="res://Scenes/TemporaryTestingScene/ChangeScene.cs" id="1_d334s"]
 [ext_resource type="Script" path="res://Scenes/navigation_startup.gd" id="1_q54sy"]
 [ext_resource type="PackedScene" uid="uid://ejm2wcvxoaoq" path="res://Tile Maps/base dungeon.tscn" id="2_bocoi"]
 [ext_resource type="Texture2D" uid="uid://cmpvasgwq8j4q" path="res://HellsDungeonTiles5.png" id="3_fea3n"]
 [ext_resource type="PackedScene" uid="uid://qywun8lwlffr" path="res://Scenes/map_gen_test.tscn" id="4_hdfe2"]
 [ext_resource type="PackedScene" uid="uid://dbb2tnmyhd6xr" path="res://Enemies/SlimeEnemy/slimeEnemy.tscn" id="5_x4ox1"]
 [ext_resource type="PackedScene" uid="uid://ced16vl80lecu" path="res://Collectables/important_item.tscn" id="6_2lv26"]
+[ext_resource type="PackedScene" uid="uid://qfo0d117ba54" path="res://Enemies/FourShooter/fourShooter.tscn" id="6_gep4o"]
 [ext_resource type="PackedScene" uid="uid://dnq8qedmgb4d8" path="res://Collectables/portal.tscn" id="7_dg7ph"]
+[ext_resource type="PackedScene" uid="uid://y0ycdmckwo7g" path="res://Enemies/ShooterSlime/shooterSlime.tscn" id="7_laxqq"]
 [ext_resource type="PackedScene" uid="uid://cq1dxd0m5csx1" path="res://Player/player.tscn" id="7_pjtac"]
-[ext_resource type="PackedScene" uid="uid://dlo65lr2s6xs7" path="res://level3.tscn" id="8_g7l7e"]
+[ext_resource type="PackedScene" uid="uid://dmj1mv2vxd3jr" path="res://Scenes/level3.tscn" id="8_g7l7e"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_su7ix"]
 vertices = PackedVector2Array(4861.08, -1315.11, 4911.91, 4327.21, -2103.2, 4479.78, -2220.79, -1399.87)
@@ -79,7 +82,16 @@ physics_layer_0/collision_layer = 2
 physics_layer_0/collision_mask = 255
 sources/0 = SubResource("TileSetAtlasSource_cor15")
 
-[node name="TestingGround" type="Node2D"]
+[node name="Level2" type="Node2D"]
+
+[node name="ChangeScene" type="Control" parent="." node_paths=PackedStringArray("area")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_d334s")
+area = NodePath("../Portal")
+GAME_SCENE_PATH = "res://Scenes/level3.tscn"
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_su7ix")
@@ -91,11 +103,12 @@ position = Vector2(0, 0)
 tile_map_data = PackedByteArray()
 tile_set = SubResource("TileSet_x7ub2")
 
-[node name="Level 1 Map" parent="NavigationRegion2D" node_paths=PackedStringArray("player") instance=ExtResource("4_hdfe2")]
+[node name="Level 1 Map" parent="NavigationRegion2D" node_paths=PackedStringArray("hidden_portal", "player") instance=ExtResource("4_hdfe2")]
 position = Vector2(-95, 7)
-enemyPool = Array[PackedScene]([ExtResource("5_x4ox1"), ExtResource("5_x4ox1"), ExtResource("5_x4ox1")])
+enemyPool = Array[PackedScene]([ExtResource("5_x4ox1"), ExtResource("6_gep4o"), ExtResource("6_gep4o"), ExtResource("7_laxqq")])
 important_item_scene = ExtResource("6_2lv26")
 portal_scene = ExtResource("7_dg7ph")
+hidden_portal = NodePath("../../Portal")
 player = NodePath("../../Player")
 cave_threshold = 0.5
 frequency = 0.6
@@ -104,3 +117,9 @@ nextLevel = ExtResource("8_g7l7e")
 [node name="Player" parent="." instance=ExtResource("7_pjtac")]
 top_level = true
 position = Vector2(256, 2400)
+
+[node name="Portal" parent="." instance=ExtResource("7_dg7ph")]
+visible = false
+position = Vector2(256, 2400)
+monitoring = false
+monitorable = false
