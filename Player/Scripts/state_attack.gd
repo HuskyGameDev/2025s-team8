@@ -31,6 +31,10 @@ func Enter() -> void:
 	coolingDown = false;
 	pass
 	
+	
+func init() ->void:
+	pass
+	
 func Exit() -> void:
 	animation_player.animation_finished.disconnect(EndAttack)
 	attacking = false
