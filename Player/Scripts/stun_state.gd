@@ -73,3 +73,4 @@ func animationFinished(_a: String) -> void:
 	print("I am notified that the animation has started")
 	next_state = idle
 	
+	

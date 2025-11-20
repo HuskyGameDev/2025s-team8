@@ -25,9 +25,6 @@ func Physics(_delta: float) -> State:
 func HandleInput(_event: InputEvent) -> State: #lmb for attack
 	if _event.is_action_pressed("Attack"):
 			return attack
-	
-	if _event.is_action_pressed("Attack2"):
-			return attack
 		
 	return null
 	
