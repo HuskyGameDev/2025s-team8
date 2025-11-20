@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=4 uid="uid://cuh5kjuynwmrv"]
 
-[ext_resource type="PackedScene" uid="uid://c1mcpvksyv08s" path="res://UI/Scenes/TextBox.tscn" id="1_6f6b3"]
+[ext_resource type="PackedScene" path="res://UI/Scenes/TextBox.tscn" id="1_6f6b3"]
 [ext_resource type="Texture2D" uid="uid://bmt56ljcu5h03" path="res://Tile Maps/Sprites/Dungeon Tile Set.png" id="1_fvsde"]
 [ext_resource type="Script" path="res://Scenes/TemporaryTestingScene/LevelMusic.cs" id="1_xhr3t"]
 [ext_resource type="Script" path="res://Tile Maps/LevelTileMap.gd" id="2_kmihv"]

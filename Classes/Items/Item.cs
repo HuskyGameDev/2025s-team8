@@ -9,7 +9,6 @@ public class Item
     protected Rarity rarity;
     protected string description;
     protected Texture2D tex;
-    protected Type slotType;
 
     public Item(string i, string n, Type t, Rarity r, string desc)
     {
@@ -18,19 +17,13 @@ public class Item
         type = t;
         rarity = r;
         description = desc;
-        this.tex = (Texture2D)GD.Load("res://Textures/Item/" + id + ".png");
-        slotType = Item.Type.MAIN;
+        this.tex = (Texture2D)GD.Load("res://Assets/Item/" + id + ".png");
     }
 
     // Item Methods
     public virtual string GetTooltip()
     {
         return $"{this.name}\n{this.description}";
-    }
-
-    public void SetSlotType(Type t)
-    {
-        slotType = t;
     }
 
     // Item Getters
@@ -64,18 +57,14 @@ public class Item
         return tex;
     }
 
-    public Type GetSlotType()
-    {
-        return slotType;
-    }
-
     // Item Enums
     public enum Type
     {
         MAIN,
         WEAPON,
         ARMOR,
-        RANDOM
+        RANDOM,
+        INVALID = -1
     }
 
     public enum Rarity
@@ -83,6 +72,7 @@ public class Item
         Common,
         Uncommon,
         Rare,
+        Epic,
         Legendary
     }
 }

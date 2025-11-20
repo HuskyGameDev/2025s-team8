@@ -1,13 +1,15 @@
 using Godot;
 using System;
 
-public partial class WeaponItem : Item
+public class WeaponItem : Item
 {
     protected int damage;
+    protected WeaponType wpnType;
 
-    public WeaponItem(string i, string n, Type t, Rarity r, string desc, int dmg) : base(i, n, t, r, desc)
+    public WeaponItem(string i, string n, Rarity r, string desc, int dmg, WeaponType wt) : base(i, n, Item.Type.WEAPON, r, desc)
     {
         damage = dmg;
+        wpnType = wt;
     }
 
     // WeaponItem Methods
@@ -20,5 +22,18 @@ public partial class WeaponItem : Item
     public int GetDamage()
     {
         return damage;
+    }
+    public WeaponType GetWeaponType()
+    {
+        return wpnType;
+    }
+
+    public enum WeaponType
+    {
+        SWORD,
+        SPEAR,
+        BOW,
+        STAFF,
+        INVALID = -1
     }
 }

@@ -5,6 +5,8 @@ public partial class SaveWidget : Button
 {
 	[Export]
 	private Label playerName;
+
+	public bool validSave = false;
 	public override void _Ready()
 	{
 		this.Pressed += () =>

@@ -9,32 +9,47 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -1920.0
-offset_bottom = -1080.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_o4sxn")
 
+[node name="The Great Input Barrier" type="Control" parent="."]
+top_level = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="To" type="TextureRect" parent="."]
 clip_children = 1
-layout_mode = 0
-offset_right = 4080.0
-offset_bottom = 1080.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 2160.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("1_ka3t2")
 
 [node name="ToOffset" type="Control" parent="To"]
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1920.0
+offset_bottom = 1080.0
 
 [node name="From" type="TextureRect" parent="."]
 clip_children = 1
-layout_mode = 0
-offset_right = 4080.0
-offset_bottom = 1080.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 2160.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("1_ka3t2")
 
 [node name="FromOffset" type="Control" parent="From"]
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1920.0
+offset_bottom = 1080.0
