@@ -1,11 +1,11 @@
 using Godot;
 using System;
 
-public partial class ArmorItem : Item
+public class ArmorItem : Item
 {
     protected int defense;
 
-    public ArmorItem(string i, string n, Type t, Rarity r, string desc, int def) : base(i, n, t, r, desc)
+    public ArmorItem(string i, string n, Rarity r, string desc, int def) : base(i, n, Item.Type.ARMOR, r, desc)
     {
         defense = def;
     }

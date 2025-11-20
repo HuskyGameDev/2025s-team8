@@ -17,6 +17,7 @@ public partial class NewGame : Control, ITransitionOnDeath
     const string GAME_SCENE_PATH = "res://Scenes/TemporaryTestingScene/Tutorial.tscn";
 
     private Node UI_ROOT;
+    private SFXManager menuSfx;
     private Node GAME_ROOT;
     private int onDeathMode = 0;
 
@@ -38,11 +39,15 @@ public partial class NewGame : Control, ITransitionOnDeath
         }
 
         UI_ROOT = this.GetTree().GetNodesInGroup("UI_ROOT")[0];
+        menuSfx = UI_ROOT.GetNode<SFXManager>("./MENU_ASP");
         GAME_ROOT = this.GetTree().GetNodesInGroup("GAME_ROOT")[0];
     }
 
     private void BeginGame()
     {
+        // Play Sound
+        menuSfx.Play(Sounds.UI_Click);
+
         // Ensure there is a valid player name
         if (playerName.Text.Length == 0) return;
 
@@ -79,6 +84,9 @@ public partial class NewGame : Control, ITransitionOnDeath
 
     private void Back()
     {
+        // Play Sound
+        menuSfx.Play(Sounds.UI_Back);
+
         // Get copies of Transition and MainMenu
         PackedScene transitionScene = (PackedScene)ResourceLoader.LoadThreadedGet(TRANSITION_PATH);
         Node tNode = transitionScene.Instantiate();

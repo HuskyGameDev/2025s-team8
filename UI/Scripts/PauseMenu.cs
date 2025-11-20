@@ -16,8 +16,9 @@ public partial class PauseMenu : Control, ITransitionOnDeath
 	private const string MAIN_MENU_SCENE_PATH = "res://UI/Scenes/MainMenu.tscn";
 	private const string LOAD_SCREEN_PATH = "res://UI/Scenes/LoadScreen.tscn";
 	private Node UI_ROOT = null;
+    private SFXManager menuSfx;
 
-	private bool ignoreNext = false;
+	private bool isDisabled = false;
 	private int onDeathMode = 0;
 
 	public override void _Ready()
@@ -41,17 +42,14 @@ public partial class PauseMenu : Control, ITransitionOnDeath
 		ResourceLoader.LoadThreadedRequest(TRANSITION_PATH);
 
 		UI_ROOT = this.GetTree().GetNodesInGroup("UI_ROOT")[0];
+        menuSfx = UI_ROOT.GetNode<SFXManager>("./MENU_ASP");
 	}
 
 	public override void _Input(InputEvent @event)
 	{
 		if (Input.IsActionJustPressed("Back"))
 		{
-			if (ignoreNext)
-			{
-				ignoreNext = false;
-				return;
-			}
+			if (isDisabled) return;
 			// not ignoring this "Back"
 			if (this.Visible)
 			{
@@ -67,19 +65,25 @@ public partial class PauseMenu : Control, ITransitionOnDeath
 		}
 	}
 
-	public void IgnoreNextOpen(bool doIgnore)
+	public void SetDisabled(bool b)
 	{
-		ignoreNext = doIgnore;
+		isDisabled = b;
 	}
 
 	private void ResumeGame()
 	{
+        // Play Sound
+        menuSfx.Play(Sounds.UI_Click);
+
 		this.Hide();
 		this.GetTree().Paused = false;
 	}
 
 	private void GoToOptions()
 	{
+        // Play Sound
+        menuSfx.Play(Sounds.UI_Click);
+
 		// Get copies
 		PackedScene transitionScene = (PackedScene)ResourceLoader.LoadThreadedGet(TRANSITION_PATH);
 		Node tNode = transitionScene.Instantiate();
@@ -99,6 +103,9 @@ public partial class PauseMenu : Control, ITransitionOnDeath
 
 	private void GoToMainMenu()
 	{
+        // Play Sound
+        menuSfx.Play(Sounds.UI_Back);
+
 		Node root = this.GetTree().GetRoot();
 
 		// Save Game
@@ -114,14 +121,20 @@ public partial class PauseMenu : Control, ITransitionOnDeath
 				Node invRoot = player.GetNode("./CanvasLayer/Control");
 
 				InventorySlot wpn = invRoot.GetNode<InventorySlot>("./WeaponSlot");
+				InventorySlot wpn2 = invRoot.GetNode<InventorySlot>("./WeaponSlot2");
 				InventorySlot arm = invRoot.GetNode<InventorySlot>("./ArmorSlot");
 				InventorySlot rnd = invRoot.GetNode<InventorySlot>("./RandomSlot");
+				InventorySlot rnd2 = invRoot.GetNode<InventorySlot>("./RandomSlot2");
 				Array<Node> inv = invRoot.GetNode("./Player_inv").GetChildren(); // should all be InventorySlots, but cannot implicit cast godot arrays like that
 
 
 				if (wpn.GetChildCount() > 0)
 				{
 					pd.save.weaponId = ((InventoryItem)wpn.GetChild(0)).data.GetId();
+				}
+				if (wpn2.GetChildCount() > 0)
+				{
+					pd.save.weapon2Id = ((InventoryItem)wpn2.GetChild(0)).data.GetId();
 				}
 				if (arm.GetChildCount() > 0)
 				{
@@ -130,6 +143,10 @@ public partial class PauseMenu : Control, ITransitionOnDeath
 				if (rnd.GetChildCount() > 0)
 				{
 					pd.save.consumableId = ((InventoryItem)rnd.GetChild(0)).data.GetId();
+				}
+				if (rnd2.GetChildCount() > 0)
+				{
+					pd.save.consumable2Id = ((InventoryItem)rnd2.GetChild(0)).data.GetId();
 				}
 
 				pd.save.inv = new string[inv.Count];
@@ -162,19 +179,6 @@ public partial class PauseMenu : Control, ITransitionOnDeath
 		{
 			GD.PrintErr("NO SAVE FILE LOADED? SAVE DATA IS LOST!");
 		}
-
-		// // Get copies
-		// PackedScene transitionScene = (PackedScene)ResourceLoader.LoadThreadedGet(TRANSITION_PATH);
-		// Node tNode = transitionScene.Instantiate();
-		// PackedScene returnScene = (PackedScene)ResourceLoader.LoadThreadedGet(MAIN_MENU_SCENE_PATH);
-		// Node mNode = returnScene.Instantiate();
-
-		// // Add into scene
-		// UI_ROOT.AddChild(tNode);
-
-		// // Begin the transition
-		// ((Transition)tNode).DoUnpauseNext(true);
-		// ((Transition)tNode).BeginTransition(mNode, this, Transition.Mode.bottomLeft);
 
 		// New Experimental Means of Loading
         PackedScene transitionScene = (PackedScene)ResourceLoader.LoadThreadedGet(TRANSITION_PATH);
