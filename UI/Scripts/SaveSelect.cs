@@ -16,7 +16,7 @@ public partial class SaveSelect : Control, ITransitionOnDeath
     const string LOAD_SCREEN_PATH = "res://UI/Scenes/LoadScreen.tscn";
     private const string MAINMENU_SCENE_PATH = "res://UI/Scenes/MainMenu.tscn";
     const string PAUSE_MENU_PATH = "res://UI/Scenes/PauseMenu.tscn";
-    const string GAME_SCENE_PATH = "res://Scenes/TestingGround.tscn";
+    const string GAME_SCENE_PATH = "res://Scenes/DungeonSelect.tscn";
 
     private Node UI_ROOT;
     private SFXManager menuSfx;
