@@ -10,6 +10,6 @@ public class SfxGroup : Sfx {
     public override AudioStream Get() {
         if (fns.Length == 0) return null;
         int rand = new Random().Next(0, fns.Length);
-        return GD.Load<AudioStream>(SFX_LOC + fp + "/" + fns[rand]);
+        return GD.Load<AudioStream>(SFX_LOC + "/" + fns[rand]);
     }
 }
