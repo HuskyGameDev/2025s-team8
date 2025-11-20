@@ -3,7 +3,7 @@ class_name state_stun extends State
 
 @export var knockback_speed: float = 100.0
 @export var decelerate_speed: float = 10.0
-@export var invulnerable_duration: float = 1.0
+@export var invulnerable_duration: float = 2.0
 
 
 #the hurtbox right here is an old reference and probably needs to be updated
@@ -20,11 +20,12 @@ func init() -> void:
 	player.player_damaged.connect(playerDamaged) #connected to the script player and do player damaged
 
 func Enter() -> void:
-	player.invulnerable = true;
+	#player.invulnerable = true;
+	player.UpdateAnimation("stun")
 	player.animation_player.animation_finished.connect(animationFinished)
 	#note after updating the animaton, the player does not know how to leave
 	#this is regardless of the animation playerd
-	player.UpdateAnimation("stun")
+	
 
 	#knockback here
 	direction = player.global_position.direction_to(hurt_box.global_position)
@@ -37,7 +38,7 @@ func Enter() -> void:
 	#player.effect_player.play("damaged")
 	#animation_player.animation_finished.disconnect(animationFinished)
 	#player.animation_player.animation_finished.disconnect(animationFinished)
-	player.invulnerable = false;
+	#player.invulnerable = false;
 	pass
 	
 func Exit() -> void:
