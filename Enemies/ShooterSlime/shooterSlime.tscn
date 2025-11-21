@@ -1,0 +1,81 @@
+[gd_scene load_steps=12 format=3 uid="uid://y0ycdmckwo7g"]
+
+[ext_resource type="Script" path="res://Enemies/ShooterSlime/slimeShooter.gd" id="1_x183d"]
+[ext_resource type="PackedScene" uid="uid://nc2ehch2j28e" path="res://Projectiles/slimeShot.tscn" id="2_5jurx"]
+[ext_resource type="Texture2D" uid="uid://c6rivp0ubhltx" path="res://GeneralSprites/slimeShooter-down.png" id="2_077wx"]
+[ext_resource type="Script" path="res://GeneralNodes/Hitbox.gd" id="3_ol6ia"]
+
+[sub_resource type="Animation" id="Animation_bwfhr"]
+length = 0.001
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_7quyn"]
+resource_name = "idle"
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_5kvx3"]
+resource_name = "walk"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4jkbo"]
+_data = {
+"RESET": SubResource("Animation_bwfhr"),
+"idle": SubResource("Animation_7quyn"),
+"walk": SubResource("Animation_5kvx3")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_aa2n2"]
+radius = 205.664
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ljg62"]
+radius = 22.561
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gl3j0"]
+radius = 13.3796
+
+[node name="ShooterSlime" type="CharacterBody2D"]
+position = Vector2(18, 11)
+scale = Vector2(0.9, 0.9)
+collision_layer = 4
+collision_mask = 7
+script = ExtResource("1_x183d")
+projectile_scene = ExtResource("2_5jurx")
+enemy_name = "Shooter"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4jkbo")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
+texture = ExtResource("2_077wx")
+
+[node name="detection_area" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
+shape = SubResource("CircleShape2D_aa2n2")
+debug_color = Color(0.196078, 0.580392, 0.85098, 0.572549)
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("3_ol6ia")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+visible = false
+shape = SubResource("CircleShape2D_ljg62")
+debug_color = Color(0, 0.63109, 0.450654, 0.356863)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_gl3j0")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 10.0
+path_max_distance = 1000.0
+avoidance_enabled = true
+avoidance_layers = 2
+avoidance_mask = 2
+
+[connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="detection_area" to="." method="_on_detection_area_body_exited"]

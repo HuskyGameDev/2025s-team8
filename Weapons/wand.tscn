@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1gtfhh62k44l"]
+
+[ext_resource type="Script" path="res://Weapons/wand.gd" id="1_be75m"]
+[ext_resource type="PackedScene" uid="uid://bml7y3uiwqfmi" path="res://Projectiles/wandBolt.tscn" id="2_7ibpk"]
+[ext_resource type="Texture2D" uid="uid://deivw6jwc0mhi" path="res://Weapons/pixil-frame-0 - 2025-10-11T123716.198.png" id="2_i01s7"]
+
+[node name="Wand" type="Node2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_be75m")
+projectile_scene = ExtResource("2_7ibpk")
+cooldown = 1.0
+freeze_duration = 0.2
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -3)
+texture = ExtResource("2_i01s7")
