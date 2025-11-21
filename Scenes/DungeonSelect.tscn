@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0svsqcjg3vt6"]
+
+[ext_resource type="Script" path="res://Scenes/DungeonSelect.cs" id="1_mpdef"]
+[ext_resource type="Texture2D" uid="uid://bxi4x77jcf24y" path="res://GeneralSprites/mapSmall.png" id="2_4kp0q"]
+[ext_resource type="PackedScene" uid="uid://4xppvq5lmyab" path="res://UI/Prefabs/NPRButton.tscn" id="3_kqhp5"]
+
+[node name="DungeonSelect" type="Node2D" node_paths=PackedStringArray("HomeButton", "Dung1Button", "Dung2Button", "Dung3Button") groups=["UI_ROOT"]]
+script = ExtResource("1_mpdef")
+HomeButton = NodePath("Home")
+Dung1Button = NodePath("Dung1")
+Dung2Button = NodePath("Dung2")
+Dung3Button = NodePath("Dung3")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("2_4kp0q")
+
+[node name="Home" parent="." instance=ExtResource("3_kqhp5")]
+offset_left = 48.0
+offset_top = 1008.0
+offset_right = 548.0
+offset_bottom = 1133.0
+scale = Vector2(0.4, 0.4)
+text = "Home"
+
+[node name="Dung1" parent="." instance=ExtResource("3_kqhp5")]
+offset_left = 208.0
+offset_top = 152.0
+offset_right = 708.0
+offset_bottom = 277.0
+scale = Vector2(0.4, 0.4)
+text = "Dungeon 1"
+
+[node name="Dung2" parent="." instance=ExtResource("3_kqhp5")]
+offset_left = 1048.0
+offset_top = 144.0
+offset_right = 1548.0
+offset_bottom = 269.0
+scale = Vector2(0.4, 0.4)
+text = "Dungeon 3"
+
+[node name="Dung3" parent="." instance=ExtResource("3_kqhp5")]
+offset_left = 1552.0
+offset_top = 712.0
+offset_right = 2052.0
+offset_bottom = 837.0
+scale = Vector2(0.4, 0.4)
+text = "Dungeon 2"
