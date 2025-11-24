@@ -114,6 +114,4 @@ position = Vector2(256, 2400)
 
 [node name="Portal" parent="." instance=ExtResource("10_cv6q6")]
 visible = false
-position = Vector2(256, 2400)
-monitoring = false
-monitorable = false
+position = Vector2(-256, 2400)

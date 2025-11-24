@@ -20,10 +20,12 @@ var lastWanderDir: Vector2 = Vector2(1,1)
 
 @export var nextLevel : PackedScene;
 
+
 var currentEnemies : Array[Enemy] = [];
 var timer = 1;
 
 var startPos;
+var endPos;
 
 func _physics_process(delta: float):
 	
@@ -64,7 +66,7 @@ func _ready():
 		map.append(row);
 
 	startPos = Vector2(64,150)
-	var endPos = Vector2(300, randi_range(100,250))
+	endPos = Vector2(300, randi_range(100,250))
 
 	map[startPos.y][startPos.x] = 5
 	map[endPos.y][endPos.x] = 5
@@ -240,6 +242,13 @@ func create_exit():
 		hidden_portal.visible = true;
 		hidden_portal.monitoring = true;
 		hidden_portal.monitorable = true;
+		hidden_portal.global_position = endPos * 16;
+		print("portal is at ", hidden_portal.global_position);
+		return;
+		var portal = portal_scene.instantiate() as Node2D
+		if(portal != null):
+			get_parent().get_parent().add_child(portal)
+			portal.global_position = hidden_portal.global_position
 
 # shifts a cave air tile to air if there's adjacent air, wall otherwise
 func cave_air_shift(pos: Vector2, power: int = 20):

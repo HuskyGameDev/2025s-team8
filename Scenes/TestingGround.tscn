@@ -118,4 +118,5 @@ top_level = true
 position = Vector2(256, 2400)
 
 [node name="Portal" parent="." instance=ExtResource("9_7vrao")]
-position = Vector2(256, 2400)
+visible = false
+position = Vector2(-256, 2400)
