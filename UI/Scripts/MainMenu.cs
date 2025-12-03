@@ -47,7 +47,7 @@ public partial class MainMenu : Control {
 		
 		// Will play forever until another track is selected
 		// Will need to manually end in another scene if no music is wanted
-		MusicManager.Instance.PlayTrack("res://Sounds/Music/Dungeon2_Temp.mp3");
+		MusicManager.Instance.PlayTrack("res://Sounds/Music/Dungeon1_Temp.mp3");
 		menuSfx = UI_ROOT.GetNode<SFXManager>("./MENU_ASP");
 	}
 

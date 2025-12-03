@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://dmj1mv2vxd3jr"]
+[gd_scene load_steps=15 format=3 uid="uid://dmj1mv2vxd3jr"]
 
 [ext_resource type="Script" path="res://Scenes/TemporaryTestingScene/ChangeScene.cs" id="1_8g4hy"]
+[ext_resource type="Script" path="res://Scenes/TemporaryTestingScene/LevelMusic3.cs" id="1_hkrjt"]
 [ext_resource type="Script" path="res://Scenes/navigation_startup.gd" id="1_wupyy"]
 [ext_resource type="PackedScene" uid="uid://ejm2wcvxoaoq" path="res://Tile Maps/base dungeon.tscn" id="2_28tke"]
 [ext_resource type="Texture2D" uid="uid://cmpvasgwq8j4q" path="res://HellsDungeonTiles5.png" id="3_3wu0b"]
@@ -81,6 +82,7 @@ physics_layer_0/collision_mask = 255
 sources/0 = SubResource("TileSetAtlasSource_cor15")
 
 [node name="Level3" type="Node2D"]
+script = ExtResource("1_hkrjt")
 
 [node name="ChangeScene" type="Control" parent="." node_paths=PackedStringArray("area")]
 layout_mode = 3
