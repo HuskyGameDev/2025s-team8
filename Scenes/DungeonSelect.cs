@@ -58,7 +58,7 @@ public partial class DungeonSelect : Node2D, ITransitionOnDeath
 		UI_ROOT = this.GetTree().GetNodesInGroup("UI_ROOT")[0];
 		GAME_ROOT = this.GetTree().GetNodesInGroup("GAME_ROOT")[0];
 		
-		MusicManager.Instance.PlayTrack("res://Sounds/Music/Dungeon2_Temp.mp3");
+		MusicManager.Instance.PlayTrack("res://Sounds/Music/Dungeon1_Temp.mp3");
 	}
 	
 	private void ToMainMenu() {

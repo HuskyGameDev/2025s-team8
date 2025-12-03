@@ -1,6 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://j2ey5y83jld0"]
+[gd_scene load_steps=17 format=3 uid="uid://j2ey5y83jld0"]
 
 [ext_resource type="Script" path="res://Scenes/TemporaryTestingScene/ChangeScene.cs" id="1_02c6p"]
+[ext_resource type="Script" path="res://Scenes/TemporaryTestingScene/LevelMusic.cs" id="1_2em2i"]
 [ext_resource type="PackedScene" uid="uid://cq1dxd0m5csx1" path="res://Player/player.tscn" id="1_6exw8"]
 [ext_resource type="Script" path="res://Scenes/navigation_startup.gd" id="1_pcs3q"]
 [ext_resource type="PackedScene" uid="uid://ejm2wcvxoaoq" path="res://Tile Maps/base dungeon.tscn" id="2_cv62i"]
@@ -84,6 +85,7 @@ physics_layer_0/collision_mask = 15
 sources/0 = SubResource("TileSetAtlasSource_cor15")
 
 [node name="Level1" type="Node2D"]
+script = ExtResource("1_2em2i")
 
 [node name="ChangeScene" type="Control" parent="." node_paths=PackedStringArray("area")]
 layout_mode = 3
