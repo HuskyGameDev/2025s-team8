@@ -1,6 +1,6 @@
 class_name state_walk extends State
 
-@export var move_speed : float = 100
+@export var move_speed : float = 150
 @onready var idle : State = $"../Idle"
 @onready var attack: State = $"../attack"
 
@@ -57,4 +57,3 @@ func HandleInput(_event: InputEvent) -> State:
 	if _event.is_action_pressed("Attack"):
 			return attack
 	return null
-	

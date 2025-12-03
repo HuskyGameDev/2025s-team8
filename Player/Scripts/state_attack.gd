@@ -4,6 +4,7 @@ class_name state_attack extends State
 #consider switching to time
 
 var attacking: bool = false
+var coolingDown: bool = false
 @onready var animation_player: AnimationPlayer = $"../../AnimationPlayer"
 
 @onready var idle: State = $"../Idle"
@@ -11,17 +12,23 @@ var attacking: bool = false
 
 @onready var weapons = $"../../interactions/Weapons".get_children()
 
+
+@export var held_weaponId : int = 0
+
 func Enter() -> void:
+	if(coolingDown == true or attacking == true):
+		return
 	player.UpdateAnimation("attack")
-	animation_player.animation_finished.connect(EndAttack)
 	attacking = true
 	
-	weapons[0].attack() # swap the index to swap weapons
-						# weapons will be connected to corresponding inventory items in the future
-	pass
+	var held_weapon = weapons[held_weaponId]
+	held_weapon.attack()
 	
-	
-func init() ->void:
+	await get_tree().create_timer(held_weapon.freeze_duration).timeout		
+	coolingDown = true;
+	EndAttack()
+	await get_tree().create_timer(held_weapon.cooldown).timeout # stops player from spamming weapon
+	coolingDown = false;
 	pass
 	
 func Exit() -> void:
@@ -46,7 +53,10 @@ func Physics(_delta: float) -> State:
 func HandleInput(_event: InputEvent) -> State:
 	return null
 	
-func EndAttack(_newAnimName : String) -> void:
+func EndAttack() -> void:
 	attacking = false
-
+	
+	
+func init() ->void:
+	pass
 	

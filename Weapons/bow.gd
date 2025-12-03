@@ -19,6 +19,7 @@ func attack() -> void:
 	projectile.global_position = global_position
 	projectile.global_rotation = global_rotation
 	projectile.direction = dir
+	projectile.look_at(get_global_mouse_position())
 	
 	await get_tree().create_timer(0.1).timeout
 	attackSprite.visible = false

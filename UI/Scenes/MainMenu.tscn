@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://UI/Scripts/MainMenu.cs" id="1_vb0nr"]
 [ext_resource type="Theme" uid="uid://bod7jw0dx53ng" path="res://UI/UIMain.tres" id="1_yn3jy"]
-[ext_resource type="PackedScene" uid="uid://4xppvq5lmyab" path="res://UI/Scenes/NPRButton.tscn" id="3_wa0jo"]
+[ext_resource type="PackedScene" uid="uid://4xppvq5lmyab" path="res://UI/Prefabs/NPRButton.tscn" id="3_wa0jo"]
 
 [node name="MainMenu" type="Control" node_paths=PackedStringArray("continueButton", "newgameButton", "settingsButton", "quitButton")]
 layout_mode = 3
@@ -18,55 +18,74 @@ settingsButton = NodePath("settings")
 quitButton = NodePath("quit")
 
 [node name="Label" type="Label" parent="."]
-layout_mode = 0
-offset_left = 495.0
-offset_top = 25.0
-offset_right = 1425.0
-offset_bottom = 200.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -465.0
+offset_top = 50.0
+offset_right = 465.0
+offset_bottom = 225.0
+grow_horizontal = 2
 theme = ExtResource("1_yn3jy")
 text = "Hell's Dungeon"
 
 [node name="continue" parent="." instance=ExtResource("3_wa0jo")]
-visible = false
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 710.0
-offset_top = 300.0
-offset_right = 1210.0
-offset_bottom = 425.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -240.0
+offset_right = 250.0
+offset_bottom = -115.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "Continue"
 
 [node name="newgame" parent="." instance=ExtResource("3_wa0jo")]
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 710.0
-offset_top = 450.0
-offset_right = 1210.0
-offset_bottom = 575.0
-text = "Play"
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -90.0
+offset_right = 250.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "New Game"
 
 [node name="settings" parent="." instance=ExtResource("3_wa0jo")]
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 710.0
-offset_top = 600.0
-offset_right = 1210.0
-offset_bottom = 725.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = 60.0
+offset_right = 250.0
+offset_bottom = 185.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "Settings"
 
 [node name="quit" parent="." instance=ExtResource("3_wa0jo")]
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 710.0
-offset_top = 750.0
-offset_right = 1210.0
-offset_bottom = 875.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = 210.0
+offset_right = 250.0
+offset_bottom = 335.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "Quit"

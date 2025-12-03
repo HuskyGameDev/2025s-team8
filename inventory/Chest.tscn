@@ -1,22 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://dytx21xto4i4b"]
+[gd_scene load_steps=4 format=3 uid="uid://dytx21xto4i4b"]
 
-[ext_resource type="Script" path="res://inventory/scripts/chest.gd" id="1_vvwy0"]
-[ext_resource type="Texture2D" uid="uid://brqs35qrwbb8s" path="res://inventory/temp art/512/backpack.png" id="1_ylvnh"]
-[ext_resource type="Script" path="res://inventory/scripts/chest_inv.gd" id="2_kqorm"]
+[ext_resource type="Texture2D" uid="uid://djykphne62csw" path="res://Assets/Inventory/chest.png" id="1_ylvnh"]
+[ext_resource type="Script" path="res://Inventory/Scripts/ChestInv.cs" id="3_kp74a"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mgv8m"]
 radius = 24.0
 
 [node name="Chest" type="Area2D"]
-script = ExtResource("1_vvwy0")
+script = ExtResource("3_kp74a")
+lootTableName = "testing"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(929, 545)
 shape = SubResource("CircleShape2D_mgv8m")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
 position = Vector2(929, 545)
-scale = Vector2(0.0664062, 0.0664062)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_ylvnh")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -37,4 +38,3 @@ offset_bottom = 448.0
 theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 8
 columns = 6
-script = ExtResource("2_kqorm")

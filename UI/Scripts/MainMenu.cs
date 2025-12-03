@@ -3,82 +3,89 @@ using System;
 
 public partial class MainMenu : Control {
 	[Export]
-	Button continueButton;
+	private Button continueButton;
 	[Export]
-	Button newgameButton;
+	private Button newgameButton;
 	[Export]
-	Button settingsButton;
+	private Button settingsButton;
 	[Export]
-	Button quitButton;
+	private Button quitButton;
 
 	const string TRANSITION_PATH = "res://UI/Scenes/Transition.tscn";
 	const string SAVE_SELECT_PATH = "res://UI/Scenes/SaveSelect.tscn";
 	const string SETTINGS_SCENE_PATH = "res://UI/Scenes/SettingsMenu.tscn";
-	const string LOAD_SCREEN_PATH = "res://UI/Scenes/LoadScreen.tscn";
+	const string NEW_GAME_PATH = "res://UI/Scenes/NewGame.tscn";
 
+	private Node UI_ROOT;
+	private SFXManager menuSfx;
 
-	const string GAME_SCENE_PATH = "res://Scenes/TestingGround.tscn";
-
-	public override void _Ready() {
+	public override void _Ready()
+	{
 		ResourceLoader.LoadThreadedRequest(TRANSITION_PATH);
-		ResourceLoader.LoadThreadedRequest(GAME_SCENE_PATH);
 
-		if (continueButton != null) {
+		if (continueButton != null)
+		{
 			ResourceLoader.LoadThreadedRequest(SAVE_SELECT_PATH);
 			continueButton.Pressed += ToSaveSelect;
 		}
-		if (newgameButton != null) {
-			ResourceLoader.LoadThreadedRequest(LOAD_SCREEN_PATH);
+		if (newgameButton != null)
+		{
+			ResourceLoader.LoadThreadedRequest(NEW_GAME_PATH);
 			newgameButton.Pressed += BeginNewGame;
 		}
-		if (settingsButton != null) {
+		if (settingsButton != null)
+		{
 			ResourceLoader.LoadThreadedRequest(SETTINGS_SCENE_PATH);
 			settingsButton.Pressed += ToSettings;
 		}
-		if (quitButton != null) {
+		if (quitButton != null)
+		{
 			quitButton.Pressed += QuitGame;
 		}
+
+		UI_ROOT = this.GetTree().GetNodesInGroup("UI_ROOT")[0];
+		
+		// Will play forever until another track is selected
+		// Will need to manually end in another scene if no music is wanted
+		MusicManager.Instance.PlayTrack("res://Sounds/Music/Dungeon2_Temp.mp3");
+		menuSfx = UI_ROOT.GetNode<SFXManager>("./MENU_ASP");
 	}
 
 	private void ToSaveSelect() {
+		// Play Sound
+		menuSfx.Play(Sounds.UI_Click);
 		// Get copies of Transition and SaveSelect
 		PackedScene transitionScene = (PackedScene) ResourceLoader.LoadThreadedGet(TRANSITION_PATH);
 		Node tNode = transitionScene.Instantiate();
 		PackedScene savesScene = (PackedScene) ResourceLoader.LoadThreadedGet(SAVE_SELECT_PATH);
 		Node sNode = savesScene.Instantiate();
 
-		// Add into scene (Root -> Transition -> SaveSelect)
-		Node root = this.GetTree().GetRoot();
-		root.AddChild(tNode);
+		// Add into scene (UI Root -> Transition -> SaveSelect)
+		UI_ROOT.AddChild(tNode);
 
 		// Begin the transition
 		((Transition)tNode).BeginTransition(sNode, this, Transition.Mode.topLeft);
 	}
 
 	private void BeginNewGame() {
-		// // Get copies
-		// PackedScene transitionScene = (PackedScene) ResourceLoader.LoadThreadedGet(TRANSITION_PATH);
-		// Node tNode = transitionScene.Instantiate();
-		// PackedScene loadScene = (PackedScene) ResourceLoader.LoadThreadedGet(LOAD_SCREEN_PATH);
-		// Node lNode = loadScene.Instantiate();
+		// Play Sound
+		menuSfx.Play(Sounds.UI_Click);
+		// Get copies of Transition and NewGame
+		PackedScene transitionScene = (PackedScene) ResourceLoader.LoadThreadedGet(TRANSITION_PATH);
+		Node tNode = transitionScene.Instantiate();
+		PackedScene ngScene = (PackedScene) ResourceLoader.LoadThreadedGet(NEW_GAME_PATH);
+		Node ngNode = ngScene.Instantiate(); // Sometimes dying?
 
-		// // Add into scene (Root -> Transition -> LoadScreen)
-		// Node root = this.GetTree().GetRoot();
-		// root.AddChild(tNode);
+		// Add into scene (UI Root -> Transition -> NewGame)
+		UI_ROOT.AddChild(tNode);
 
-		// // PROBABLY SOME EXTRAS HERE FOR SETTING UP LOADSCREEN TO ACTUALLY START A NEW GAME
-		// //   BUT THAT IS NOT IMPLEMENTED YET
-		
-		// // Begin the transition
-		// ((Transition)tNode).BeginTransition(lNode, this, Transition.Mode.topLeft);
-
-		PackedScene gameScene = (PackedScene) ResourceLoader.LoadThreadedGet(GAME_SCENE_PATH);
-		Node gNode = gameScene.Instantiate();
-		this.GetParent().AddChild(gNode);
-		this.QueueFree();
+		// Begin the transition
+		((Transition)tNode).BeginTransition(ngNode, this, Transition.Mode.topRight);
 	}
 
 	private void ToSettings() {
+		// Play Sound
+		menuSfx.Play(Sounds.UI_Click);
 		// Get copies of Transition and Settings
 		PackedScene transitionScene = (PackedScene) ResourceLoader.LoadThreadedGet(TRANSITION_PATH);
 		Node tNode = transitionScene.Instantiate();
@@ -87,15 +94,18 @@ public partial class MainMenu : Control {
 
 		((SettingsMenu)sNode).ReturnTo("res://UI/Scenes/MainMenu.tscn");
 
-		// Add into scene (Root -> Transition -> Settings)
-		Node root = this.GetTree().GetRoot();
-		root.AddChild(tNode);
+		// Add into scene (UI Root -> Transition -> Settings)
+		UI_ROOT.AddChild(tNode);
 
 		// Begin the transition
 		((Transition)tNode).BeginTransition(sNode, this, Transition.Mode.topRight);
 	}
 
 	private void QuitGame() {
+		// Play Sound
+		menuSfx.Play(Sounds.UI_Back);
+
+		// Send Quit Notif and Close
 		GetTree().Root.PropagateNotification((int)NotificationWMCloseRequest); // send notif that we are about to quit
 		GetTree().Quit();
 	}

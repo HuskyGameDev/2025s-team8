@@ -18,4 +18,4 @@ func get_damage() -> int:
 	return damage
 	
 func TakeDamage(hurt_box: Hurtbox) -> void:
-	Damaged.emit(hurt_box)
+	Damaged.emit(hurt_box.damage)

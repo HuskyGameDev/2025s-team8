@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bbitkr2jkvtq0"]
 
 [ext_resource type="Script" path="res://Projectiles/projectile.gd" id="1_q8inl"]
-[ext_resource type="Texture2D" uid="uid://cjqoyrq7ncvx2" path="res://Projectiles/pixil-frame-0 (9).png" id="2_wt28k"]
+[ext_resource type="Texture2D" uid="uid://dcribmy6ou3g8" path="res://Projectiles/pixil-frame-0 - 2025-10-11T123146.456.png" id="2_te3p4"]
 [ext_resource type="Script" path="res://GeneralNodes/Hurtbox.gd" id="3_p2764"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dcrj5"]
@@ -22,7 +22,7 @@ speed = 200.0
 shape = SubResource("CircleShape2D_dcrj5")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_wt28k")
+texture = ExtResource("2_te3p4")
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 8
